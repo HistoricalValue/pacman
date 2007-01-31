@@ -1,0 +1,8 @@
+#!/usr/bin/env tcsh
+
+rm -r ../newz
+mkdir ../newz
+sed -re\
+	's,^.*$,cp -ipvL --parent & ../newz,g;e' \
+	./resources/updated.txt
+tar cjf ../newz.tbz ../newz
