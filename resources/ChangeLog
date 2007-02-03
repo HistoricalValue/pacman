@@ -1,45 +1,15 @@
 Saku Etanainen
 
-- Purspose : To kill the pacman-vampire bug
-- Result : Bug successfully killed
-- Side-effects : none
-- Interface chages : additions
-- New bugs : none
+- Purspose : 
+	To inform the development team about Bazaar.
+- Result : 
+	Hopefully successful.
+- Side-effects : 
+	Heart attacks and strokes.
+- Interface chages : 
+	none
+- New bugs : 
+	none
 
-* include/FrameRangeAnimation.hpp :
-	(FrameRangeAnimation) : now inherits from Animation.
-	(__construct) : changed parameters (removed dx dy).
-	(GetDelay) : new function.
-	(SetDelay) : new function.
-	(SetContinuous) : new function.
-	(GetContinuous) : new function.
-	(delay) (continuous) : new member variables.
-
-* include/FrameRangeAnimator.hpp :
-	(GetSprite) : new function.
-
-* include/MovingAnimator.hpp :
-	(GetSprite) : new function.
-
-* src/ActorMovement.cpp :
-	(AnimatorPair::CatchUp) : new function.
-	(Progress) : added call to CatchUp.
-
-* src/AnimationHolder.cpp :
-	(parseLine) : changed arguments in FrameRangeAnimation().
-	(getAnimation) : "result" is now Animation*.
-	(getFrameRangeAnimation) (getMovingAnimation) : now fail if the
-		requested animation is not found.
-
-* src/FrameRangeAnimation.cpp :
-	(operator << ) : removed casting to MovingAnimator.
-	(constructor) : updated according to new parameters.
-	(GetDelay) : implemented for first time.
-	(GetContinuous) : implemented for first time.
-
-* src/FrameRangeAnimator.cpp :
-	(Progress) : removed call to sprite->Move().
-
-* .bzrignore :
-	* Added *.d
-
+* README.txt :
+	* Added a new paragraph (NEWS)
