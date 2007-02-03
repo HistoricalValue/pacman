@@ -8,6 +8,7 @@ Waypoint::Waypoint(int _x, int _y, bool _up, bool _down,
 	down = _down;
 	left = _left;
 	right = _right;
+	SetVisibility(false);
 }
 
 bool Waypoint::CollisionCheck(Sprite *s) {
