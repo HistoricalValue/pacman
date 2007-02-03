@@ -15,6 +15,7 @@ class MovingAnimator : public Animator {
 	// Ensures that the animator will progress that many steps.
 	// Return true if this is possible, false otherwise.
 	bool EnsureProgressable(unsigned int steps, timestamp_t currTime);
+	Sprite* GetSprite(void);
 	MovingAnimator (bool _register = true);
 	~MovingAnimator(void);
 };

@@ -18,6 +18,9 @@ struct ActorMovement::AnimatorPair {
 	bool ShouldProgress(timestamp_t);
 	bool EnsureProgressable(int, timestamp_t);
 	void Progress(timestamp_t);
+	// Performs all operations which have to be sure that there will be
+	// no collision in order to take place.
+	void CatchUp(timestamp_t);
 	operator Animator* (void);
 //	Animator* operator*(void);
 	private :
@@ -86,6 +89,7 @@ void ActorMovement::progress(timestamp_t currTime) {
 			(running = w2g);
 			w2g = NULL;
 		}
+		running->CatchUp(currTime); // do collision-dependant ops
 		amc(*running);
 	}
 } // progress
@@ -126,8 +130,13 @@ bool ActorMovement::AnimatorPair::EnsureProgressable(int s, timestamp_t t) {
 }
 
 void ActorMovement::AnimatorPair::Progress(timestamp_t currTime) {
-	fr->Progress(currTime);
 	mv->Progress(currTime);
+}
+
+// Performs all operations which have to be sure that there will be
+// no collision in order to take place.
+void ActorMovement::AnimatorPair::CatchUp(timestamp_t currTime) {
+	fr->Progress(currTime);
 }
 
 ActorMovement::AnimatorPair::operator Animator* (void) { return mv; }

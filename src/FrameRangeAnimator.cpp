@@ -14,7 +14,7 @@ void FrameRangeAnimator::Progress (timestamp_t currTime) {
 		else
 			++currFrame;
 
-		sprite->Move(anim->GetDx(), anim->GetDy());
+//		sprite->Move(anim->GetDx(), anim->GetDy());
 //		CollisionChecker::Singleton()->Check();
 		sprite->SetFrame(currFrame);
 		lastTime += delay;

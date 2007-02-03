@@ -97,7 +97,7 @@ static void parseLine(Tokeniser** tokptr, std::string* line,
 		parseFrameRangeAnimationLine(tok, d);
 		FrameRangeAnimation* fr_anim;
 		fr_anims.push_back( fr_anim = new FrameRangeAnimation(
-		 d.start, d.end, d.dx, d.dy, d.delay, d.continuous,
+		 d.start, d.end, d.delay, d.continuous,
 		 d.animid) );
 		db("Created frame range animation:");
 		std::cerr << *fr_anim << std::endl;
@@ -120,7 +120,7 @@ static void parseFrameRangeAnimationLine(Tokeniser* tok, fr_data& d) {
 } // parseFrameRangeAnimationLine
 
 Animation* AnimationHolder::getAnimation(animid_t id) const {
-	MovingAnimation* result = getFrameRangeAnimation(id);
+	Animation* result = getFrameRangeAnimation(id);
 	if (!result)
 		result = getMovingAnimation(id);
 	return result;
@@ -130,8 +130,12 @@ MovingAnimation* AnimationHolder::getMovingAnimation(animid_t id) const {
 	MovingAnimationList::const_iterator ite;
 	for (ite = mv_anims.begin(); ite != mv_anims.end(); ite++)
 		if ((*ite)->GetId() == id)
-			return *ite;
-	return NULL;
+			//return *ite;
+			break;
+	//return NULL;
+	nf(!(ite!=mv_anims.end()), "Could not find requested Moving "
+	 "Animation");
+	return *ite;
 } // getMovingAnimation
 
 FrameRangeAnimation* AnimationHolder::getFrameRangeAnimation(animid_t id)
@@ -140,6 +144,10 @@ FrameRangeAnimation* AnimationHolder::getFrameRangeAnimation(animid_t id)
 	FrameRangeAnimationList::const_iterator ite;
 	for (ite = fr_anims.begin(); ite != fr_anims.end(); ite++)
 		if ((*ite)->GetId() == id)
-			return *ite;
-	return NULL;
+			//return *ite;
+			break;
+	//return NULL;
+	nf(!(ite!=fr_anims.end()), "Could not find requested Frame Range "
+	 "Animation");
+	return *ite;
 } // getFrameRangeAnimation

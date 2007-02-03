@@ -17,6 +17,7 @@ class FrameRangeAnimator : public Animator {
 	// Ensures that the animator will progress that many steps.
 	// Return true if this is possible, false otherwise.
 	bool EnsureProgressable(unsigned int steps, timestamp_t currTime);
+	Sprite* GetSprite(void);
 	FrameRangeAnimator(bool _register = true);
 	~FrameRangeAnimator(void);
 };
