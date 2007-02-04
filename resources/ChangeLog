@@ -1,19 +1,27 @@
-*** Count gaim loop average time.
-
-- Purspose : 
-	* Count gaim loop average time.
+*** Change of ObstaclePlatformHolder interface.
+- Purpose :
+	* ObstaclePlatformHolder becomes fully functional.
 
 - Result :
-	* SUCCESS
+	* Half Implemented -- continueing in next revision.
 
 - Side-effects : 
 	* none
 
 - Interface chages : YES!!!
-	* none
+	* ObstaclePlatformHolder : 
+		(getObstaclePlatforms) : now returns a map.
+		(obstplat_list) : removed.
+		(obstplats_map) : new type.
 
 - New bugs : 
 	* none
 
-* sakutest.cpp :
-	(main) : Added gaim loop average.
+ObstaclePlatformHolder.hpp :
+	(ObstaclePlatform) :
+		(getObstaclePlatforms) : now returns a map.
+		(obstplat_list) : removed.
+		(obstplats_map) : new type.
+
+obstacle_platforms.config :
+	* Added instructional comments.

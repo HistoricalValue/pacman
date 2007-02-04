@@ -4,14 +4,12 @@
 using namespace cs454_2006;
 
 static bool shouldParseLine(std::string const& line);
-static void parseLine(ObstaclePlatformHolder::obstplat_list& plats,
- std::string const& line);
+static void parseLine(ObstaclePlatformHolder::obstplats_map& plats,
+ std::string& line);
 
 ObstaclePlatformHolder::ObstaclePlatformHolder(
  std::string const& cf, SpriteHolder* sh)
 {
-	std::list<std::string> delims;
-	delims.push_back(" ");
 	std::string line;
 	std::ifstream fin(cf.c_str(), std::ios::in);
 
@@ -25,10 +23,24 @@ ObstaclePlatformHolder::ObstaclePlatformHolder(
 	}
 }
 
-static void parseLine(ObstaclePlatformHolder::obstplat_list& plats,
- std::string const& line)
+struct plats_data {
+	struct sprite_data {
+	ObstacleSprite *s;
+	unsigned int x, y;
+	} **sprites;
+	unsigned int x, y;
+	obstplatid_t id;
+};
+
+static void parseLine(ObstaclePlatformHolder::obstplats_map& plats,
+ std::string& line)
 {
-	std::cerr<<line<<" (parse)"<<std::endl;
+	std::list<std::string> delims;
+	delims.push_back(" ");
+	Tokeniser tok(line, delims);
+	plats_data d;
+	
+	// Read platform ID
 }
 
 static bool shouldParseLine(std::string const& line) { 
