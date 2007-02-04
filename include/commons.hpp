@@ -69,7 +69,8 @@ class Tokeniser {
 	operator std::string*(void);
 	std::string* operator ->(void);
 	Tokeniser& operator ++(void);
-	static bool isEmptyLine(std::string& line);
+	static bool isEmptyLine(std::string const& line);
+	static bool isCommentLine(std::string const& line);
 	Tokeniser(std::string& line, std::list<std::string>& delims);
 	~Tokeniser(void);
 }; // Tokeniser

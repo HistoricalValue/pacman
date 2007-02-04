@@ -46,8 +46,8 @@ int main(void) {
 		SDL_Flip(d.screen);
 		SDL_Delay(diff > sdl_delay? diff : sdl_delay-diff);
 
-//		std::cerr<<" *** Geim lupu lasutido : " << 
-//		 (getTimestamp() - starting_time) << std::endl;
+		std::cerr<<" *** Geim lupu lasutido : " << 
+		 (getTimestamp() - starting_time) << std::endl;
 	}
 
 	return 0;

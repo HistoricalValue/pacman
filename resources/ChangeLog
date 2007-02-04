@@ -1,15 +1,25 @@
 Saku Etanainen
 
 - Purspose : 
-	To inform the development team about Bazaar.
-- Result : 
-	Hopefully successful.
-- Side-effects : 
-	Heart attacks and strokes.
-- Interface chages : 
-	none
-- New bugs : 
-	none
+	* Make previous version work.
 
-* README.txt :
-	* Added a new paragraph (NEWS)
+- Result :
+	* SUCCESS
+
+- Side-effects : 
+	* none
+
+- Interface chages : YES!!!
+	* none
+
+- New bugs : 
+	* none
+
+
+* ObstaclePlatformHolder.cpp :
+	(__constructor) :
+		* Added check about errors in opening file.
+		* Changed error message for file error.
+
+* sakutest.hpp :
+	(OBSTACLE_PLATFORM_CONFIG_FILE) : changed to correct value.
