@@ -1,37 +1,25 @@
 Saku Etanainen
 
 - Purspose : 
-	* Create obstacle parser/holder skeleton.
+	* Make previous version work.
 
 - Result :
-	* FAILURE
+	* SUCCESS
 
 - Side-effects : 
-	* REVISION NOT WORKING
+	* none
 
 - Interface chages : YES!!!
-	(Tokeniser) : commons.hpp
-	(AnimationData) : AnimationSetup.hpp
+	* none
+
 - New bugs : 
-	none
+	* none
 
-* ObstackePlatformHolder.hpp :
-	* New file.
 
-* obstacles.config :
-	* New file.
+* ObstaclePlatformHolder.cpp :
+	(__constructor) :
+		* Added check about errors in opening file.
+		* Changed error message for file error.
 
-* commons.hpp :
-	(Tokeniser) : 
-		(isEmptyLine) : changed param : it's not const [CONST]
-		(isCommentLine) : new function
-* commons.cpp :
-	* Changed to obey the interface changes of the header file.
-
-* AnimationSetup.hpp :
-	(AnimationData) : Added member plathold.
-* AnimationSetup.cpp :
-	(setup_animations) : Added call to ObstaclePlatformHolder.
-
-* test files :
-	added loading of obstacle platform holder.
+* sakutest.hpp :
+	(OBSTACLE_PLATFORM_CONFIG_FILE) : changed to correct value.

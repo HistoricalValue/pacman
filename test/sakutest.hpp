@@ -20,7 +20,7 @@
 #define ANIMATION_HOLDER_CONFIG_FILE	"./resources/config/animations.config"
 #define SPRITE_CONFIG_FILE		"./resources/config/sprites.config"
 #define ANIMATION_SETUP_CONFIG_FILE	"./resources/config/animation_setup.config"
-#define OBSTACLE_PLATFORM_CONFIG_FILE	"./resources/config/obstacle_platform.config"
+#define OBSTACLE_PLATFORM_CONFIG_FILE	"./resources/config/obstacle_platforms.config"
 #define SCREEN_WIDTH 	(800)
 #define SCREEN_HEIGHT 	(600)
 #define SCREEN_BPP	(32)

@@ -13,12 +13,14 @@ ObstaclePlatformHolder::ObstaclePlatformHolder(
 	std::list<std::string> delims;
 	delims.push_back(" ");
 	std::string line;
-	std::ifstream* fin = new std::ifstream(cf.c_str(), std::ios::in);
+	std::ifstream fin(cf.c_str(), std::ios::in);
 
-	nf(!fin, "Could not load Obstacle Platform config file");
+	if (!fin)
+		nf( -1, "Could not load Obstacle Platform config file");
 
-	while (!fin->eof()) {
-		getline(*fin, line);
+	while (!fin.eof()) {
+		getline(fin, line);
+		db(line);
 		if (shouldParseLine(line))
 			parseLine(plats, line);
 	}
