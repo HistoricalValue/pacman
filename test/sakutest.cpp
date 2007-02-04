@@ -11,6 +11,9 @@ data d;
 
 using namespace sakutest;
 
+unsigned long int total_time = 0;
+unsigned short int numloops = 0;
+
 int main(void) {
 	memset(&d, 0, sizeof(d));
 	setup(d);
@@ -19,9 +22,6 @@ int main(void) {
 	SDL_Event event;
 	timestamp_t starting_time;
 	const timestamp_t sdl_delay = 1000/60 + 1;
-	//timestamp_t timer[2];
-	db("Delay!!!");
-	std::cerr<<sdl_delay<<std::endl;
 	while (true) {
 		starting_time = cs454_2006::getTimestamp();
 		// redraw background
@@ -46,9 +46,10 @@ int main(void) {
 		SDL_Flip(d.screen);
 		SDL_Delay(diff > sdl_delay? diff : sdl_delay-diff);
 
-		std::cerr<<" *** Geim lupu lasutido : " << 
-		 (getTimestamp() - starting_time) << std::endl;
+		total_time += (getTimestamp() - starting_time);
+		numloops++;
 	}
+
 
 	return 0;
 }
@@ -61,6 +62,10 @@ void cleanup(void) {
 	TTF_Quit();
 	db("SDL Quit");
 	SDL_Quit();
+	double avg;
+	std::cerr<<"Avergae gaim loop duration: "<<
+	 (avg = static_cast<double>(total_time)/numloops)<<std::endl<<
+	 "Average fps: "<<(1000/avg)<<std::endl;
 }
 
 void create_bgcolor(data& d) {

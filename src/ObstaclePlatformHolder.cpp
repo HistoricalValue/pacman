@@ -20,7 +20,6 @@ ObstaclePlatformHolder::ObstaclePlatformHolder(
 
 	while (!fin.eof()) {
 		getline(fin, line);
-		db(line);
 		if (shouldParseLine(line))
 			parseLine(plats, line);
 	}

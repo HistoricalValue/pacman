@@ -1,7 +1,7 @@
-Saku Etanainen
+*** Count gaim loop average time.
 
 - Purspose : 
-	* Make previous version work.
+	* Count gaim loop average time.
 
 - Result :
 	* SUCCESS
@@ -15,11 +15,5 @@ Saku Etanainen
 - New bugs : 
 	* none
 
-
-* ObstaclePlatformHolder.cpp :
-	(__constructor) :
-		* Added check about errors in opening file.
-		* Changed error message for file error.
-
-* sakutest.hpp :
-	(OBSTACLE_PLATFORM_CONFIG_FILE) : changed to correct value.
+* sakutest.cpp :
+	(main) : Added gaim loop average.
