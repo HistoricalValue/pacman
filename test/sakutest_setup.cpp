@@ -24,6 +24,8 @@ void setup(data& d) {
 	 SPRITE_CONFIG_FILE);
 	d.animation_setup_config_file_path = new std::string(
 	 ANIMATION_SETUP_CONFIG_FILE);
+	d.obstacle_platform_config_file_path = new std::string(
+	 OBSTACLE_PLATFORM_CONFIG_FILE);
 
 	// Timestamp
 	d.startingTime = cs454_2006::getTimestamp();
@@ -32,7 +34,8 @@ void setup(data& d) {
 	SetupData setup_d = {
 		d.animation_film_config_file_path,
 		d.animation_holder_config_file_path,
-		d.sprite_config_file_path
+		d.sprite_config_file_path,
+		d.obstacle_platform_config_file_path
 	};
 	d.animation_data = setup_animations(&setup_d);
 

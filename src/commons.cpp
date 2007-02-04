@@ -102,7 +102,7 @@ Tokeniser::~Tokeniser(void) {
 	delete original;
 } // destructor
 
-bool Tokeniser::isEmptyLine(std::string& line) {
+bool Tokeniser::isEmptyLine(std::string const& line) {
 	bool result = true;
 	
 	std::string::const_iterator ite;
@@ -112,6 +112,15 @@ bool Tokeniser::isEmptyLine(std::string& line) {
 
 	return result;
 } // isEmptyLine
+
+bool Tokeniser::isCommentLine(std::string const& line) {
+	bool result = false;
+	if (!isEmptyLine(line)) {
+		result = line.at(0) == '#';
+	}
+	return result;
+} // isCommentLine
+
 // End Tokeniser stuff //////////////////////
 
 

@@ -1,15 +1,37 @@
 Saku Etanainen
 
 - Purspose : 
-	To inform the development team about Bazaar.
-- Result : 
-	Hopefully successful.
+	* Create obstacle parser/holder skeleton.
+
+- Result :
+	* FAILURE
+
 - Side-effects : 
-	Heart attacks and strokes.
-- Interface chages : 
-	none
+	* REVISION NOT WORKING
+
+- Interface chages : YES!!!
+	(Tokeniser) : commons.hpp
+	(AnimationData) : AnimationSetup.hpp
 - New bugs : 
 	none
 
-* README.txt :
-	* Added a new paragraph (NEWS)
+* ObstackePlatformHolder.hpp :
+	* New file.
+
+* obstacles.config :
+	* New file.
+
+* commons.hpp :
+	(Tokeniser) : 
+		(isEmptyLine) : changed param : it's not const [CONST]
+		(isCommentLine) : new function
+* commons.cpp :
+	* Changed to obey the interface changes of the header file.
+
+* AnimationSetup.hpp :
+	(AnimationData) : Added member plathold.
+* AnimationSetup.cpp :
+	(setup_animations) : Added call to ObstaclePlatformHolder.
+
+* test files :
+	added loading of obstacle platform holder.

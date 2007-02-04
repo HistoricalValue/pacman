@@ -12,6 +12,8 @@ AnimationData* setup_animations(SetupData* d) {
 	result->animhold = new AnimationHolder(*d->animations);
 	result->spritehold = new SpriteHolder(
 	 *d->sprites, result->filmhold);
+	result->plathold = new ObstaclePlatformHolder(
+	 *d->obstacle_platform, result->spritehold);
 	return result;
 } // setup_animation
 

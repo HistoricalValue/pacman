@@ -8,6 +8,7 @@
 #include "AnimationFilmHolder.hpp"
 #include "AnimationHolder.hpp"
 #include "SpriteHolder.hpp"
+#include "ObstaclePlatformHolder.hpp"
 
 /* ********************* Set up part ***********************/
 
@@ -16,6 +17,7 @@ struct SetupData {
 	std::string* animation_films; // for AnimationFilmHolder
 	std::string* animations; // For AnimationHolder
 	std::string* sprites; // For SpriteHolder
+	std::string* obstacle_platform; // For ObstaclePlatformHolder
 };
 
 // Contains the holders after initialisation
@@ -23,6 +25,7 @@ struct AnimationData {
 	AnimationFilmHolder* filmhold; // animation film holder
 	AnimationHolder* animhold; // animation holder
 	SpriteHolder* spritehold; // sprite holder
+	ObstaclePlatformHolder* plathold; // obstacle platform 
 };
 
 AnimationData* setup_animations(SetupData*);
