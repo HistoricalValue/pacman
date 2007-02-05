@@ -1,1 +1,2 @@
 * Remove useless collision checkings (add bool about whether it should check and move the point where amc (after move callback) is called.
+* Tend all TODOs in the code.

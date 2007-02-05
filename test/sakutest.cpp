@@ -63,8 +63,8 @@ void cleanup(void) {
 	db("SDL Quit");
 	SDL_Quit();
 	double avg;
-	std::cerr<<"Avergae gaim loop duration: "<<
-	 (avg = static_cast<double>(total_time)/numloops)<<std::endl<<
+	avg = static_cast<double>(total_time)/numloops;
+	std::cerr<<"Avergae gaim loop duration: "<<avg<<std::endl<<
 	 "Average fps: "<<(1000/avg)<<std::endl;
 }
 

@@ -59,6 +59,8 @@ class Offset {
 };
 
 // Tokeniser \m/ 
+// NOTICE that upon creating (constructor call) the first token will
+// be read (as it the ++ operator had been used).
 class Tokeniser {
 	char *line, *original;
 	std::list<std::string> delims;

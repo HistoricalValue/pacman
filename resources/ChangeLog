@@ -1,27 +1,19 @@
-*** Change of ObstaclePlatformHolder interface.
+*** 
 - Purpose :
 	* ObstaclePlatformHolder becomes fully functional.
 
 - Result :
-	* Half Implemented -- continueing in next revision.
+	* No success yet.
 
 - Side-effects : 
 	* none
 
-- Interface chages : YES!!!
-	* ObstaclePlatformHolder : 
-		(getObstaclePlatforms) : now returns a map.
-		(obstplat_list) : removed.
-		(obstplats_map) : new type.
-
-- New bugs : 
+- Interface chages :
 	* none
 
-ObstaclePlatformHolder.hpp :
-	(ObstaclePlatform) :
-		(getObstaclePlatforms) : now returns a map.
-		(obstplat_list) : removed.
-		(obstplats_map) : new type.
+- New bugs : 
+	* ObstPlats : does not print the things it parses (a certain aspect)
+	the sptites, which are in an directory.
 
-obstacle_platforms.config :
-	* Added instructional comments.
+* commons.hpp :
+	(Tokeniser) : added some documentation
