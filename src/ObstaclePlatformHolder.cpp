@@ -57,25 +57,31 @@ static void parseLine(SpriteHolder* sh,
 	d.sprites.reserve(spritesnum);
 	// Read sprites
 	for (unsigned long int i = 0; i < spritesnum; i++) {
+		d.sprites.push_back(*new plats_data::sprite_data);
 		// Read obstacle id
 		d.sprites[i].s = dynamic_cast<ObstacleSprite*>
 		 (sh->getSprite(cppstrtol(*++tok, 10)));
 		nf(!d.sprites[i].s,
 		 "Sprite specified in obstacle platforms "
 		 "configuration file is not an obstacle sprite.");
+		// Set sprite non-visible to avoid displaying by the
+		// sprite holder.
+		d.sprites[i].s->SetVisibility(false);
 		// Read sprite relative x and y
 		d.sprites[i].x = cppstrtol(*++tok, 10);
 		d.sprites[i].y = cppstrtol(*++tok, 10);
 	}
 
-	std::cerr<<"Parsed: "<<d<<std::endl;
+	std::cerr<<"===================="<<std::endl<<d<<std::endl<<
+	 "========================="<<std::endl;
 
 	ObstaclePlatform* n00b = new ObstaclePlatform(d.x, d.y);
 	for (unsigned long int i = 0; i < spritesnum; i++)
 		n00b->Add(d.sprites[i].s,
 		 d.sprites[i].x, d.sprites[i].y);
 
-	// add to map
+	// add to the map
+	plats[d.id] = n00b;
 }
 
 static bool shouldParseLine(std::string const& line) { 
@@ -101,19 +107,47 @@ std::ostream& operator<<(std::ostream& o, plats_data& d) {
 	static char const xy[] = "(x,y) = ";
 	static char const id[] = "id = ";
 	static char const comma = ',';
-	static char const rpar = ')';
+	static char const pars[] = "()";
 	static char const sprites[] = "Obstacles: ";
 
-	o<<obstplat<<std::endl<<xy<<d.x<<comma<<d.y<<rpar<<
-	 std::endl<<id<<d.id<<std::endl<<sprites<<std::endl;
+	o<<obstplat<<std::endl<<xy<<pars[0]<<d.x<<comma<<d.y<<pars[1]<<
+	 std::endl<<id<<d.id<<std::endl<<sprites;
 	
-	std::for_each(d.sprites.begin(), d.sprites.end(),
-	 PrintFunctor(o));
-	return o<<std::endl;
+	std::for_each(d.sprites.begin(), d.sprites.end(), PrintFunctor(o));
+	return o;
 }
 
 void PrintFunctor::operator()(plats_data::sprite_data& s) {
-	o << s.s;
+	o<<std::endl<<*s.s;
 }
 
 PrintFunctor::PrintFunctor(std::ostream& _o) : o(_o) { }
+
+// Displaying platforms
+struct DisplayFunctor : public std::unary_function<
+ std::pair<short unsigned int const, ObstaclePlatform*>, void>
+{
+	void operator()(std::pair<short unsigned int const,
+	 ObstaclePlatform*>&);
+	DisplayFunctor(SDL_Surface*);
+	private :
+	SDL_Surface* destination;
+};
+
+void ObstaclePlatformHolder::displayPlatforms(SDL_Surface* d) {
+	std::for_each(plats.begin(), plats.end(), DisplayFunctor(d));
+} // displayPlatforms
+
+DisplayFunctor::DisplayFunctor(SDL_Surface* _destination) :
+ destination(_destination) { }
+
+void DisplayFunctor::operator() (std::pair<short unsigned int const,
+ ObstaclePlatform*>& p)
+{
+	p.second->Display(destination);
+}
+
+ObstaclePlatformHolder::obstplats_map&
+ObstaclePlatformHolder::getObstaclePlatforms(void) {
+	return plats;
+}

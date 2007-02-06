@@ -1,19 +1,37 @@
-*** 
+*** Fully intergrated anf functional ObstaclePlatformHolder.
 - Purpose :
 	* ObstaclePlatformHolder becomes fully functional.
+	* To adapt setup so that it uses ObstaclePlatforms to draw and 
+	perform/register collision checks.
 
 - Result :
-	* No success yet.
+	* SUCCESS
 
 - Side-effects : 
 	* none
 
-- Interface chages :
-	* none
+- Interface chages : additions
+	* ObstaclePlatformHolder :
+		(displayPlatforms) : new function.
 
 - New bugs : 
-	* ObstPlats : does not print the things it parses (a certain aspect)
-	the sptites, which are in an directory.
+	* none
 
-* commons.hpp :
-	(Tokeniser) : added some documentation
+* ObstaclePlatformHolder.hpp :
+	(displayPlatforms) : new function.
+* ObstaclePlatformHolder.cpp :
+	(parseLine) : 
+		* Added push back to sprite_data vector.
+		* it now sets the visibility of platform member obstacle
+		sprites to false in order to avoid drawing by the sprite
+		holder (considering removing them from the holder -- discuss
+		with team).
+	(displayPlatforms) : new function.
+
+* sakutest.cpp :
+	(main) : added call to displayPlatforms.
+* sakutest_setup.cpp :
+	(setUpCollisions) :
+		* Commented out manual adding of obstacle sprites in the
+		collision checker.
+		* Added registering pushable sprites with all platforms.

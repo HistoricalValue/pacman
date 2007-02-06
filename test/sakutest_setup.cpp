@@ -162,6 +162,8 @@ void setUpCollisions(data& d) {
 	std::list<ObstacleSprite*> const& obstsps =
 	 (sh = d.animation_data->spritehold)->getObstacleSprites();
 	GameSprite *pacman, *box = NULL;
+	ObstaclePlatformHolder::obstplats_map& plats =
+	 d.animation_data->plathold->getObstaclePlatforms();
 
 	nf(!(
 	 ( pacman = dynamic_cast<GameSprite*>(sh->getSprite(1001)) ) &&
@@ -169,11 +171,20 @@ void setUpCollisions(data& d) {
 	 "Not a game sprite"
 	);
 
+	// Obstacles are registered by Platforms
+	// ===
 	// for each obstacle, add collision with those two
-	std::for_each(obstsps.begin(), obstsps.end(),
-	 std::bind1st(RegisterCollision(), pacman) );
-	std::for_each(obstsps.begin(), obstsps.end(),
-	 std::bind1st(RegisterCollision(), box) );
+//	std::for_each(obstsps.begin(), obstsps.end(),
+//	 std::bind1st(RegisterCollision(), pacman) );
+//	std::for_each(obstsps.begin(), obstsps.end(),
+//	 std::bind1st(RegisterCollision(), box) );
+
+	// Instead, register each pushable sprite with all platforms
+	ObstaclePlatformHolder::obstplats_map::iterator ite;
+	for (ite = plats.begin(); ite != plats.end(); ite++) {
+		ite->second->SetCollisionCheck(pacman, true);
+		ite->second->SetCollisionCheck(box, true);
+	}
 
 	// set custom callback
 	std::for_each(obstsps.begin(), obstsps.end(),

@@ -39,6 +39,7 @@ int main(void) {
 		d.moves[0]=d.moves[1];
 		// draw final result
 		d.animation_data->spritehold->displaySprites(d.screen);
+		d.animation_data->plathold->displayPlatforms(d.screen);
 
 		timestamp_t diff =
 		 timestamp_diff(cs454_2006::getTimestamp(),

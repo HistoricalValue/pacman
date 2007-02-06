@@ -21,7 +21,8 @@ class ObstaclePlatformHolder {
 	 SpriteHolder* sprite_holder);
 	~ObstaclePlatformHolder(void);
 	ObstaclePlatform* getObstaclePlatform(obstplatid_t id);
-	obstplats_map getObstaclePlatforms(void);
+	obstplats_map& getObstaclePlatforms(void);
+	void displayPlatforms(SDL_Surface* destination);
 	private :
 	obstplats_map plats;
 };
