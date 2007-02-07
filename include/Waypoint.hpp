@@ -6,7 +6,7 @@
 struct targets {
 	Sprite *pacman;
 	Sprite *lair;
-}
+};
 
 class Waypoint : public Sprite {
 	bool up, down, left, right;
