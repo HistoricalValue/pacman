@@ -1,18 +1,18 @@
-*** Fixed zar compile error (and lost old AI version)
+*** Added AI skeleton and implemented basic Waypoint functions
+
 Result :
-	* SUCCESS (relative)
+	* SUCCESS
 
 - Side-effects : 
-	* Lost AI zar had typed.
+	* none
 
 - Interface chages : additions
-	* AI
+	* AI some
+	* Waypoint some
 
 - New bugs : 
 	* none
 
-* ActorMovement.hpp :
-	* Added #include "commons.h"
-
-* ActorMovement.cpp :
-	* Removed including of commons.h .
+* Sprite.cpp :
+	(SetFrame) : now checks about frame number validity only if curr
+		Frame is not NULL.

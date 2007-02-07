@@ -32,7 +32,7 @@ void Sprite::Display(SDL_Surface *dest) {
 
 void Sprite::SetWH(int _w, int _h) { frameBox.w = _w, frameBox.h = _h; }
 void Sprite::SetFrame (char i) {	
-	if (i != frameNo) {
+	if (currFilm) if (i != frameNo) {
 		assert(i < currFilm->GetTotalFrames());
 		frameBox = currFilm->GetFrameBox(frameNo = i);
 	}

@@ -1,4 +1,4 @@
-bins += sakutest
+bins += sakutest waypointtest
 # sakutest : \
 # 	../src/AnimationFilm.o \
 # 	../src/AnimationFilmHolder.o \
@@ -14,3 +14,4 @@ bins += sakutest
 
 CXXFLAGS += -I./
 sakutest : sakutest_setup.o $(wildcard ../src/*.o) sakutest_handleInput.o
+waypointtest : $(wildcard ../src/*.o) waypointtest.o
