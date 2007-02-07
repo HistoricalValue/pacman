@@ -17,3 +17,6 @@ bool Waypoint::CollisionCheck(Sprite *s) {
 		return true;
 	return false;
 }
+
+static void AICallback(Sprite *self, Sprite *actor, void *closure) {
+}

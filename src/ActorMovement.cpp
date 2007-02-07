@@ -22,6 +22,8 @@ struct ActorMovement::AnimatorPair {
 	// no collision in order to take place.
 	void CatchUp(timestamp_t);
 	operator Animator* (void);
+	MovingAnimator* getMV(void);
+	FrameRangeAnimator* getFR(void);
 //	Animator* operator*(void);
 	private :
 	MovingAnimator* mv;
@@ -140,3 +142,13 @@ void ActorMovement::AnimatorPair::CatchUp(timestamp_t currTime) {
 }
 
 ActorMovement::AnimatorPair::operator Animator* (void) { return mv; }
+
+// Get Animators
+MovingAnimator*
+ActorMovement::getMovingAnimator(void) { return running->getMV(); }
+FrameRangeAnimator*
+ActorMovement::getFrameRangeAnimator(void) { return running->getFR(); }
+MovingAnimator*
+ActorMovement::AnimatorPair::getMV(void) { return mv; }
+FrameRangeAnimator*
+ActorMovement::AnimatorPair::getFR(void) { return fr; }

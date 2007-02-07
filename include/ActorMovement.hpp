@@ -28,6 +28,8 @@ class ActorMovement {
 	void released(move_t direction, timestamp_t currTime);
 	void progress(timestamp_t currTime);
 	void collided(GameSprite* who);
+	MovingAnimator* getMovingAnimator(void);
+	FrameRangeAnimator* getFrameRangeAnimator(void);
 	private :
 	struct AnimatorPair;
 	struct SuspendFunctor;
