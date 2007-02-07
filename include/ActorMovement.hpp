@@ -9,6 +9,7 @@
 
 #include <vector>
 
+#include "commons.hpp"
 #include "MovingAnimator.hpp"
 #include "FrameRangeAnimator.hpp"
 #include "GameSprite.hpp"

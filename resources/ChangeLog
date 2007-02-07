@@ -1,20 +1,18 @@
-*** Added Animator accessors to ActorMovement
-- Result :
-	* SUCCESS
+*** Fixed zar compile error (and lost old AI version)
+Result :
+	* SUCCESS (relative)
 
 - Side-effects : 
-	* none
+	* Lost AI zar had typed.
 
 - Interface chages : additions
-	* ActorMovement :
-		(getMovingAnimator) : new function.
-		(getFrameRangeAnimator) : new function.
+	* AI
 
 - New bugs : 
 	* none
 
+* ActorMovement.hpp :
+	* Added #include "commons.h"
+
 * ActorMovement.cpp :
-	(AnimatorPair.getMV) : new function.
-	(AnimatorPair.getFR) : new function.
-	(getMovingAnimator) : new function.
-	(getFrameRangeAnimator) : new function.
+	* Removed including of commons.h .
