@@ -86,8 +86,10 @@ Sprite* Matcher::operator() (Animation* a) const {
 	} else if ((anid >= 1002 && anid <= 1005)) { // cartman mov
 		// do not run those ones
 		noRun = true;
-	} else if (anid == 3000 || anid == 3001) {
-		spid = 1003; // ghost snail
+	} else if (anid >= 3000 && anid <= 3023) { // ghost snailz
+		spid = ((anid - 3000) %12) + 1003;
+	} else if (anid == 3016) { // choco yum
+		spid = 1015;
 	} else {
 		spid = a->GetId();
 		spid = anid;
