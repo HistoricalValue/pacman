@@ -1,10 +1,15 @@
 SHELL = /bin/sh
 
+ifdef __WIN32
+LDFLAGS += -L/c/WINDOWS/ -L. -L/mingw/lib/ -lmingw32 -lSDLmain
+CPPFLAGS += -I/mingw/include/
+endif
+
 CXX = g++
 CXXFLAGS += -pedantic -Wall -ansi -g -O3
-CC = $(CXX)
-CFLAGS += $(CXXFLAGS)
 CPPFLAGS += -I../include
+CC = $(CXX)
+CFLAGS = $(CXXFLAGS)
 LD = ld
 LDFLAGS += -lSDL -lSDL_image -lSDL_ttf 
 

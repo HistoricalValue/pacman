@@ -14,7 +14,7 @@ using namespace sakutest;
 unsigned long int total_time = 0;
 unsigned short int numloops = 0;
 
-int main(void) {
+int main(int argc, char *argv[]) {
 	memset(&d, 0, sizeof(d));
 	setup(d);
 	atexit(cleanup);

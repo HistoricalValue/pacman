@@ -1,7 +1,7 @@
 
 #include "Waypoint.hpp"
 
-int main(void) {
+int main(int a, char**b) {
 	Waypoint* w[] = 
 	{ new Waypoint(0, 0, true, true, false, false, 33),
 	  new Waypoint(0, 0, Waypoint::UP | Waypoint::DOWN, 33) };
