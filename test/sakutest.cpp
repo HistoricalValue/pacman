@@ -88,7 +88,7 @@ Sprite* Matcher::operator() (Animation* a) const {
 		noRun = true;
 	} else if (anid >= 3000 && anid <= 3023) { // ghost snailz
 		spid = ((anid - 3000) %12) + 1003;
-	} else if (anid == 3016) { // choco yum
+	} else if (anid == 3024) { // choco yum
 		spid = 1015;
 	} else {
 		spid = a->GetId();
