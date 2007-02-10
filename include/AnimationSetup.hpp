@@ -9,6 +9,8 @@
 #include "AnimationHolder.hpp"
 #include "SpriteHolder.hpp"
 #include "ObstaclePlatformHolder.hpp"
+#include "WaypointHolder.hpp"
+#include "commons.hpp"
 
 /* ********************* Set up part ***********************/
 
@@ -18,6 +20,7 @@ struct SetupData {
 	std::string* animations; // For AnimationHolder
 	std::string* sprites; // For SpriteHolder
 	std::string* obstacle_platform; // For ObstaclePlatformHolder
+	std::string* waypoints; // For WaypointHolder
 };
 
 // Contains the holders after initialisation
@@ -26,6 +29,7 @@ struct AnimationData {
 	AnimationHolder* animhold; // animation holder
 	SpriteHolder* spritehold; // sprite holder
 	ObstaclePlatformHolder* plathold; // obstacle platform 
+	WaypointHolder* wayhold; // waypoint holder
 };
 
 AnimationData* setup_animations(SetupData*);

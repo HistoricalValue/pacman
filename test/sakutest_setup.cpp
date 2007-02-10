@@ -26,6 +26,8 @@ void setup(data& d) {
 	 ANIMATION_SETUP_CONFIG_FILE);
 	d.obstacle_platform_config_file_path = new std::string(
 	 OBSTACLE_PLATFORM_CONFIG_FILE);
+	d.waypoints_config_file_path = new std::string(
+	 WAYPOINTS_CONFIG_FILE);
 
 	// Timestamp
 	d.startingTime = cs454_2006::getTimestamp();
@@ -35,7 +37,8 @@ void setup(data& d) {
 		d.animation_film_config_file_path,
 		d.animation_holder_config_file_path,
 		d.sprite_config_file_path,
-		d.obstacle_platform_config_file_path
+		d.obstacle_platform_config_file_path,
+		d.waypoints_config_file_path
 	};
 	d.animation_data = setup_animations(&setup_d);
 
@@ -179,11 +182,28 @@ void setUpCollisions(data& d) {
 //	std::for_each(obstsps.begin(), obstsps.end(),
 //	 std::bind1st(RegisterCollision(), box) );
 
+	// Ghost snail id-s
+	std::list<int> ghostids;
+#define BASE 3000
+	ghostids.push_back(BASE + 3);
+	ghostids.push_back(BASE + 6);
+	ghostids.push_back(BASE + 9);
+	ghostids.push_back(BASE + 12);
+#undef BASE
 	// Instead, register each pushable sprite with all platforms
 	ObstaclePlatformHolder::obstplats_map::iterator ite;
 	for (ite = plats.begin(); ite != plats.end(); ite++) {
 		ite->second->SetCollisionCheck(pacman, true);
 		ite->second->SetCollisionCheck(box, true);
+		// for each ghost snail, register collision
+		std::list<int>::const_iterator gite;
+		for (gite = ghostids.begin();gite != ghostids.end();gite++){
+			Ghost* g = dynamic_cast<Ghost*>(sh->getSprite(
+			 *gite));
+			nf(!g, "Sprite with 3003 <= id < 4000 is no a "
+			 "ghost game sprite.");
+			ite->second->SetCollisionCheck(g, true);
+		}
 	}
 
 	// set custom callback
