@@ -1,16 +1,18 @@
-.PHONY : all clean purge touch
+.PHONY : all clean purge touch win32
 
 all : 
-	make -C src default
-	make -C test default
+	$(MAKE) -C src default
+	$(MAKE) -C test default
 
+win32 :
+	$(MAKE) all __WIN32=yes_n00b
 clean :
-	make -C src clean
-	make -C test clean
+	$(MAKE) -C src clean
+	$(MAKE) -C test clean
 
 touch :
-	make -C src --touch
-	make -C test --touch
+	$(MAKE) -C src --touch
+	$(MAKE) -C test --touch
 
 purge :
-	find . -iregex '.*\.[od]' -execdir rm '{}' \;
+	find . -iregex '.*\.[od]' -exec rm '{}' \;

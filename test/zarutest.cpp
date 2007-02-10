@@ -33,7 +33,7 @@ void print(GameSprite *gs, void* c){
 	std::cout <<"AAAAAA!!!\n";
 }
 
-int main() {	
+int main(int argc, char *argv[]) {	
 	bool quit = false;
 	SDL_Event event;
 

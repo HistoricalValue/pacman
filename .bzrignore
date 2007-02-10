@@ -2,3 +2,8 @@ sakutest
 zarutest
 *.d
 test/waypointtest
+test/sakutest.exe
+test/waypointtest.exe
+test/zarutest.exe
+*stderr.txt
+*stdout.txt
