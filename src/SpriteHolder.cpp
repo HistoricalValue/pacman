@@ -4,6 +4,7 @@
 #include "commons.hpp"
 #include "GameSprite.hpp"
 #include "ObstacleSprite.hpp"
+#include "Ghost.hpp"
 
 using namespace cs454_2006;
 
@@ -143,7 +144,13 @@ static void parseLine(Tokeniser **tokptr, AnimationFilmHolder* afh,
 	Sprite* s;
 	if (d.id < 1000) { // ids 0 - 1000 are obstacles
 		s = new ObstacleSprite(d.x, d.y, d.film, d.id);
-	} else { // rest ids are game sprites
+	} else 
+#define BASE 3000
+	if (d.id >= BASE + 3 && d.id < BASE +14) { // ghost sprites
+		s = new Ghost(d.x, d.y, d.film, d.id);
+	} 
+#undef BASE
+	else { // rest ids are game sprites
 		s = new GameSprite(d.x, d.y, d.film, d.id);
 	}
 	sprites[d.z].push_back(s);
@@ -166,8 +173,10 @@ Sprite* SpriteHolder::getSprite(spriteid_t id) {
 	 allsprites.begin(),
 	 allsprites.end(),
 	 cs454_2006::SpriteMatchPredicate(id))) == allsprites.end()
-	)
+	) {
+		std::cerr<<id<<std::endl;
 		nf(-1, "Could not find sprite");
+	}
 	return *spite;
 } // getSprite
 

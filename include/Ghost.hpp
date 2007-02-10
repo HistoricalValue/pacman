@@ -12,6 +12,7 @@ enum ghoststate_t {
 class Ghost : public GameSprite {
 	ghoststate_t state;
 
+	public :
 	void SetState(ghoststate_t _state);
 	ghoststate_t GetState(void);
 
