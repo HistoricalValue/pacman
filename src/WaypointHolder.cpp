@@ -71,12 +71,12 @@ static void parseLine(WaypointHolder* self, std::string& line,
 	std::cerr << *n00b <<std::endl;
 } // parseLine
 
-void WaypointHolder::addWaypoint(Waypoint const* w) {
+void WaypointHolder::addWaypoint(Waypoint* w) {
 	waypoints.push_back(w);
 } // addWaypoint
 
 void WaypointHolder::display(SDL_Surface* dst) {
-	std::list<Waypoint const*>::iterator ite;
+	std::list<Waypoint*>::iterator ite;
 	for (ite = waypoints.begin(); ite != waypoints.end(); ite++) {
 		SDL_Rect dstpoint;
 		dstpoint.x = (*ite)->GetX();
@@ -88,3 +88,7 @@ void WaypointHolder::display(SDL_Surface* dst) {
 void WaypointHolder::setBug(SDL_Surface* _bug) {
 	bug = _bug;
 } // setBug
+
+std::list<Waypoint*> WaypointHolder::getWaypoints(void) const {
+	return waypoints;
+} // getWaypoints

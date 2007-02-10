@@ -211,6 +211,17 @@ void setUpCollisions(data& d) {
 		}
 	}
 
+	// set up waypoint collisions with ghosts
+	// TODO add all ghosts after testing is done
+	Ghost* a_ghost = dynamic_cast<Ghost*>(sh->getSprite(3003));
+	nf(!a_ghost, "Sprite with 3003 <= id < 4000 is no a "
+	 "ghost game sprite.");
+	std::list<Waypoint*> wps = 
+	 d.animation_data->wayhold->getWaypoints();
+	std::list<Waypoint*>::iterator wite;
+	for (wite = wps.begin(); wite != wps.end(); wite++)
+		CollisionChecker::Singleton()->Register(*wite, a_ghost);
+
 	// set custom callback
 	std::for_each(obstsps.begin(), obstsps.end(),
 	 setCustomCollisionCallback(collision_callback, &d) );
