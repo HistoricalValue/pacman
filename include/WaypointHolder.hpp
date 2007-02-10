@@ -13,13 +13,14 @@ typedef unsigned short int waypointid_t;
 class WaypointHolder {
 	public :
 	WaypointHolder(std::string const& config_file_path);
-	Waypoint const* getWaypoint(waypointid_t id) const;
-	void addWaypoint(Waypoint const* w);
+	Waypoint* getWaypoint(waypointid_t id) const;
+	std::list<Waypoint*> getWaypoints(void) const;
+	void addWaypoint(Waypoint* w);
 	// For convencience
 	void setBug(SDL_Surface*);
 	void display(SDL_Surface*);
 	private :
-	std::list<Waypoint const*> waypoints;
+	std::list<Waypoint*> waypoints;
 	SDL_Surface* bug;
 };
 #endif // __WaypointHolder_hpp__

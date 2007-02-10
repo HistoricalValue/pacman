@@ -2,3 +2,5 @@
 * Tend all TODOs in the code.
 
 * Consider removing platform member obstacle sprites from sprite holder (check ChangeLog of revision 16)
+
+* Fix top and bottom wall containers which are not accurate sprites that they exeed the graphic to the right 
