@@ -22,14 +22,14 @@ Waypoint::Waypoint(int x, int y, unsigned char _available_directions,
 
 bool Waypoint::CollisionCheck(Sprite *s) {
 	//Absolute collision
-	if(x == s->GetX() && y == GetY())
+	if(x == s->GetX() && y == s->GetY())
 		return true;
 	return false;
 }
 
 void Waypoint::AICallback(Sprite *self, Sprite *actor, void *closure) {
 	static int count = 0;
-	std::cout << count++ << actor->getID() << std::endl;
+	std::cout << count++ << actor->getID() << " " << self->GetX() << ", " << self->GetY()<< std::endl;
 }
 
 bool Waypoint::canGoUp   (void) { return available_directions & UP;    }
