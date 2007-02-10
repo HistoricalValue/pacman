@@ -10,6 +10,7 @@ Waypoint::Waypoint(int _x, int _y, bool _up, bool _down,
 	available_directions |= _right ? RIGHT : 0x0;
 	available_directions |= _down  ? DOWN  : 0x0;
 	available_directions |= _left  ? LEFT  : 0x0;
+	SetCollisionCallback(&AICallback);
 }
 
 Waypoint::Waypoint(int x, int y, unsigned char _available_directions,

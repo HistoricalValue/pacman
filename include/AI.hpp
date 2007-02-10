@@ -14,14 +14,16 @@ struct Targets {
 class AI {
 	public :
 	static void Think(GameSprite* ghost);
+	static void SetMoves(std::map<GameSprite*, ActorMovement*> _moves);
+	static void SetTargets(Targets* _targets);
+
 	private :
 	static std::map<GameSprite*, ActorMovement*> moves;
+	static Targets* targets;
 
-	static void Stalker(GameSprite* ghost, Targets* targets);
-	static void Chicken(GameSprite* ghost, Targets* targets);
-	static void Random(GameSprite* ghost, Targets* target);
-	
-	static void SetMoves(std::map<GameSprite*, ActorMovement*> _moves);
+	static void Stalker(GameSprite* ghost, Sprite* target);
+	static void Chicken(GameSprite* ghost, Sprite* target);
+	static void Random(GameSprite* ghost, Sprite* target);
 }; // AI
 
 #endif
