@@ -32,3 +32,5 @@ bool Waypoint::canGoUp   (void) { return available_directions & UP;    }
 bool Waypoint::canGoRight(void) { return available_directions & RIGHT; }
 bool Waypoint::canGoDown (void) { return available_directions & DOWN;  }
 bool Waypoint::canGoLeft (void) { return available_directions & LEFT;  }
+
+unsigned char Waypoint::getAvailableDirections(void) { return available_directions; }

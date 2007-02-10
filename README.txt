@@ -1,3 +1,7 @@
+== A note by the project manager ==
+
+Readmes suck.
+
 == Update, 2007-03-02 05 30
 Dear co-developers,
 

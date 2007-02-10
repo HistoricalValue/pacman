@@ -17,9 +17,11 @@ class AI {
 	private :
 	static std::map<GameSprite*, ActorMovement*> moves;
 
-	static void Hunter(GameSprite* ghost, Targets* targets);
+	static void Stalker(GameSprite* ghost, Targets* targets);
 	static void Chicken(GameSprite* ghost, Targets* targets);
 	static void Random(GameSprite* ghost, Targets* target);
+	
+	static void SetMoves(std::map<GameSprite*, ActorMovement*> _moves);
 }; // AI
 
 #endif
