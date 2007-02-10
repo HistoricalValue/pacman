@@ -21,6 +21,7 @@
 #define SPRITE_CONFIG_FILE		"./resources/config/sprites.config"
 #define ANIMATION_SETUP_CONFIG_FILE	"./resources/config/animation_setup.config"
 #define OBSTACLE_PLATFORM_CONFIG_FILE	"./resources/config/obstacle_platforms.config"
+#define WAYPOINTS_CONFIG_FILE		"./resources/config/junctions.config"
 #define SCREEN_WIDTH 	(800)
 #define SCREEN_HEIGHT 	(600)
 #define SCREEN_BPP	(32)
@@ -43,7 +44,8 @@ struct data {
 	 *animation_holder_config_file_path,
 	 *sprite_config_file_path,
 	 *animation_setup_config_file_path,
-	 *obstacle_platform_config_file_path;
+	 *obstacle_platform_config_file_path,
+	 *waypoints_config_file_path;
 	timestamp_t startingTime, currTime;
 	AnimationData* animation_data;
 	__animators* animators;

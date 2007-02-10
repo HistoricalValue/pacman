@@ -1,9 +1,7 @@
-#include "commons.hpp"
 #include "AnimationSetup.hpp"
 #include "MovingAnimator.hpp"
-#include "FrameRangeAnimator.hpp"
 #include "AnimatorHolder.hpp"
-
+#include "FrameRangeAnimator.hpp"
 using namespace cs454_2006;
 
 AnimationData* setup_animations(SetupData* d) {
@@ -14,6 +12,8 @@ AnimationData* setup_animations(SetupData* d) {
 	 *d->sprites, result->filmhold);
 	result->plathold = new ObstaclePlatformHolder(
 	 *d->obstacle_platform, result->spritehold);
+	result->wayhold = new WaypointHolder(
+	 *d->waypoints);
 	return result;
 } // setup_animation
 
