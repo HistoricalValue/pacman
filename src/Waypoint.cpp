@@ -28,7 +28,8 @@ bool Waypoint::CollisionCheck(Sprite *s) {
 }
 
 void Waypoint::AICallback(Sprite *self, Sprite *actor, void *closure) {
-	std::cout << "AAAAA!!!!" << std::endl;
+	static int count = 0;
+	std::cout << count++ << actor->getID() << std::endl;
 }
 
 bool Waypoint::canGoUp   (void) { return available_directions & UP;    }
