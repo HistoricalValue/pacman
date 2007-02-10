@@ -1,4 +1,5 @@
 #include "sakutest.hpp"
+#include "SurfaceLoader.hpp"
 
 namespace sakutest{
 using namespace cs454_2006;
@@ -41,6 +42,10 @@ void setup(data& d) {
 		d.waypoints_config_file_path
 	};
 	d.animation_data = setup_animations(&setup_d);
+	// Set bug bitmap for junction visualisation
+	d.animation_data->wayhold->setBug(SurfaceLoader::getInstance()->
+	 loadSurface(*new std::string("./resources/animation_films/"
+	 "waypoint.png")));
 
 	// Fetch custom sprites
 	d.pacman = dynamic_cast<GameSprite*>(

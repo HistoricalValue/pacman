@@ -8,7 +8,7 @@ static bool shouldParse(std::string const& line);
 static void parseLine(WaypointHolder*, std::string&,
  std::list<std::string>& delims);
 
-WaypointHolder::WaypointHolder(std::string const& cf) {
+WaypointHolder::WaypointHolder(std::string const& cf):bug(NULL) {
 	parseFile(this, cf);
 } // constructor
 
@@ -40,6 +40,7 @@ struct waydata {
 	int x, y;
 	unsigned char up, right, down, left;
 };
+#define conftopx(A) ((A)<<3)
 static void parseLine(WaypointHolder* self, std::string& line,
  std::list<std::string>& delims)
 {
@@ -49,15 +50,16 @@ static void parseLine(WaypointHolder* self, std::string& line,
 	// read id
 	d.id = cppstrtol(*tok, 10);
 	// read x and y
-	d.x = cppstrtol(*++tok, 10);
-	d.y = cppstrtol(*++tok, 10);
+	d.x = conftopx(cppstrtol(*++tok, 10));
+	d.y = conftopx(cppstrtol(*++tok, 10));
 	// read up, right, down, left
 	d.up = cppstrtol(*++tok, 10);
 	d.right = cppstrtol(*++tok, 10);
 	d.down = cppstrtol(*++tok, 10);
 	d.left = cppstrtol(*++tok, 10);
 
-	self->addWaypoint(new Waypoint(
+	Waypoint *n00b = NULL;
+	self->addWaypoint(n00b = new Waypoint(
 	   d.x
 	 , d.y
 	 , d.up
@@ -66,8 +68,23 @@ static void parseLine(WaypointHolder* self, std::string& line,
 	 , d.right
 	 , d.id )
 	);
+	std::cerr << *n00b <<std::endl;
 } // parseLine
 
 void WaypointHolder::addWaypoint(Waypoint const* w) {
 	waypoints.push_back(w);
 } // addWaypoint
+
+void WaypointHolder::display(SDL_Surface* dst) {
+	std::list<Waypoint const*>::iterator ite;
+	for (ite = waypoints.begin(); ite != waypoints.end(); ite++) {
+		SDL_Rect dstpoint;
+		dstpoint.x = (*ite)->GetX();
+		dstpoint.y = (*ite)->GetY();
+		SDL_BlitSurface(bug, NULL, dst, &dstpoint);
+	}
+} // display
+
+void WaypointHolder::setBug(SDL_Surface* _bug) {
+	bug = _bug;
+} // setBug

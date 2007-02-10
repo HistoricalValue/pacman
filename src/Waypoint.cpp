@@ -33,4 +33,21 @@ bool Waypoint::canGoRight(void) { return available_directions & RIGHT; }
 bool Waypoint::canGoDown (void) { return available_directions & DOWN;  }
 bool Waypoint::canGoLeft (void) { return available_directions & LEFT;  }
 
-unsigned char Waypoint::getAvailableDirections(void) { return available_directions; }
+unsigned char Waypoint::getAvailableDirections(void)
+	{ return available_directions; }
+
+std::ostream& operator<<(std::ostream& o, Waypoint& w) {
+	static char const wayp[] = "Waypoint:",
+	 lines[] = "----------",
+	 xy[] = "{x,y} = {",
+	 comma = ',',
+	 rbrace = '}',
+	 id[] = "id = ",
+	 dirs[] = "up/right/down/left : ",
+	 tab = '\t';
+	return
+	 o<<lines<<std::endl<<wayp<<std::endl<<tab<<id<<w.id<<std::endl<<
+	 tab<<xy<<w.x<<comma<<w.y<<rbrace<<std::endl<<tab<<dirs<<
+	 w.canGoUp()<<comma<<w.canGoRight()<<comma<<w.canGoDown()<<comma<<
+	 w.canGoDown()<<std::endl<<lines;
+} // operator<<

@@ -1,4 +1,6 @@
-.PHONY : all clean purge touch win32
+SHELL = /bin/sh
+
+.PHONY : all clean purge touch win32 runs
 
 all : 
 	$(MAKE) -C src default
@@ -16,3 +18,6 @@ touch :
 
 purge :
 	find . -iregex '.*\.[od]' -exec rm '{}' \;
+
+runs :
+	./test/sakutest 2>&1 | tee ./resources/sakutest.log

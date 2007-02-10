@@ -15,7 +15,11 @@ class WaypointHolder {
 	WaypointHolder(std::string const& config_file_path);
 	Waypoint const* getWaypoint(waypointid_t id) const;
 	void addWaypoint(Waypoint const* w);
+	// For convencience
+	void setBug(SDL_Surface*);
+	void display(SDL_Surface*);
 	private :
 	std::list<Waypoint const*> waypoints;
+	SDL_Surface* bug;
 };
 #endif // __WaypointHolder_hpp__
