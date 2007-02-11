@@ -1,4 +1,6 @@
 #include "Waypoint.hpp"
+#include "AI.hpp"
+#include "Ghost.hpp"
 #include <iostream>
 
 Waypoint::Waypoint(int _x, int _y, bool _up, bool _down, 
@@ -28,8 +30,7 @@ bool Waypoint::CollisionCheck(Sprite *s) {
 }
 
 void Waypoint::AICallback(Sprite *self, Sprite *actor, void *closure) {
-	static int count = 0;
-	std::cout << count++ << actor->getID() << " " << self->GetX() << ", " << self->GetY()<< std::endl;
+	AI::Think(dynamic_cast<Waypoint*>(self), dynamic_cast<Ghost*>(actor));
 }
 
 bool Waypoint::canGoUp   (void) { return available_directions & UP;    }

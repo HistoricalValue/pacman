@@ -10,4 +10,5 @@ ghoststate_t Ghost::GetState(void) {
 
 Ghost::Ghost(int x, int y, AnimationFilm *f, spriteid_t id) :
 GameSprite(x, y, f, id) {
+	state = NORMAL;
 }

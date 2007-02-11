@@ -3,6 +3,7 @@
 
 #include "ActorMovement.hpp"
 #include "Ghost.hpp"
+#include "Waypoint.hpp"
 #include <map>
 
 struct Targets {
@@ -14,7 +15,7 @@ struct Targets {
 
 class AI {
 	public :
-	static void Think(Sprite* waypoint, Ghost* ghost);
+	static void Think(Waypoint* waypoint, Ghost* ghost);
 	static void SetMoves(std::map<GameSprite*, ActorMovement*> _moves);
 	static void SetTargets(Targets* _targets);
 
@@ -22,9 +23,9 @@ class AI {
 	static std::map<GameSprite*, ActorMovement*> moves;
 	static Targets* targets;
 
-	static void Stalker(Ghost* ghost, Sprite* target);
-	static void Chicken(Ghost* ghost, Sprite* target);
-	static void Random(Ghost* ghost, Sprite* target);
+	static void Stalker(Waypoint* waypoint, Ghost* ghost, Sprite* target);
+	static void Chicken(Waypoint* waypoint, Ghost* ghost, Sprite* target);
+	static void Random(Waypoint* waypoint, Ghost* ghost);
 }; // AI
 
 #endif

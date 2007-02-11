@@ -7,6 +7,7 @@
 #include "GameSprite.hpp"
 #include "ObstacleSprite.hpp"
 #include "ObstaclePlatform.hpp"
+#include <stdlib.h>
 
 #define W 800
 #define H 600
