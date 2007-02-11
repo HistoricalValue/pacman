@@ -24,7 +24,7 @@
 #define ANIMATION_SETUP_CONFIG_FILE	"./resources/config/animation_setup.config"
 #define OBSTACLE_PLATFORM_CONFIG_FILE	"./resources/config/obstacle_platforms.config"
 #define WAYPOINTS_CONFIG_FILE		"./resources/config/junctions.config"
-#define SCREEN_WIDTH 	(800)
+#define SCREEN_WIDTH 	(496)
 #define SCREEN_HEIGHT 	(600)
 #define SCREEN_BPP	(32)
 #define SCREEN_FLAGS	(SDL_HWSURFACE|SDL_DOUBLEBUF)

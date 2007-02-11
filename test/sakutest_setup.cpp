@@ -200,7 +200,7 @@ void setup(data& d) {
 	for (int i = 0; i < 2; i++)
 		teleportals[i]->SetCollisionCallback(
 		 Waypoint::TeleportCallback,
-		 teleportals[0x1 ^ i]
+		 teleportals[i == 0? 1 : 0]
 		);
 }
 } // namespace sakutest
@@ -274,6 +274,15 @@ void setUpCollisions(data& d) {
 	std::list<Waypoint*>::iterator wite;
 	for (wite = wps.begin(); wite != wps.end(); wite++)
 		CollisionChecker::Singleton()->Register(*wite, a_ghost);
+
+	// Set up pacman collision with two teleporters
+	Waypoint* teleportals[] = {
+		d.animation_data->wayhold->getWaypoint(666),
+		d.animation_data->wayhold->getWaypoint(667)
+	};
+	for (int i =  0; i < 2; i++)
+		CollisionChecker::Singleton()->Register(teleportals[i],
+		 d.pacman);
 
 	// set custom callback
 	std::for_each(obstsps.begin(), obstsps.end(),

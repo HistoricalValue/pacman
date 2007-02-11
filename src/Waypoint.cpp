@@ -36,7 +36,7 @@ void Waypoint::AICallback(Sprite *self, Sprite *actor, void *closure) {
 void Waypoint::TeleportCallback(Sprite *self, Sprite *actor, void *closure) {
 	Waypoint *other = static_cast<Waypoint*>(closure);
 	actor->SetPosition(
-		self->GetX() - other->GetX() > 0 ? other->GetX() - 1 : other->GetX() + 1,
+		self->GetX() - other->GetX() < 0 ? other->GetX() - 1 : other->GetX() + 1,
 		other->GetY()
 	);
 }
