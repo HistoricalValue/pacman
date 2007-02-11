@@ -191,6 +191,17 @@ void setup(data& d) {
 
 	// For handling input events
 	//SDL_EnableKeyRepeat(10, 10);
+
+	// Set up teleportation waypoints
+	Waypoint* teleportals[] = {
+		d.animation_data->wayhold->getWaypoint(666),
+		d.animation_data->wayhold->getWaypoint(667)
+	};
+	for (int i = 0; i < 2; i++)
+		teleportals[i]->SetCollisionCallback(
+		 Waypoint::TeleportCallback,
+		 teleportals[0x1 ^ i]
+		);
 }
 } // namespace sakutest
 

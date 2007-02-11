@@ -102,3 +102,26 @@ void WaypointHolder::setCollision(GameSprite* g, CollisionChecker *cc,
 		 cc->Cancel(*ite, g);
 } // registerCollision
 
+struct WaypointMatchPredicate : public std::binary_function <
+ waypointid_t, Waypoint*, bool>
+{
+	bool operator() (waypointid_t, Waypoint* _2) const;
+};
+Waypoint* WaypointHolder::getWaypoint(waypointid_t id) const {
+	std::list<Waypoint*>::const_iterator result;
+	WaypointMatchPredicate match;
+	result = std::find_if(
+		waypoints.begin(), waypoints.end(),
+		std::bind1st(match, id)
+	);
+	if (result == waypoints.end()) {
+		std::cerr << id << std::endl;
+		nf(-1, "Could not find waypoint with the ID above.");
+	}
+	return *result;
+} // getWaypoint
+
+bool WaypointMatchPredicate::operator() (waypointid_t id, Waypoint* wp)
+const {
+	return wp->getID() == id;
+} // operator()
