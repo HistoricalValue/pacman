@@ -14,8 +14,6 @@ using namespace sakutest;
 unsigned long int total_time = 0;
 unsigned short int numloops = 0;
 
-timestamp_t loop_time;
-timestamp_t const* cs454_2006::currTime = &loop_time;
 
 int main(int argc, char *argv[]) {
 	memset(&d, 0, sizeof(d));
@@ -26,7 +24,7 @@ int main(int argc, char *argv[]) {
 	timestamp_t starting_time;
 	const timestamp_t sdl_delay = 1000/60 + 1;
 	while (true) {
-		starting_time = loop_time = cs454_2006::getTimestamp();
+		starting_time = cs454_2006::getTimestamp();
 		// redraw background
 		SDL_FillRect(d.screen, NULL, *d.bgcolor);
 
@@ -129,4 +127,7 @@ int after_move_call::operator() (Animator* imprtnt_argmnt_dnt_ignr) const {
 after_move_call::after_move_call(void) : cc(CollisionChecker::Singleton()){}
 
 } // namespace sakutest
+
+timestamp_t cs454_2006::getCurrentTime(void) { return d.currTime; }
+
 #endif

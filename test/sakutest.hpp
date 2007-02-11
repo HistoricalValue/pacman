@@ -40,7 +40,8 @@ struct __yams {FrameRangeAnimation *u, *r, *d, *l, *snaily[4];};
 
 
 enum move_t { NOMOVE = 0, UP = 1, RIGHT = 2, DOWN = 3, LEFT = 4};
-struct data {
+struct ::cs454_2006::GameData { }
+struct data : public GameData {
 	SDL_Surface* screen;
 	Uint32* bgcolor;
 	std::string

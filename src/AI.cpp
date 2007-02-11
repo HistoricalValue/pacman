@@ -39,17 +39,19 @@ void AI::Chicken(Waypoint* waypoint, Ghost* ghost, Sprite* target){
 void AI::Random(Waypoint* waypoint, Ghost* ghost){
 	ActorMovement::move_t directions[4];
 	short int counter = 0;
+	ActorMovement *am = moves[ghost];
+	ActorMovement::move_t lastmove = am->getLastMove();
 
-	if(waypoint->canGoUp())
+	if(waypoint->canGoUp() && lastmove != ActorMovement::DOWN)
 		directions[counter++] = ActorMovement::UP;
-	if(waypoint->canGoDown())
+	if(waypoint->canGoDown() && lastmove != ActorMovement::UP)
 		directions[counter++] = ActorMovement::DOWN;
-	if(waypoint->canGoLeft())
+	if(waypoint->canGoLeft() && lastmove != ActorMovement::RIGHT)
 		directions[counter++] = ActorMovement::LEFT;
-	if(waypoint->canGoRight())
+	if(waypoint->canGoRight() && lastmove != ActorMovement::LEFT)
 		directions[counter++] = ActorMovement::RIGHT;
 
-	moves[ghost]->pressed(directions[rand() % counter], *currTime);
+	am->pressed(directions[rand() % counter], getCurrentTime());
 }
 
 void AI::SetMoves(std::map<GameSprite*, ActorMovement*> _moves){
