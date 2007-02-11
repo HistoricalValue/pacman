@@ -19,8 +19,8 @@ class CollisionChecker {
 	
 	public:
 	static CollisionChecker* Singleton(void);
-	void Register (Sprite* s1, Sprite* s2);
-	void Cancel (Sprite* s1, Sprite* s2);
+	void Register (Sprite* callbacker, Sprite* stooker);
+	void Cancel (Sprite* callbacker, Sprite* stooker);
 	void Check (void);
 };
 

@@ -1,4 +1,5 @@
 #include "AI.hpp"
+#include "commons.hpp"
 #include <assert.h>
 
 std::map<GameSprite*, ActorMovement*> AI::moves;
@@ -48,7 +49,7 @@ void AI::Random(Waypoint* waypoint, Ghost* ghost){
 	if(waypoint->canGoRight())
 		directions[counter++] = ActorMovement::RIGHT;
 
-	moves[ghost]->pressed(directions[rand() % counter], SDL_GetTicks());
+	moves[ghost]->pressed(directions[rand() % counter], *currTime);
 }
 
 void AI::SetMoves(std::map<GameSprite*, ActorMovement*> _moves){

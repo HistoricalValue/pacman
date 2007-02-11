@@ -151,3 +151,11 @@ MovingAnimator*
 ActorMovement::AnimatorPair::getMV(void) { return mv; }
 FrameRangeAnimator*
 ActorMovement::AnimatorPair::getFR(void) { return fr; }
+
+enum ActorMovement::move_t ActorMovement::getLastMove(void) const {
+	int i;
+	for (i = UP; i < 4; ++i)
+		if (animators[i] == running)
+			break;
+	return i == 4 ? NOWHERE : static_cast<enum move_t>(i);
+} // getLastMove
