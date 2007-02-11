@@ -2,6 +2,8 @@
 #include "commons.hpp"
 #include <assert.h>
 
+using namespace cs454_2006;
+
 std::map<GameSprite*, ActorMovement*> AI::moves;
 Targets* AI::targets;
 
@@ -51,7 +53,7 @@ void AI::Random(Waypoint* waypoint, Ghost* ghost){
 	if(waypoint->canGoRight() && lastmove != ActorMovement::LEFT)
 		directions[counter++] = ActorMovement::RIGHT;
 
-	am->pressed(directions[rand() % counter], cs454_2006::getCurrentTime());
+	am->pressed(directions[rand() % counter], getCurrentTime());
 }
 
 void AI::SetMoves(std::map<GameSprite*, ActorMovement*> _moves){
