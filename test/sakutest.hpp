@@ -16,6 +16,7 @@
 #include "CollisionChecker.hpp"
 #include "ActorMovement.hpp"
 #include "Ghost.hpp"
+#include "AI.hpp"
 
 #define ANIMATION_FILM_CONFIG_FILE 	"./resources/config/animationfilms.config"
 #define ANIMATION_HOLDER_CONFIG_FILE	"./resources/config/animations.config"

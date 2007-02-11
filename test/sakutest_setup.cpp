@@ -162,6 +162,16 @@ void setup(data& d) {
 	 getSprite(3003)), snailymovs, snailyyummovs, *d.amc,
 	 d.startingTime);
 	
+	// Set up AI
+	Targets *targets = new Targets;
+	targets->pacman = d.pacman;
+	AI::SetTargets(targets);
+	std::map<GameSprite*, ActorMovement*> actormoves;
+	actormoves[d.pacman] = d.pacmov;
+	actormoves[dynamic_cast<GameSprite*>(
+	 d.animation_data->spritehold->getSprite(3003))] = d.snailymov;
+	AI::SetMoves(actormoves);
+
 	// register the above for collision checking
 	setUpCollisions(d);
 
