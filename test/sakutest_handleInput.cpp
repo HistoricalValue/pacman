@@ -30,7 +30,6 @@ void handleEvent_keyDown(data& d, SDL_Event& event) {
 		default: return ; // nothing
 	}
 	d.pacmov->pressed(pressed, d.currTime);
-	d.snailymov->pressed(pressed, d.currTime);
 }
 
 void handleEvent_keyUp(data& d, SDL_Event& event) {
@@ -44,7 +43,6 @@ void handleEvent_keyUp(data& d, SDL_Event& event) {
 		default: return ; // nothing
 	}
 	d.pacmov->released(released, d.currTime);
-	d.snailymov->released(released, d.currTime);
 }
 
 } // namespace sakutest
