@@ -15,6 +15,7 @@ class Waypoint : public Sprite {
 	};
 	bool CollisionCheck(Sprite *s);
 	static void AICallback(Sprite *self, Sprite *actor, void *closure);
+	static void TeleportCallback(Sprite *self, Sprite *actor, void *closure);
 	Waypoint(int x, int y, unsigned char available_directions,
 		spriteid_t id);
 	Waypoint(int _x, int _y, bool _up, bool _down, 

@@ -33,6 +33,14 @@ void Waypoint::AICallback(Sprite *self, Sprite *actor, void *closure) {
 	AI::Think(dynamic_cast<Waypoint*>(self), dynamic_cast<Ghost*>(actor));
 }
 
+void Waypoint::TeleportCallback(Sprite *self, Sprite *actor, void *closure) {
+	Waypoint *other = static_cast<Waypoint*>(closure);
+	actor->SetPosition(
+		self->GetX() - other->GetX() > 0 ? other->GetX() - 1 : other->GetX() + 1,
+		other->GetY()
+	);
+}
+
 bool Waypoint::canGoUp   (void) { return available_directions & UP;    }
 bool Waypoint::canGoRight(void) { return available_directions & RIGHT; }
 bool Waypoint::canGoDown (void) { return available_directions & DOWN;  }
