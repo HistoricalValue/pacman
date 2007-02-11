@@ -34,6 +34,7 @@ int main(int argc, char *argv[]) {
 		d.currTime = cs454_2006::getTimestamp();
 		AnimatorHolder::Progress(d.currTime);
 		d.pacmov->progress(d.currTime);
+		d.snailymov->progress(d.currTime);
 		// collision checking happens internally
 
 		d.moves[0]=d.moves[1];
@@ -88,7 +89,7 @@ Sprite* Matcher::operator() (Animation* a) const {
 		// do not run those ones
 		noRun = true;
 	} else if (anid >= 3000 && anid <= 3023) { // ghost snailz
-		spid = ((anid - 3000) %12) + 3003;
+		noRun = true;
 	} else if (anid == 3024) { // choco yum
 		spid = 1015;
 	} else {

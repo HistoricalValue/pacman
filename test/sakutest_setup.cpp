@@ -67,11 +67,19 @@ void setup(data& d) {
 	d.animators->right = new MovingAnimator(false);
 	d.animators->down = new MovingAnimator(false);
 	d.animators->left = new MovingAnimator(false);
+	d.animators->snaily[0] = new MovingAnimator(false);
+	d.animators->snaily[1] = new MovingAnimator(false);
+	d.animators->snaily[2] = new MovingAnimator(false);
+	d.animators->snaily[3] = new MovingAnimator(false);
 	//
 	d.yums->u = new FrameRangeAnimator(false);
 	d.yums->r = new FrameRangeAnimator(false);
 	d.yums->d = new FrameRangeAnimator(false);
 	d.yums->l = new FrameRangeAnimator(false);
+	d.yums->snaily[0] = new FrameRangeAnimator(false);
+	d.yums->snaily[1] = new FrameRangeAnimator(false);
+	d.yums->snaily[2] = new FrameRangeAnimator(false);
+	d.yums->snaily[3] = new FrameRangeAnimator(false);
 	//
 	// remove animators that must from holder
 	AnimatorHolder::Cancel(d.animators->up);
@@ -95,11 +103,17 @@ void setup(data& d) {
 	 getMovingAnimation(1004);
 	d.animations->left = d.animation_data->animhold->
 	 getMovingAnimation(1005);
+	for (int i = 0; i < 4; i++)
+		d.animations->snaily[i] = d.animation_data->animhold->
+		 getMovingAnimation(3000 + i);
 	// Frame range (yums)
 	d.yams->u =d.animation_data->animhold->getFrameRangeAnimation(2005);
 	d.yams->r =d.animation_data->animhold->getFrameRangeAnimation(2004);
 	d.yams->l =d.animation_data->animhold->getFrameRangeAnimation(2003);
 	d.yams->d =d.animation_data->animhold->getFrameRangeAnimation(2002);
+	for (int i = 0; i < 4; i++)
+		d.yams->snaily[i] = d.animation_data->animhold->
+		 getFrameRangeAnimation(3004 + i);
 
 	// Start animators
 	d.animators->up->Start(d.pacman, d.animations->up, d.startingTime);
@@ -110,8 +124,20 @@ void setup(data& d) {
 	d.yums->r->Start(d.pacman, d.yams->r, d.startingTime);
 	d.yums->d->Start(d.pacman, d.yams->d, d.startingTime);
 	d.yums->l->Start(d.pacman, d.yams->l, d.startingTime);
+	//
+	// For little snaily too
+	for (int i = 0; i < 4; i++) { 
+		Sprite *snail;
+		d.animators->snaily[i]->Start(snail = d.animation_data->
+		 spritehold->getSprite(3003),
+		 d.animations->snaily[i], d.startingTime);
+		d.yums->snaily[i]->Start(snail, d.yams->snaily[i],
+		 d.startingTime);
+	}
 
 	// create actor movement objects
+	//
+	// For pacman
 	std::vector<MovingAnimator*> pacmovs;
 	pacmovs.push_back(d.animators->up);
 	pacmovs.push_back(d.animators->right);
@@ -123,6 +149,17 @@ void setup(data& d) {
 	yummovs.push_back(d.yums->d);
 	yummovs.push_back(d.yums->l);
 	d.pacmov = new ActorMovement(d.pacman, pacmovs, yummovs, *d.amc,
+	 d.startingTime);
+	// For snaily
+	std::vector<MovingAnimator*> snailymovs;
+	std::vector<FrameRangeAnimator*> snailyyummovs;
+	for (int i = 0; i < 4; i++) {
+		snailymovs.push_back(d.animators->snaily[i]);
+		snailyyummovs.push_back(d.yums->snaily[i]);
+	}
+	d.snailymov = new ActorMovement(dynamic_cast<Ghost*>(
+	 d.animation_data->spritehold->
+	 getSprite(3003)), snailymovs, snailyyummovs, *d.amc,
 	 d.startingTime);
 	
 	// register the above for collision checking
@@ -189,12 +226,7 @@ void setUpCollisions(data& d) {
 
 	// Ghost snail id-s
 	std::list<int> ghostids;
-#define BASE 3000
-	ghostids.push_back(BASE + 3);
-	ghostids.push_back(BASE + 6);
-	ghostids.push_back(BASE + 9);
-	ghostids.push_back(BASE + 12);
-#undef BASE
+	ghostids.push_back(3003);
 	// Instead, register each pushable sprite with all platforms
 	ObstaclePlatformHolder::obstplats_map::iterator ite;
 	for (ite = plats.begin(); ite != plats.end(); ite++) {
