@@ -112,6 +112,7 @@ void collision_callback(Sprite* self, Sprite* actor, void* c) {
 	GameSprite* aktor = dynamic_cast<GameSprite*>(actor);
 	nf(!aktor, "Actor sprite is not a GameSprite");
 	d->pacmov->collided(aktor);
+	d->snailymov->collided(aktor);
 	obst->WhenHit(self, actor, 0);
 }
 
