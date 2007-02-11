@@ -31,6 +31,7 @@ class ActorMovement {
 	void collided(GameSprite* who);
 	MovingAnimator* getMovingAnimator(void);
 	FrameRangeAnimator* getFrameRangeAnimator(void);
+	enum move_t getLastMove(void) const;
 	private :
 	struct AnimatorPair;
 	struct SuspendFunctor;

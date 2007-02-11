@@ -94,6 +94,9 @@ struct amc_t {
 	virtual int operator () (Animator*) const = 0;
 	virtual ~amc_t(void);
 };
+
+// Current game loop time
+extern timestamp_t const* currTime;
 } // namespace cs454_2006
 
 #endif // __commons_hpp__

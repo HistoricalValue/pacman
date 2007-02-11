@@ -53,10 +53,10 @@ static void parseLine(WaypointHolder* self, std::string& line,
 	d.x = conftopx(cppstrtol(*++tok, 10));
 	d.y = conftopx(cppstrtol(*++tok, 10));
 	// read up, right, down, left
+	d.left = cppstrtol(*++tok, 10);
 	d.up = cppstrtol(*++tok, 10);
 	d.right = cppstrtol(*++tok, 10);
 	d.down = cppstrtol(*++tok, 10);
-	d.left = cppstrtol(*++tok, 10);
 
 	Waypoint *n00b = NULL;
 	self->addWaypoint(n00b = new Waypoint(
@@ -92,3 +92,13 @@ void WaypointHolder::setBug(SDL_Surface* _bug) {
 std::list<Waypoint*> WaypointHolder::getWaypoints(void) const {
 	return waypoints;
 } // getWaypoints
+
+void WaypointHolder::setCollision(GameSprite* g, CollisionChecker *cc,
+ bool should) {
+	std::list<Waypoint*>::iterator ite;
+	for (ite = waypoints.begin(); ite != waypoints.end(); ite++)
+		should ?
+		 cc->Register(*ite, g) :
+		 cc->Cancel(*ite, g);
+} // registerCollision
+

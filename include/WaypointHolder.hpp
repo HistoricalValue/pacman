@@ -9,6 +9,8 @@
 #include <string>
 #include <list>
 #include "Waypoint.hpp"
+#include "CollisionChecker.hpp"
+#include "GameSprite.hpp"
 typedef unsigned short int waypointid_t;
 class WaypointHolder {
 	public :
@@ -16,6 +18,7 @@ class WaypointHolder {
 	Waypoint* getWaypoint(waypointid_t id) const;
 	std::list<Waypoint*> getWaypoints(void) const;
 	void addWaypoint(Waypoint* w);
+	void setCollision(GameSprite*, CollisionChecker*, bool);
 	// For convencience
 	void setBug(SDL_Surface*);
 	void display(SDL_Surface*);
