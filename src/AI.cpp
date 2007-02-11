@@ -51,7 +51,7 @@ void AI::Random(Waypoint* waypoint, Ghost* ghost){
 	if(waypoint->canGoRight() && lastmove != ActorMovement::LEFT)
 		directions[counter++] = ActorMovement::RIGHT;
 
-	am->pressed(directions[rand() % counter], getCurrentTime());
+	am->pressed(directions[rand() % counter], cs454_2006::getCurrentTime());
 }
 
 void AI::SetMoves(std::map<GameSprite*, ActorMovement*> _moves){
