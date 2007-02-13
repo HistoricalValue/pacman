@@ -165,6 +165,7 @@ void setup(data& d) {
 	// Set up AI
 	Targets *targets = new Targets;
 	targets->pacman = d.pacman;
+	targets->lair = d.animation_data->wayhold->getWaypoint(802);
 	AI::SetTargets(targets);
 	std::map<GameSprite*, ActorMovement*> actormoves;
 	actormoves[d.pacman] = d.pacmov;
@@ -202,6 +203,8 @@ void setup(data& d) {
 		 Waypoint::TeleportCallback,
 		 teleportals[i == 0? 1 : 0]
 		);
+
+	// Set up targets for AI
 }
 } // namespace sakutest
 
