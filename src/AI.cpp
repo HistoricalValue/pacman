@@ -40,6 +40,7 @@ void AI::Stalker(Waypoint* waypoint, Ghost* ghost, Sprite* target){
 	short int counter = 0;
 	ActorMovement *am = moves[ghost];
 	ActorMovement::move_t lastmove = am->getLastMove();
+	if(waypoint == targets->lair) lastmove = ActorMovement::NOWHERE;
 
 	if(waypoint->canGoUp() && lastmove != ActorMovement::DOWN && up)
 		directions[counter++] = ActorMovement::UP;
@@ -103,6 +104,7 @@ void AI::Random(Waypoint* waypoint, Ghost* ghost){
 	if(waypoint->canGoRight() && lastmove != ActorMovement::LEFT)
 		directions[counter++] = ActorMovement::RIGHT;
 
+	assert(counter);
 	am->pressed(directions[rand() % counter], getCurrentTime());
 }
 
