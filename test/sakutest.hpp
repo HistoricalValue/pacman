@@ -32,11 +32,11 @@
 struct cs454_2006::GameData { };
 namespace sakutest{
 struct __animators { MovingAnimator *up, *right, *down, *left, *pac, *box,
- *snaily[4];};
+ *snaily[4], *pinky[4];};
 struct __animations { MovingAnimation *up, *right, *down, *left,
- *snaily[4]; };
-struct __yums {FrameRangeAnimator *u, *r, *d, *l, *snaily[4];};
-struct __yams {FrameRangeAnimation *u, *r, *d, *l, *snaily[4];};
+ *snaily[4], *pinky[4]; };
+struct __yums {FrameRangeAnimator *u, *r, *d, *l, *snaily[4], *pinky[4];};
+struct __yams {FrameRangeAnimation *u, *r, *d, *l, *snaily[4], *pinky[4];};
 
 
 enum move_t { NOMOVE = 0, UP = 1, RIGHT = 2, DOWN = 3, LEFT = 4};
@@ -58,7 +58,7 @@ struct data : public GameData {
 	Sprite::CollisionCallback colcal;
 	Anim2SpriteMatcher* matcher;
 	move_t moves[2];
-	ActorMovement* pacmov, *snailymov;
+	ActorMovement* pacmov, *snailymov, *pinkymov;
 	__yums* yums;
 	__yams* yams;
 	amc_t* amc;
