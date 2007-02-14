@@ -1,4 +1,4 @@
-bins += sakutest 
+bins += #sakutest 
 # sakutest : \
 # 	../src/AnimationFilm.o \
 # 	../src/AnimationFilmHolder.o \
@@ -13,4 +13,5 @@ bins += sakutest
 # 	../src/MovingAnimator.o
 
 CXXFLAGS += -I./
-sakutest : sakutest_setup.o $(wildcard ../src/*.o) sakutest_handleInput.o
+sakutest : sakutest_setup.o $(wildcard ../src/*.o) sakutest_handleInput.o 
+sakutest.o : ../client/pacman.cpp

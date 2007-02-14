@@ -6,12 +6,14 @@ CPPFLAGS += -I/mingw/include/
 endif
 
 CXX = g++
-CXXFLAGS += -pedantic -Wall -ansi -g -O3
-CPPFLAGS += -I../include
+CXXFLAGS += -pedantic -Wall -ansi -g -O0
+CPPFLAGS += -I../include $(ADD_CPPFLAGS)
 CC = $(CXX)
 CFLAGS = $(CXXFLAGS)
 LD = ld
 LDFLAGS += -lSDL -lSDL_image -lSDL_ttf 
+
+bins += $(ADD_bins)
 
 sources = $(wildcard *.cpp)
 objects = $(sources:.cpp=.o)

@@ -29,7 +29,6 @@
 #define SCREEN_BPP	(32)
 #define SCREEN_FLAGS	(SDL_HWSURFACE|SDL_DOUBLEBUF)
 
-struct cs454_2006::GameData { };
 namespace sakutest{
 struct __animators { MovingAnimator *up, *right, *down, *left, *pac, *box,
  *snaily[4];};
@@ -40,7 +39,7 @@ struct __yams {FrameRangeAnimation *u, *r, *d, *l, *snaily[4];};
 
 
 enum move_t { NOMOVE = 0, UP = 1, RIGHT = 2, DOWN = 3, LEFT = 4};
-struct data : public GameData {
+struct data {
 	SDL_Surface* screen;
 	Uint32* bgcolor;
 	std::string

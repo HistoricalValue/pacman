@@ -132,9 +132,10 @@ MovingAnimation* AnimationHolder::getMovingAnimation(animid_t id) const {
 		if ((*ite)->GetId() == id)
 			//return *ite;
 			break;
-	//return NULL;
-	nf(!(ite!=mv_anims.end()), "Could not find requested Moving "
-	 "Animation");
+	if (ite == mv_anims.end()) {
+		std::cerr << id << std::endl;
+		nf(-1, "Could not find requested Moving Animation");
+	}
 	return *ite;
 } // getMovingAnimation
 
@@ -146,8 +147,9 @@ FrameRangeAnimation* AnimationHolder::getFrameRangeAnimation(animid_t id)
 		if ((*ite)->GetId() == id)
 			//return *ite;
 			break;
-	//return NULL;
-	nf(!(ite!=fr_anims.end()), "Could not find requested Frame Range "
-	 "Animation");
+	if (ite == fr_anims.end()) {
+		std::cerr << id << std::endl;
+		nf(-1, "Could not find requested Frame Range Animation");
+	}
 	return *ite;
 } // getFrameRangeAnimation

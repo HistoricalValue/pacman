@@ -95,10 +95,6 @@ struct amc_t {
 	virtual ~amc_t(void);
 };
 
-// Game data
-struct GameData;
-extern struct GameData* getGameData(void);
-
 // Get current time
 extern timestamp_t getCurrentTime(void);
 } // namespace cs454_2006

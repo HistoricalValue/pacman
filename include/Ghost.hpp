@@ -17,6 +17,7 @@ class Ghost : public GameSprite {
 	ghoststate_t GetState(void);
 
 	Ghost(int x, int y, AnimationFilm *f, spriteid_t id);
+	~Ghost(void);
 };
 
 #endif

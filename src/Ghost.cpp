@@ -12,3 +12,5 @@ Ghost::Ghost(int x, int y, AnimationFilm *f, spriteid_t id) :
 GameSprite(x, y, f, id) {
 	state = NORMAL;
 }
+
+Ghost::~Ghost(void) { }

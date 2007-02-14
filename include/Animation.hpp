@@ -1,5 +1,5 @@
-#ifndef _ANIMATION_HPP_
-#define _ANIMATIPN_HPP_
+#ifndef __animation_hpp__
+#define __animation_hpp__
 
 #include <string>
 
