@@ -71,6 +71,10 @@ void setup(data& d) {
 	d.animators->snaily[1] = new MovingAnimator(false);
 	d.animators->snaily[2] = new MovingAnimator(false);
 	d.animators->snaily[3] = new MovingAnimator(false);
+	d.animators->pinky[0] = new MovingAnimator(false);
+	d.animators->pinky[1] = new MovingAnimator(false);
+	d.animators->pinky[2] = new MovingAnimator(false);
+	d.animators->pinky[3] = new MovingAnimator(false);
 	//
 	d.yums->u = new FrameRangeAnimator(false);
 	d.yums->r = new FrameRangeAnimator(false);
@@ -80,6 +84,11 @@ void setup(data& d) {
 	d.yums->snaily[1] = new FrameRangeAnimator(false);
 	d.yums->snaily[2] = new FrameRangeAnimator(false);
 	d.yums->snaily[3] = new FrameRangeAnimator(false);
+	d.yums->pinky[0] = new FrameRangeAnimator(false);
+	d.yums->pinky[1] = new FrameRangeAnimator(false);
+	d.yums->pinky[2] = new FrameRangeAnimator(false);
+	d.yums->pinky[3] = new FrameRangeAnimator(false);
+
 	//
 	// remove animators that must from holder
 	AnimatorHolder::Cancel(d.animators->up);
@@ -103,18 +112,23 @@ void setup(data& d) {
 	 getMovingAnimation(1004);
 	d.animations->left = d.animation_data->animhold->
 	 getMovingAnimation(1005);
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++){
 		d.animations->snaily[i] = d.animation_data->animhold->
 		 getMovingAnimation(3000 + i);
+		d.animations->pinky[i] = d.animation_data->animhold->
+		 getMovingAnimation(3010 + i);
+	}
 	// Frame range (yums)
 	d.yams->u =d.animation_data->animhold->getFrameRangeAnimation(2005);
 	d.yams->r =d.animation_data->animhold->getFrameRangeAnimation(2004);
 	d.yams->l =d.animation_data->animhold->getFrameRangeAnimation(2003);
 	d.yams->d =d.animation_data->animhold->getFrameRangeAnimation(2002);
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++){
 		d.yams->snaily[i] = d.animation_data->animhold->
 		 getFrameRangeAnimation(3004 + i);
-
+		d.yams->pinky[i] = d.animation_data->animhold->
+		 getFrameRangeAnimation(3014 + i);
+	}
 	// Start animators
 	d.animators->up->Start(d.pacman, d.animations->up, d.startingTime);
 	d.animators->right->Start(d.pacman, d.animations->right, d.startingTime);
@@ -127,11 +141,16 @@ void setup(data& d) {
 	//
 	// For little snaily too
 	for (int i = 0; i < 4; i++) { 
-		Sprite *snail;
+		Sprite *snail, *pink;
 		d.animators->snaily[i]->Start(snail = d.animation_data->
 		 spritehold->getSprite(3003),
 		 d.animations->snaily[i], d.startingTime);
 		d.yums->snaily[i]->Start(snail, d.yams->snaily[i],
+		 d.startingTime);
+		d.animators->pinky[i]->Start(pink = d.animation_data->
+		 spritehold->getSprite(3004),
+		 d.animations->pinky[i], d.startingTime);
+		d.yums->pinky[i]->Start(pink, d.yams->pinky[i],
 		 d.startingTime);
 	}
 
@@ -151,25 +170,34 @@ void setup(data& d) {
 	d.pacmov = new ActorMovement(d.pacman, pacmovs, yummovs, *d.amc,
 	 d.startingTime);
 	// For snaily
-	std::vector<MovingAnimator*> snailymovs;
-	std::vector<FrameRangeAnimator*> snailyyummovs;
+	std::vector<MovingAnimator*> snailymovs, pinkymovs;
+	std::vector<FrameRangeAnimator*> snailyyummovs, pinkyyummovs;
 	for (int i = 0; i < 4; i++) {
 		snailymovs.push_back(d.animators->snaily[i]);
 		snailyyummovs.push_back(d.yums->snaily[i]);
+		pinkymovs.push_back(d.animators->pinky[i]);
+		pinkyyummovs.push_back(d.yums->pinky[i]);
 	}
 	d.snailymov = new ActorMovement(dynamic_cast<Ghost*>(
 	 d.animation_data->spritehold->
 	 getSprite(3003)), snailymovs, snailyyummovs, *d.amc,
 	 d.startingTime);
+	d.pinkymov = new ActorMovement(dynamic_cast<Ghost*>(
+	 d.animation_data->spritehold->
+	 getSprite(3004)), pinkymovs, pinkyyummovs, *d.amc,
+	 d.startingTime);
 	
 	// Set up AI
 	Targets *targets = new Targets;
 	targets->pacman = d.pacman;
+	targets->lair = d.animation_data->wayhold->getWaypoint(802);
 	AI::SetTargets(targets);
 	std::map<GameSprite*, ActorMovement*> actormoves;
 	actormoves[d.pacman] = d.pacmov;
 	actormoves[dynamic_cast<GameSprite*>(
 	 d.animation_data->spritehold->getSprite(3003))] = d.snailymov;
+	actormoves[dynamic_cast<GameSprite*>(
+	 d.animation_data->spritehold->getSprite(3004))] = d.pinkymov;
 	AI::SetMoves(actormoves);
 
 	// register the above for collision checking
@@ -202,6 +230,8 @@ void setup(data& d) {
 		 Waypoint::TeleportCallback,
 		 teleportals[i == 0? 1 : 0]
 		);
+
+	// Set up targets for AI
 }
 } // namespace sakutest
 
@@ -267,13 +297,16 @@ void setUpCollisions(data& d) {
 	// set up waypoint collisions with ghosts
 	// TODO add all ghosts after testing is done
 	Ghost* a_ghost = dynamic_cast<Ghost*>(sh->getSprite(3003));
-	nf(!a_ghost, "Sprite with 3003 <= id < 4000 is no a "
+	Ghost* pinky = dynamic_cast<Ghost*>(sh->getSprite(3004));
+	nf(!a_ghost || !pinky, "Sprite with 3003 <= id < 4000 is no a "
 	 "ghost game sprite.");
 	std::list<Waypoint*> wps = 
 	 d.animation_data->wayhold->getWaypoints();
 	std::list<Waypoint*>::iterator wite;
-	for (wite = wps.begin(); wite != wps.end(); wite++)
+	for (wite = wps.begin(); wite != wps.end(); wite++) {
 		CollisionChecker::Singleton()->Register(*wite, a_ghost);
+		CollisionChecker::Singleton()->Register(*wite, pinky);
+	}
 
 	// Set up pacman collision with two teleporters
 	Waypoint* teleportals[] = {

@@ -36,6 +36,7 @@ int main_wannabe(int argc, char *argv[]) {
 		AnimatorHolder::Progress(d.currTime);
 		d.pacmov->progress(d.currTime);
 		d.snailymov->progress(d.currTime);
+		d.pinkymov->progress(d.currTime);
 		// collision checking happens internally
 
 		d.moves[0]=d.moves[1];
