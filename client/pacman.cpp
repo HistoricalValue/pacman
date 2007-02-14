@@ -41,6 +41,7 @@ int main_pac(int argc, char *argv[]) {
 	// TODO change singleton policy
 	d.amc = new Callbacks::amc(CollisionChecker::Singleton());
 	//
+	// 
 	// Starting time
 	d.startingTime = getTimestamp();
 

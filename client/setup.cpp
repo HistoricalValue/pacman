@@ -16,6 +16,8 @@ struct GameData &setup(struct InitData &d) {
 	fetch_special_sprites(d, r);
 	// Create Actor Movements for special sprites
 	aktor_movements_setup(d, r);
+	// Create special sprite aliases
+	ss_aliases_setup(d, r);
 
 	nf(-1, "Setup not complete"); // TODO remove if setup is complete
 	return r;
@@ -118,6 +120,45 @@ void AnimatorSetup::operator() (Animation* anim) {
 	} else
 		nf(-1, "Unknown animation type");
 } // AnimatorSetup::()
+
+#define CAST_GHOST(A) (dynamic_cast<Ghost*>((A)))
+#define GHOST_CHECK(A) (nf(!A, "Special sprite that is supposed to be "\
+	"a Ghost sprite is not."))
+
+static void ss_aliases_setup(struct InitData const &d, struct GameData &r) {
+	register size_t i = 0;
+	std::vector<GameSprite*>::const_iterator ite;
+	for (ite = r.sss.begin(); ite != r.sss.end(); ite++)
+		switch (i++) {
+			case 0 : // pacman
+				r.pacman = r.sss[i];
+				break;
+			case 1 : // stalker
+				r.ghost.stalker = CAST_GHOST(r.sss[1]);
+				GHOST_CHECK(r.ghost.stalker);
+				break;
+			case 2 : // kieken
+				nf(!r.sss[i], "OMG");
+				r.ghost.kieken = CAST_GHOST(r.sss[2]);
+				GHOST_CHECK(r.ghost.kieken);
+				break;
+			case 3 : // random
+				nf(!r.sss[i], "OMG");
+				r.ghost.random = CAST_GHOST(r.sss[3]);
+				GHOST_CHECK(r.ghost.random);
+				break;
+			case 4 : // retard
+				nf(!r.sss[i], "OMG");
+				r.ghost.retard = CAST_GHOST(r.sss[4]);
+				GHOST_CHECK(r.ghost.retard);
+				break;
+			default :
+				nf(-1, "Unknown special sprite");
+		} // switch i
+} // ss_aliases_setup
+#undef GHOST_CHECK
+#undef CAST_GHOST
+
 // ----------------- Trivial constructors ------------------
 GameData::GameData(void) :
 	screen(static_cast<SDL_Surface*>(0)),
