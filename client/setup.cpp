@@ -26,6 +26,8 @@ struct GameData &setup(struct InitData &d) {
 	r.bg = SDL_MapRGB(r.screen->format, d.bg.r, d.bg.g, d.bg.b);
 	// Set after move callback for animators
 	AnimatorHolder::setAfterMoveCall(&d.callbacks->get_amc());
+	// Set up teleportation waypoints
+	teleportals_setup(d, r);
 
 	nf(-1, "Setup not complete"); // TODO remove if setup is complete
 	return r;
@@ -231,11 +233,25 @@ void CocaSetter::operator() (ObstacleSprite *o) {
 	o->SetCollisionCallback(coca, &cocaclo);
 } // CocaSetter::()
 
+static void teleportals_setup(struct InitData const &d, struct GameData &r){
+	Waypoint *portals[] = {
+		r.animdata->wayhold->getWaypoint(d.weeds[d.LT]),
+		r.animdata->wayhold->getWaypoint(d.weeds[d.RT])
+	};
+
+	portals[0]->SetCollisionCallback(
+	 Waypoint::TeleportCallback,
+	 portals[1]);
+	portals[1]->SetCollisionCallback(
+	 Waypoint::TeleportCallback,
+	 portals[2]);
+} // teleportals_setup
 // Post setup ----------------------------------------------
 void post_setup(PostInitData &pd, InitData &d, GameData &gd) {
 	// Start all animations
 	start_animations(gd.animdata->animhold, pd.matcher, d.startingTime);
 } // post_setup
+
 // ----------------- Trivial constructors ------------------
 GameData::GameData(void) :
 	screen(static_cast<SDL_Surface*>(0)),

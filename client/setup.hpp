@@ -15,7 +15,8 @@ static void fetch_special_sprites(struct InitData const&, struct GameData&);
 static void aktor_movements_setup(struct InitData const&, struct GameData&);
 static void ss_aliases_setup(struct InitData const&, struct GameData&);
 static void ai_setup(struct InitData const&, struct GameData&);
-static void collision_setup(InitData const&, struct GameData&);
+static void collision_setup(struct InitData const&, struct GameData&);
+static void teleportals_setup(struct InitData const&, struct GameData&);
 
 // Foreach - functors ------------------------------------------------------
 //
