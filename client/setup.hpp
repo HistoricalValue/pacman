@@ -6,6 +6,7 @@
 // Needed headers
 #include <iterator>
 #include "AI.hpp"
+#include "AnimatorHolder.hpp"
 
 // Setup functions ---------------------------------------------------------
 static void libs_setup(struct InitData const&, struct GameData &);

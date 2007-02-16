@@ -24,6 +24,8 @@ struct GameData &setup(struct InitData &d) {
 	collision_setup(d, r);
 	// Set up bg colour
 	r.bg = SDL_MapRGB(r.screen->format, d.bg.r, d.bg.g, d.bg.b);
+	// Set after move callback for animators
+	AnimatorHolder::setAfterMoveCall(&d.callbacks->get_amc());
 
 	nf(-1, "Setup not complete"); // TODO remove if setup is complete
 	return r;
