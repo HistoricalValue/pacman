@@ -1,11 +1,20 @@
 #include "client.hpp"
 #include "support.hpp"
 #include "config.h"
+
+static void setup_setup_data(InitData &);
+
 int main_pac(int argc, char *argv[]) {
 	// Clean exit first
 	atexit(cleanup);
 	
 	InitData d;
+	setup_setup_data(d);
+	setup(d);
+	return 0;
+}
+
+static void setup_setup_data(InitData &d) {
 	// Assign values to initialisation data
 	//
 	// Config files
@@ -37,14 +46,16 @@ int main_pac(int argc, char *argv[]) {
 		d.anids[ss_stalker].fr[i] = (3004 + i);
 	}
 	//
-	// Create after move callback
+	// Point to collision checker
 	// TODO change singleton policy
-	d.amc = new Callbacks::amc(CollisionChecker::Singleton());
+	d.cc = CollisionChecker::Singleton();
+	// Create callbacks
+	d.callbacks = new Callbacks(d.cc, collision_callback);
 	//
-	// 
+	// Special waypoint IDs
+	d.weeds[d.LT] = 666; // Left Teleport
+	d.weeds[d.RT] = 667; // Right Teleport
+	d.weeds[d.TM] = 802; // Traffic Man / Snail Lair
 	// Starting time
 	d.startingTime = getTimestamp();
-
-	setup(d);
-	return 0;
-}
+} // setup_setup_data

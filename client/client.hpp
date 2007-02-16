@@ -12,6 +12,7 @@
 #include "ActorMovement.hpp"
 #include "Animation.hpp"
 #include "SDL/SDL_ttf.h"
+#include "support.hpp"
 
 enum ss_t { // special sprite type
 	ss_pacman, ss_stalker, ss_kieken, ss_random, ss_retard
@@ -72,8 +73,10 @@ struct InitData {
 	std::vector<spriteid_t> speeds; // spid
 	// Per sprite animation IDs
 	std::vector<AnimationIDs> anids;
-	// After move callback, for animators.
-	amc_t *amc;
+	// Callbacks: contains
+	// * After move callback, for animators
+	// * CollisionCallback for obstacle collisions
+	struct Callbacks *callbacks;
 	// Special waypoint IDs.
 	// 0 :: left teleport.
 	// 1 :: right teleport.
@@ -92,6 +95,8 @@ struct InitData {
 	std::list<setup_func_t> custset;
 	// Screen initialisation data
 	struct Screen screen;
+	// Collision Checker
+	CollisionChecker *cc;
 
 	// Ignore
 	InitData(void); ~InitData(void);

@@ -20,6 +20,8 @@ struct GameData &setup(struct InitData &d) {
 	ss_aliases_setup(d, r);
 	// Set up AI
 	ai_setup(d, r);
+	// Set up collision pairs
+	collision_setup(d, r);
 
 	nf(-1, "Setup not complete"); // TODO remove if setup is complete
 	return r;
@@ -87,8 +89,8 @@ void SSAMS::operator() (GameSprite *g) {
 	std::for_each(fr.begin(), fr.end(), torset);
 
 	// Create Actor Movement
-	r.akmovs[g] = (new ActorMovement(g, mvtors, frtors, *d.amc,
-	 d.startingTime));
+	r.akmovs[g] = (new ActorMovement(g, mvtors, frtors,
+	 d.callbacks->get_amc(), d.startingTime));
 
 	// Advance iterator
 	anids++;
@@ -175,6 +177,47 @@ static void ai_setup(struct InitData const &d, struct GameData &r) {
 	AI::SetMoves(r.akmovs);
 } // ai_setup
 
+static void collision_setup(InitData const &d, GameData &r) {
+	// Each obstacle platform must be registered with all
+	// special sprites.
+	ObstaclePlatformHolder::obstplats_map& obstplats =
+	 r.animdata->plathold->getObstaclePlatforms();
+	std::for_each(obstplats.begin(), obstplats.end(),
+	 SSS_CollisionRegisterer(d, r));
+
+	// Register all ghosts for collision checking with all waypoints
+	std::for_each(r.sss.begin() + 1, r.sss.end(), GWCR(d, r));
+
+	// Set up pacman collisioning with teleporters
+	d.cc->Register(
+	 r.animdata->wayhold->getWaypoint(d.weeds[d.RT]), // Right teleport
+	 r.pacman);
+	d.cc->Register(
+	 r.animdata->wayhold->getWaypoint(d.weeds[d.LT]), // Left teleport
+	 r.pacman);
+
+	// Set up custom callback 
+} // collision_setup
+
+// Special SpriteS Collision Registerer
+void SSS_CollisionRegisterer::operator() (std::pair<obstplatid_t const,
+ ObstaclePlatform*>& p)
+{
+	std::for_each(r.sss.begin(), r.sss.end(), SOPCR(p.second));
+} // SSS_CollisionRegisterer::()
+
+// Sprite - Obstalce Platform Collision Registerer
+void SOPCR::operator() (GameSprite* g) {
+	o->SetCollisionCheck(g, true);
+} // SOPRC::()
+
+// Ghost - Waypoint Collision Registerer
+void GWCR::operator() (GameSprite *ghost) {
+	std::list<Waypoint*>::iterator ite;
+	for (ite = waypoints.begin(); ite != waypoints.end(); ite++)
+		d.cc->Register(*ite, ghost);
+} // GWCR::()
+
 // ----------------- Trivial constructors ------------------
 GameData::GameData(void) :
 	screen(static_cast<SDL_Surface*>(0)),
@@ -191,11 +234,12 @@ InitData::InitData(void) :
 	startingTime(0),
 	speeds(),
 	anids(), 
-	amc(static_cast<amc_t*>(0)),
+	callbacks(CAST(Callbacks*, 0)),
 	weeds(3),
 	sdlflags(0),
 	custset(),
-	screen() { }
+	screen(),
+	cc(static_cast<CollisionChecker*>(0)) { }
 Ghosts::Ghosts(Ghost *d) :
 	stalker(d),
 	kieken(d),
@@ -228,6 +272,15 @@ AnimatorSetup::AnimatorSetup(InitData const &d, GameData &r, GameSprite *_g,
 	g(_g),
 	mvtors(_mvtors),
 	frtors(_frtors) { }
+SSS_CollisionRegisterer::SSS_CollisionRegisterer(InitData const &_d,
+ GameData &_r) :
+ 	for_each_functor<std::pair<obstplatid_t const, ObstaclePlatform*>&>
+	(_d, _r) { }
+SOPCR::SOPCR(ObstaclePlatform *_o) :
+	o(_o) { }
+GWCR::GWCR(InitData const &d, GameData &r) :
+	for_each_functor<GameSprite*>(d, r),
+	waypoints(r.animdata->wayhold->getWaypoints()) { }
 
 // ----------------- Even more trivial destructors ------------------
 Ghosts::~Ghosts(void) { }

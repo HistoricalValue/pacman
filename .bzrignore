@@ -8,3 +8,4 @@ test/zarutest.exe
 *stderr.txt
 *stdout.txt
 resources/sakutest.log
+client/pacman

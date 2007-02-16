@@ -4,6 +4,7 @@
  */
 
 // Needed headers
+#include <iterator>
 #include "AI.hpp"
 
 // Setup functions ---------------------------------------------------------
@@ -13,6 +14,7 @@ static void fetch_special_sprites(struct InitData const&, struct GameData&);
 static void aktor_movements_setup(struct InitData const&, struct GameData&);
 static void ss_aliases_setup(struct InitData const&, struct GameData&);
 static void ai_setup(struct InitData const&, struct GameData&);
+static void collision_setup(InitData const&, struct GameData&);
 
 // Foreach - functors ------------------------------------------------------
 //
@@ -61,3 +63,23 @@ struct AnimatorSetup : public for_each_functor<Animation*> {
 	std::vector<MovingAnimator*>& mvtors;
 	std::vector<FrameRangeAnimator*>& frtors;
 }; // AnimatorSetup
+// Register special sprites for collision checking for obstacle platforms
+struct SSS_CollisionRegisterer : public for_each_functor<
+ std::pair<obstplatid_t const, ObstaclePlatform*>&>
+{
+	void operator() (std::pair<obstplatid_t const, ObstaclePlatform*>&);
+	SSS_CollisionRegisterer(InitData const&, GameData&);
+}; // struct SSS_CollisionRegisterer
+struct SOPCR { // Sprite - Obstacle Platform Collision Registerer
+	void operator() (GameSprite*);
+	SOPCR(ObstaclePlatform*);
+	private :
+	ObstaclePlatform *o;
+}; // struct SOPRC
+// Register all ghosts for collision checking with waypoints
+struct GWCR : public for_each_functor<GameSprite*> {
+	void operator() (GameSprite *ghost);
+	GWCR(InitData const&, GameData&);
+	private :
+	std::list<Waypoint*> waypoints;
+}; // struct GWCR
