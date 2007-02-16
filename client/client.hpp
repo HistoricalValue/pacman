@@ -39,6 +39,8 @@ struct GameData {
 	struct Ghosts ghost;
 	// And their ActorMovement instances
 	std::map<GameSprite*, ActorMovement*> akmovs;
+	// Background colour for redrawing
+	Uint32 bg;
 
 	// Ignore
 	GameData(void); ~GameData(void);
@@ -97,6 +99,8 @@ struct InitData {
 	struct Screen screen;
 	// Collision Checker
 	CollisionChecker *cc;
+	// Background colour
+	Colour bg;
 
 	// Ignore
 	InitData(void); ~InitData(void);
@@ -105,4 +109,10 @@ struct InitData {
 struct GameData *setup(struct InitData *);
 struct GameData &setup(struct InitData &);
 
+struct PostInitData {
+	// Animation to Sprite matcher
+	Anim2SpriteMatcher *matcher;
+}; // struct PostInitData
+
+void post_setup(PostInitData &, InitData &, GameData &);
 #endif // __client_hpp__

@@ -37,4 +37,10 @@ struct Callbacks {
 extern void collision_callback(Sprite*, Sprite*, void *c = NULL);
 extern void cleanup(void);
 
+struct Matcher : public Anim2SpriteMatcher {
+	Sprite* operator() (Animation*) const;
+	Matcher(SpriteHolder*);
+	~Matcher(void);
+};
+
 #endif // __callbacks_hpp__

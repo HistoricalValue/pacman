@@ -22,6 +22,8 @@ struct GameData &setup(struct InitData &d) {
 	ai_setup(d, r);
 	// Set up collision pairs
 	collision_setup(d, r);
+	// Set up bg colour
+	r.bg = SDL_MapRGB(r.screen->format, d.bg.r, d.bg.g, d.bg.b);
 
 	nf(-1, "Setup not complete"); // TODO remove if setup is complete
 	return r;
@@ -227,6 +229,11 @@ void CocaSetter::operator() (ObstacleSprite *o) {
 	o->SetCollisionCallback(coca, &cocaclo);
 } // CocaSetter::()
 
+// Post setup ----------------------------------------------
+void post_setup(PostInitData &pd, InitData &d, GameData &gd) {
+	// Start all animations
+	start_animations(gd.animdata->animhold, pd.matcher, d.startingTime);
+} // post_setup
 // ----------------- Trivial constructors ------------------
 GameData::GameData(void) :
 	screen(static_cast<SDL_Surface*>(0)),

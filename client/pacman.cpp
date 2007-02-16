@@ -3,6 +3,7 @@
 #include "config.h"
 
 static void setup_setup_data(InitData &);
+static void setup_post_setup_data(PostInitData &, GameData &);
 
 int main_pac(int argc, char *argv[]) {
 	// Clean exit first
@@ -10,7 +11,11 @@ int main_pac(int argc, char *argv[]) {
 	
 	InitData d;
 	setup_setup_data(d);
-	setup(d);
+	GameData &gd = setup(d);
+
+	PostInitData pd;
+	setup_post_setup_data(pd, gd);
+	post_setup(pd, d, gd);
 	return 0;
 }
 
@@ -56,6 +61,16 @@ static void setup_setup_data(InitData &d) {
 	d.weeds[d.LT] = 666; // Left Teleport
 	d.weeds[d.RT] = 667; // Right Teleport
 	d.weeds[d.TM] = 802; // Traffic Man / Snail Lair
+	//
+	// Set bg colour
+	d.bg.r = d.bg.g = d.bg.b = 0x20;
+	//
 	// Starting time
 	d.startingTime = getTimestamp();
+
 } // setup_setup_data
+
+static void setup_post_setup_data(PostInitData &d, GameData &gd) {
+	// Create animation to sprite matcher
+	d.matcher = new Matcher(gd.animdata->spritehold);
+} // setup_post_setup_data

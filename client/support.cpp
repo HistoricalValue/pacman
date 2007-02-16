@@ -45,3 +45,28 @@ Sprite::CollisionCallback Callbacks::get_coca() { return coca; }
 _cocaclo::_cocaclo(void) : 
  akmovs(static_cast<std::map<GameSprite*, ActorMovement*>*>(0)) { }
 _cocaclo::~_cocaclo(void) { }
+
+Sprite* Matcher::operator() (Animation* a) const {
+	bool noRun = false;
+	spriteid_t spid;
+	animid_t anid = a->GetId();
+	if (anid == 1) { // evil box
+		spid = 1002;
+	} else if (anid >= 2002 && anid <= 2005 ) { // cartman frame range
+		noRun = true;
+	} else if ((anid >= 1002 && anid <= 1005)) { // cartman mov
+		// do not run those ones
+		noRun = true;
+	} else if (anid >= 3000 && anid <= 3023) { // ghost snailz
+		noRun = true;
+	} else if (anid == 3024) { // choco yum
+		spid = 1015;
+	} else {
+		spid = a->GetId();
+		spid = anid;
+	}
+	return noRun ? NULL : sh->getSprite(spid);
+}
+Matcher::Matcher(SpriteHolder* _sh) : Anim2SpriteMatcher(_sh) { }
+Matcher::~Matcher(void) { }
+
