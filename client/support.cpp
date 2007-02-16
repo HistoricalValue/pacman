@@ -33,7 +33,7 @@ void collision_callback(Sprite *callbacker, Sprite *stoocker, void *c) {
 	nf(!a, "Stoocker sprite is not the right type.");
 
 	// Inform the appropriate ActorMovement
-	cocaclo->akmovs[a]->collided(a);
+	(*cocaclo->akmovs)[a]->collided(a);
 
 	// Call obstacle's callback to do the rest
 	o->WhenHit(o, a, 0);
@@ -41,3 +41,7 @@ void collision_callback(Sprite *callbacker, Sprite *stoocker, void *c) {
 
 struct _cocaclo &Callbacks::get_cocaclo() { return cocaclo; }
 Sprite::CollisionCallback Callbacks::get_coca() { return coca; }
+
+_cocaclo::_cocaclo(void) : 
+ akmovs(static_cast<std::map<GameSprite*, ActorMovement*>*>(0)) { }
+_cocaclo::~_cocaclo(void) { }

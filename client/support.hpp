@@ -9,7 +9,9 @@
 #include "commons.hpp"
 
 struct _cocaclo {
-	std::map<GameSprite*, ActorMovement*> akmovs;
+	std::map<GameSprite*, ActorMovement*> *akmovs;
+
+	_cocaclo(void); ~_cocaclo(void);
 }; // struct _cocaclo
 
 struct Callbacks {
