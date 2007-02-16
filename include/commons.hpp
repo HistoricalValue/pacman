@@ -27,8 +27,10 @@
 // Casting
 #ifdef __cplusplus
 #define CAST(A,B) static_cast<A>(B)
+#define DYNCAST(A,B) dynamic_cast<A>(B)
 #else
 #define CAST(A,B) (A)B
+#define DYNCAST(A,B) (A)B
 #endif // __cplusplus
 namespace cs454_2006 {
 // Our abstract surface type

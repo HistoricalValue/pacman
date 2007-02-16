@@ -9,7 +9,7 @@
 #include "commons.hpp"
 
 struct _cocaclo {
-	std::list<ActorMovement*> informees; // act-movs to be informed
+	std::map<GameSprite*, ActorMovement*> &akmovs;
 }; // struct _cocaclo
 
 struct Callbacks {
