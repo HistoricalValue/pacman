@@ -18,6 +18,8 @@ struct GameData &setup(struct InitData &d) {
 	aktor_movements_setup(d, r);
 	// Create special sprite aliases
 	ss_aliases_setup(d, r);
+	// Set up AI
+	ai_setup(d, r);
 
 	nf(-1, "Setup not complete"); // TODO remove if setup is complete
 	return r;
@@ -85,7 +87,7 @@ void SSAMS::operator() (GameSprite *g) {
 	std::for_each(fr.begin(), fr.end(), torset);
 
 	// Create Actor Movement
-	r.akmovs.push_back(new ActorMovement(g, mvtors, frtors, *d.amc,
+	r.akmovs[g] = (new ActorMovement(g, mvtors, frtors, *d.amc,
 	 d.startingTime));
 
 	// Advance iterator
@@ -131,24 +133,25 @@ static void ss_aliases_setup(struct InitData const &d, struct GameData &r) {
 	for (ite = r.sss.begin(); ite != r.sss.end(); ite++)
 		switch (i++) {
 			case 0 : // pacman
-				r.pacman = r.sss[i];
+				r.pacman = r.sss[0];
 				break;
 			case 1 : // stalker
+				nf(!r.sss[1], "Null special sprite");
 				r.ghost.stalker = CAST_GHOST(r.sss[1]);
 				GHOST_CHECK(r.ghost.stalker);
 				break;
 			case 2 : // kieken
-				nf(!r.sss[i], "OMG");
+				nf(!r.sss[2], "Null special sprite");
 				r.ghost.kieken = CAST_GHOST(r.sss[2]);
 				GHOST_CHECK(r.ghost.kieken);
 				break;
 			case 3 : // random
-				nf(!r.sss[i], "OMG");
+				nf(!r.sss[3], "Null special sprite");
 				r.ghost.random = CAST_GHOST(r.sss[3]);
 				GHOST_CHECK(r.ghost.random);
 				break;
 			case 4 : // retard
-				nf(!r.sss[i], "OMG");
+				nf(!r.sss[4], "Null special sprite");
 				r.ghost.retard = CAST_GHOST(r.sss[4]);
 				GHOST_CHECK(r.ghost.retard);
 				break;
@@ -158,6 +161,19 @@ static void ss_aliases_setup(struct InitData const &d, struct GameData &r) {
 } // ss_aliases_setup
 #undef GHOST_CHECK
 #undef CAST_GHOST
+
+static void ai_setup(struct InitData const &d, struct GameData &r) {
+	// Set up ghost targets
+	Targets *targets = new Targets;
+	targets->pacman = r.pacman;
+	targets->lair = r.animdata->wayhold->getWaypoint(
+	 d.weeds[d.TM]);
+	// Actor/ActorMovement pairs are already set up
+
+	// Let AI know about those things
+	AI::SetTargets(targets);
+	AI::SetMoves(r.akmovs);
+} // ai_setup
 
 // ----------------- Trivial constructors ------------------
 GameData::GameData(void) :

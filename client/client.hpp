@@ -5,6 +5,7 @@
 #ifndef __client_hpp__
 #define __client_hpp__
 #include <vector>
+#include <map>
 #include "AnimationSetup.hpp"
 #include "Ghost.hpp"
 #include "GameSprite.hpp"
@@ -36,7 +37,7 @@ struct GameData {
 	GameSprite *pacman;
 	struct Ghosts ghost;
 	// And their ActorMovement instances
-	std::vector<ActorMovement*> akmovs;
+	std::map<GameSprite*, ActorMovement*> akmovs;
 
 	// Ignore
 	GameData(void); ~GameData(void);
