@@ -197,6 +197,10 @@ static void collision_setup(InitData const &d, GameData &r) {
 	 r.pacman);
 
 	// Set up custom callback 
+	std::list<ObstacleSprite*> const &obsts = r.animdata->spritehold->
+	 getObstacleSprites();
+	std::for_each(obsts.begin(), obsts.end(),
+	 CocaSetter(d.callbacks->get_coca(), d.callbacks->get_cocaclo()));
 } // collision_setup
 
 // Special SpriteS Collision Registerer
@@ -217,6 +221,11 @@ void GWCR::operator() (GameSprite *ghost) {
 	for (ite = waypoints.begin(); ite != waypoints.end(); ite++)
 		d.cc->Register(*ite, ghost);
 } // GWCR::()
+
+// CocaSetter : CollisionCallback setter
+void CocaSetter::operator() (ObstacleSprite *o) {
+	o->SetCollisionCallback(coca, &cocaclo);
+} // CocaSetter::()
 
 // ----------------- Trivial constructors ------------------
 GameData::GameData(void) :
@@ -281,6 +290,9 @@ SOPCR::SOPCR(ObstaclePlatform *_o) :
 GWCR::GWCR(InitData const &d, GameData &r) :
 	for_each_functor<GameSprite*>(d, r),
 	waypoints(r.animdata->wayhold->getWaypoints()) { }
+CocaSetter::CocaSetter(Sprite::CollisionCallback _coca, _cocaclo &cocaclo_):
+	coca(_coca),
+	cocaclo(cocaclo_) { }
 
 // ----------------- Even more trivial destructors ------------------
 Ghosts::~Ghosts(void) { }

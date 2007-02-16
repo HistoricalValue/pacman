@@ -9,14 +9,13 @@
 #include "commons.hpp"
 
 struct _cocaclo {
-	std::map<GameSprite*, ActorMovement*> &akmovs;
+	std::map<GameSprite*, ActorMovement*> akmovs;
 }; // struct _cocaclo
 
 struct Callbacks {
 	amc_t &get_amc(void);
 	Sprite::CollisionCallback get_coca(void);
-	void set_cocaclo(_cocaclo*); // set collision callback closure
-	_cocaclo *get_cocaclo(void); // get collision callback closure
+	_cocaclo &get_cocaclo(void); // get collision callback closure
 
 	Callbacks(
 	 CollisionChecker*,
@@ -30,7 +29,7 @@ struct Callbacks {
 	CollisionChecker *cc;
 	_amc amc;
 	Sprite::CollisionCallback coca;
-	_cocaclo *cocaclo;
+	_cocaclo cocaclo;
 }; // struct Callbacks
 
 extern void collision_callback(Sprite*, Sprite*, void *c = NULL);

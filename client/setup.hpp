@@ -83,3 +83,11 @@ struct GWCR : public for_each_functor<GameSprite*> {
 	private :
 	std::list<Waypoint*> waypoints;
 }; // struct GWCR
+// Sets given collision callback to the sprites
+struct CocaSetter {
+	void operator() (ObstacleSprite*);
+	CocaSetter(Sprite::CollisionCallback, _cocaclo&);
+	private :
+	Sprite::CollisionCallback coca;
+	_cocaclo &cocaclo;
+}; // struct CocaSetter

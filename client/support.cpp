@@ -5,7 +5,7 @@ int Callbacks::_amc::operator() (Animator *a) const {
 }
 
 Callbacks::Callbacks( CollisionChecker *_cc, Sprite::CollisionCallback scc):
- cc(_cc), amc(), coca(scc), cocaclo(CAST(_cocaclo*, 0)) { }
+ cc(_cc), amc(), coca(scc), cocaclo() { }
 Callbacks::~Callbacks(void) { }
 Callbacks::_amc::_amc(void) { }
 Callbacks::_amc::~_amc(void) { }
@@ -38,3 +38,6 @@ void collision_callback(Sprite *callbacker, Sprite *stoocker, void *c) {
 	// Call obstacle's callback to do the rest
 	o->WhenHit(o, a, 0);
 } // collision_callback
+
+struct _cocaclo &Callbacks::get_cocaclo() { return cocaclo; }
+Sprite::CollisionCallback Callbacks::get_coca() { return coca; }
