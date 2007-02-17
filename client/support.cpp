@@ -1,13 +1,14 @@
 #include "support.hpp"
 
 int Callbacks::_amc::operator() (Animator *a) const {
+	cc->Check();
 	return 0;
 }
 
 Callbacks::Callbacks( CollisionChecker *_cc, Sprite::CollisionCallback scc):
- cc(_cc), amc(), coca(scc), cocaclo() { }
+ cc(_cc), amc(cc), coca(scc), cocaclo() { }
 Callbacks::~Callbacks(void) { }
-Callbacks::_amc::_amc(void) { }
+Callbacks::_amc::_amc(CollisionChecker *_cc) : cc(_cc) { }
 Callbacks::_amc::~_amc(void) { }
 
 void cleanup(void) {
@@ -22,7 +23,9 @@ amc_t &Callbacks::get_amc(void) {
 } // Callback::get_amc
 
 void collision_callback(Sprite *callbacker, Sprite *stoocker, void *c) {
+	std::cerr << "Doing collision callbacks"<<std::endl;
 	// Retrive closure data
+	nf(!c, "Closure is NULL");
 	_cocaclo *cocaclo = CAST(_cocaclo*, c);
 
 	// Retrieve obstacle

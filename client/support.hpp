@@ -26,7 +26,9 @@ struct Callbacks {
 	private :
 	struct _amc : public cs454_2006::amc_t {
 		int operator() (Animator*) const; 
-		_amc(void); ~_amc(void);
+		_amc(CollisionChecker *); ~_amc(void);
+		private :
+		CollisionChecker *cc;
 	};
 	CollisionChecker *cc;
 	_amc amc;
