@@ -243,8 +243,9 @@ static void teleportals_setup(struct InitData const &d, struct GameData &r){
 	 portals[1]);
 	portals[1]->SetCollisionCallback(
 	 Waypoint::TeleportCallback,
-	 portals[2]);
+	 portals[0]);
 } // teleportals_setup
+
 // Post setup ----------------------------------------------
 void post_setup(PostInitData &pd, InitData &d, GameData &gd) {
 	// Start all animations

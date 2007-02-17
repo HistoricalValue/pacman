@@ -58,7 +58,7 @@ static void setup_setup_data(InitData &d) {
 	}
 	//
 	// Point to collision checker
-	// TODO change singleton policy
+	// TODO -- Low -- change singleton policy
 	d.cc = CollisionChecker::Singleton();
 	// Create callbacks
 	d.callbacks = new Callbacks(d.cc, collision_callback);

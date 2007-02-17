@@ -23,7 +23,6 @@ amc_t &Callbacks::get_amc(void) {
 } // Callback::get_amc
 
 void collision_callback(Sprite *callbacker, Sprite *stoocker, void *c) {
-	std::cerr << "Doing collision callbacks"<<std::endl;
 	// Retrive closure data
 	nf(!c, "Closure is NULL");
 	_cocaclo *cocaclo = CAST(_cocaclo*, c);
