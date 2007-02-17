@@ -8,6 +8,8 @@ struct GameData &setup(struct InitData &d) {
 	GameData &r = *new GameData;
 	// Libraries setup
 	libs_setup(d, r);
+	// Set starting time
+	d.startingTime = getTimestamp();
 	// Set up screen
 	screen_setup(d, r);
 	// Create and get Animation Data

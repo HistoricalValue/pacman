@@ -81,6 +81,7 @@ static void setup_post_setup_data(PostInitData &d, GameData &gd) {
 	d.matcher = new Matcher(gd.animdata->spritehold);
 } // setup_post_setup_data
 
+static timestamp_t currTime;
 static void gaim_loop(GameData &d) {
 	register const timestamp_t loop_cap = 1000/60 + 1;
 	register timestamp_t timesand;
@@ -89,7 +90,7 @@ static void gaim_loop(GameData &d) {
 	register uint16_t numloops = 0;
 	while (!exit) {
 		// get gaim loop starting time
-		d.currTime = timesand = getTimestamp();
+		d.currTime = timesand = currTime = getTimestamp();
 
 		// Handle input events
 		inputControl(d, &exit);
@@ -123,3 +124,5 @@ static void gaim_loop(GameData &d) {
 	std::cerr << "Average gaim loop duration: " << loop_avg <<
 	 std::endl << "Average fps: " << (1000 / loop_avg) << std::endl;
 } // gaim_loop
+
+timestamp_t cs454_2006::getCurrentTime(void) { return currTime; }

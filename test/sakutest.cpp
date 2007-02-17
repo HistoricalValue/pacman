@@ -129,6 +129,4 @@ after_move_call::after_move_call(void) : cc(CollisionChecker::Singleton()){}
 
 } // namespace sakutest
 
-timestamp_t cs454_2006::getCurrentTime(void) { return d.currTime; }
-
 #endif

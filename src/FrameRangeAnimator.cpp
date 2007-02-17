@@ -8,7 +8,6 @@ void FrameRangeAnimator::Progress (timestamp_t currTime) {
 
 //	while (diff >= delay) {
 	if (diff >= delay) {
-
 		if (currFrame == anim->GetEndFrame())
 			currFrame = anim->GetStartFrame();
 		else
@@ -62,3 +61,5 @@ bool FrameRangeAnimator::EnsureProgressable(unsigned int steps,
 			
 	return result;
 } // MakeProgressable
+
+Sprite *FrameRangeAnimator::GetSprite(void) { return sprite; }

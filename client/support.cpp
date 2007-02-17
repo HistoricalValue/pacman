@@ -54,6 +54,8 @@ Sprite* Matcher::operator() (Animation* a) const {
 	animid_t anid = a->GetId();
 	if (anid == 1) { // evil box
 		spid = 1002;
+	} else if (anid >= 3 && anid <= 50) { // static walls - no anim
+		noRun = true;
 	} else if (anid >= 2002 && anid <= 2005 ) { // cartman frame range
 		noRun = true;
 	} else if ((anid >= 1002 && anid <= 1005)) { // cartman mov
