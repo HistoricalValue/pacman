@@ -29,7 +29,6 @@ struct GameData &setup(struct InitData &d) {
 	// Set up teleportation waypoints
 	teleportals_setup(d, r);
 
-	nf(-1, "Setup not complete"); // TODO remove if setup is complete
 	return r;
 } // setup
 

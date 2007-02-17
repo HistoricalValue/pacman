@@ -43,4 +43,12 @@ struct Matcher : public Anim2SpriteMatcher {
 	~Matcher(void);
 };
 
+struct AnimatorProgressor : public std::unary_function<
+ std::pair<GameSprite* const, ActorMovement*>&, void>
+{
+	result_type operator() (argument_type);
+	AnimatorProgressor(timestamp_t);
+	private :
+	timestamp_t timesand;
+}; // struct AnimatorProgressor
 #endif // __callbacks_hpp__

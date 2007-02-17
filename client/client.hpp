@@ -41,6 +41,8 @@ struct GameData {
 	std::map<GameSprite*, ActorMovement*> akmovs;
 	// Background colour for redrawing
 	Uint32 bg;
+	// Loop time
+	timestamp_t currTime;
 
 	// Ignore
 	GameData(void); ~GameData(void);

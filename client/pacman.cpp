@@ -1,21 +1,27 @@
 #include "client.hpp"
 #include "support.hpp"
 #include "config.h"
+#include "inputControl.hpp"
+#include "AnimatorHolder.hpp"
 
 static void setup_setup_data(InitData &);
 static void setup_post_setup_data(PostInitData &, GameData &);
+static void gaim_loop(GameData&);
 
 int main_pac(int argc, char *argv[]) {
 	// Clean exit first
 	atexit(cleanup);
 	
+	// Initialisation data and initial setup
 	InitData d;
 	setup_setup_data(d);
 	GameData &gd = setup(d);
-
+	// Post-setup data and post-setup
 	PostInitData pd;
 	setup_post_setup_data(pd, gd);
 	post_setup(pd, d, gd);
+
+	gaim_loop(gd);
 	return 0;
 }
 
@@ -74,3 +80,46 @@ static void setup_post_setup_data(PostInitData &d, GameData &gd) {
 	// Create animation to sprite matcher
 	d.matcher = new Matcher(gd.animdata->spritehold);
 } // setup_post_setup_data
+
+static void gaim_loop(GameData &d) {
+	register const timestamp_t loop_cap = 1000/60 + 1;
+	register timestamp_t timesand;
+	bool exit = false;
+	register uint64_t total_sand = 0;
+	register uint16_t numloops = 0;
+	while (!exit) {
+		// get gaim loop starting time
+		d.currTime = timesand = getTimestamp();
+
+		// Handle input events
+		inputControl(d, &exit);
+
+		// Progress everything
+		AnimatorHolder::Progress(timesand);
+		std::for_each(d.akmovs.begin(), d.akmovs.end(),
+		 AnimatorProgressor(timesand));
+		// collision checking happens through callbacks
+
+		// Draw on the screen
+		SDL_FillRect(d.screen, NULL, d.bg);
+		d.animdata->plathold->displayPlatforms(d.screen);
+		d.animdata->spritehold->displaySprites(d.screen);
+		// if one wants to display the junctions, they should
+		// first set the Waypoint.bug
+		SDL_Flip(d.screen);
+
+		// Cap gaim loop speed
+		timestamp_t sanddiff = timestamp_diff(
+		 cs454_2006::getTimestamp(), timesand);
+		SDL_Delay(sanddiff > loop_cap ? 0 :
+		 timestamp_diff(loop_cap, sanddiff));
+
+		// Time statistics
+		total_sand += timestamp_diff(getTimestamp(), timesand);
+		numloops++;
+	} // gaim loop while
+
+	double loop_avg = CAST(double, total_sand) / numloops;
+	std::cerr << "Average gaim loop duration: " << loop_avg <<
+	 std::endl << "Average fps: " << (1000 / loop_avg) << std::endl;
+} // gaim_loop

@@ -70,3 +70,12 @@ Sprite* Matcher::operator() (Animation* a) const {
 Matcher::Matcher(SpriteHolder* _sh) : Anim2SpriteMatcher(_sh) { }
 Matcher::~Matcher(void) { }
 
+AnimatorProgressor::AnimatorProgressor(timestamp_t _timesand) :
+ timesand(_timesand) { }
+
+AnimatorProgressor::result_type 
+AnimatorProgressor::operator() (argument_type p)
+{
+	p.second->progress(timesand);
+} // AnimatorProgressor::()
+
