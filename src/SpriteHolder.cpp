@@ -5,6 +5,10 @@
 #include "GameSprite.hpp"
 #include "ObstacleSprite.hpp"
 #include "Ghost.hpp"
+#include "Dot.hpp"
+
+// implementation headers
+#include "config.h"
 
 using namespace cs454_2006;
 
@@ -145,12 +149,18 @@ static void parseLine(Tokeniser **tokptr, AnimationFilmHolder* afh,
 	if (d.id < 1000) { // ids 0 - 1000 are obstacles
 		s = new ObstacleSprite(d.x, d.y, d.film, d.id);
 	} else 
-#define BASE 3000
-	if (d.id >= BASE + 3 && d.id < BASE +14) { // ghost sprites
+	if (d.id >= GHOST_SPRITE_ID_FIRST &&
+	 d.id < GHOST_SPRITE_ID_LAST
+	) { // ghost sprites
 		s = new Ghost(d.x, d.y, d.film, d.id);
 	} 
-#undef BASE
-	else { // rest ids are game sprites
+	else if (d.id >= DOT_SPRITE_ID_FIRST &&
+	 d.id < DOT_SPRITE_ID_LAST
+	) { // dot sprites
+		// read also number of animation repeats
+		uint8_t numrepeats = cppstrtol(*++*tok, 10);
+		s = new Dot(d.x, d.y, d.film, d.id, numrepeats);
+	} else { // rest ids are game sprites
 		s = new GameSprite(d.x, d.y, d.film, d.id);
 	}
 	sprites[d.z].push_back(s);

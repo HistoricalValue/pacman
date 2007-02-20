@@ -8,22 +8,15 @@ void MovingAnimator::Progress (timestamp_t currTime) {
 	// Recursion - a really bad idea
 	timestamp_t diff = timestamp_diff(currTime, lastTime);
 	delay_t delay = anim->GetDelay();
+	assert(delay != 0);
 	// while (diff >= delay) {
 	if (diff >= delay) {
 		sprite->Move(anim->GetDx(), anim->GetDy());
 //		CollisionChecker::Singleton()->Check();
+		lastTime += delay;
 		if (!anim->GetContinuous()) {
 			state = ANIMATOR_FINISHED;
 			NotifyStopped();
-//			lastTime = currTime;
-			diff = 0; // currTime - lastTime
-		} else { // not continuous animation
-			lastTime += delay;
-			if (delay > diff)
-				diff = 0;
-			else
-				diff -= delay;
-			assert(delay != 0);
 		}
 	}
 }
@@ -60,6 +53,8 @@ bool MovingAnimator::EnsureProgressable(unsigned int steps,
 	return result;
 } // MakeProgressable
 
+Sprite *MovingAnimator::GetSprite(void) const { return sprite; }
+MovingAnimation *MovingAnimator::getAnimation(void) const { return anim; }
 //void MovingAnimator::__backoff::operator () (MovingAnimator* animator) const
 //{
 //	if (_backed) {

@@ -2,6 +2,10 @@
 #include "MovingAnimator.hpp"
 #include "AnimatorHolder.hpp"
 #include "FrameRangeAnimator.hpp"
+
+// Implementation headers
+#include "config.h"
+
 using namespace cs454_2006;
 
 AnimationData* setup_animations(SetupData* d) {
@@ -26,26 +30,28 @@ struct AnimationStartFunctor : public std::unary_function<Animation*, void>
 {
 	void operator() (Animation* a);
 	AnimationStartFunctor(enum AnimType _animt, timestamp_t ct,
-	 Anim2SpriteMatcher const& _matcher);
+	 Anim2SpriteMatcher const& _matcher,
+	 void (*DotAnimatorCallback)(Animator*, void*));
 	private :
 	enum AnimType animt;
 	timestamp_t currTime;
 	Anim2SpriteMatcher const& matcher;
+	void (*DotAnimatorCallback)(Animator*, void*);
 	void start_mv(Sprite* s, Animation* a);
 	void start_fr(Sprite* s, Animation* a);
 };
 
 void start_animations(AnimationHolder* animhold, Anim2SpriteMatcher* matcher
- ,timestamp_t currTime)
+ ,timestamp_t currTime, void (*DAC)(Animator*, void*))
 {
 	MovingAnimationList const& mv_anims=animhold->getMovingAnimations();
 	FrameRangeAnimationList const& fr_anims = animhold->
 	 getFrameRangeAnimations();
 
 	std::for_each(mv_anims.begin(), mv_anims.end(),
-	 AnimationStartFunctor(mv, currTime, *matcher));
+	 AnimationStartFunctor(mv, currTime, *matcher, DAC));
 	std::for_each(fr_anims.begin(), fr_anims.end(),
-	 AnimationStartFunctor(fr, currTime, *matcher));
+	 AnimationStartFunctor(fr, currTime, *matcher, DAC));
 }
 
 void AnimationStartFunctor::operator() (Animation* a) {
@@ -64,8 +70,10 @@ void AnimationStartFunctor::operator() (Animation* a) {
 }
 
 AnimationStartFunctor::AnimationStartFunctor(enum AnimType _animt,
- timestamp_t ct, Anim2SpriteMatcher const& _matcher) :
- animt(_animt), currTime(ct), matcher(_matcher) { }
+ timestamp_t ct, Anim2SpriteMatcher const& _matcher,
+ void (*callback)(Animator*, void*)) :
+ animt(_animt), currTime(ct), matcher(_matcher),
+ DotAnimatorCallback(callback) { }
 
 
 void AnimationStartFunctor::start_mv(Sprite* s, Animation* a) {
@@ -74,6 +82,12 @@ void AnimationStartFunctor::start_mv(Sprite* s, Animation* a) {
 	nf(!mva, "Not a moving animation");
 	MovingAnimator* mvator = new MovingAnimator;
 	mvator->Start(s, mva, currTime);
+	// if it is a dot animator, set dot-callback
+	if (s->getID() >= DOT_SPRITE_ID_FIRST && s->getID() <
+	 DOT_SPRITE_ID_LAST
+	) { // it's a dot sprite
+		mvator->SetOnFinish(DotAnimatorCallback, NULL);
+	}
 	AnimatorHolder::MarkAsRunning(mvator);
 }
 void AnimationStartFunctor::start_fr(Sprite* s, Animation* a) {

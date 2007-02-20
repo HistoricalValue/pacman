@@ -1,5 +1,8 @@
 #include "support.hpp"
 
+// Implementation headers
+#include "Dot.hpp"
+
 int Callbacks::_amc::operator() (Animator *a) const {
 	cc->Check();
 	return 0;
@@ -65,6 +68,8 @@ Sprite* Matcher::operator() (Animation* a) const {
 		noRun = true;
 	} else if (anid == 3024) { // choco yum
 		spid = 1015;
+	} else if (anid >= 4000 && anid <= 5000) { // dot animation
+		spid = anid - 2000;
 	} else {
 		spid = a->GetId();
 		spid = anid;
@@ -83,3 +88,24 @@ AnimatorProgressor::operator() (argument_type p)
 	p.second->progress(timesand);
 } // AnimatorProgressor::()
 
+void DotAnimatorCallback(Animator *a, void *c) {
+	MovingAnimator *ma = DYNCAST(MovingAnimator*, a);
+	nf(!ma, "Dot animator is not a moving animator.");
+	// The dot sprite
+	Sprite *s = ma->GetSprite();
+	Dot *d = DYNCAST(Dot*, s);
+	if (!d) {
+		std::cerr<<s->getID();
+		nf(-1, "The animator's sprite is not a dot sprite.");
+	}
+	
+	if (d->animationIsFinished()) {
+		ma->getAnimation()->SetDx(
+		 -ma->getAnimation()->GetDx());
+		ma->getAnimation()->SetDy(
+		 -ma->getAnimation()->GetDy());
+
+		d->resetNumberOfRepeats();
+	} else
+		++(*d);
+} // DotAnimatorCallback

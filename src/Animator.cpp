@@ -11,7 +11,6 @@ void Animator::Stop (void) {
 
 void Animator::NotifyStopped (void) {
 	if (onFinish) {
-		db("Running onFinish");
 		(*onFinish)(this, finishClosure);
 	}
 }

@@ -251,7 +251,8 @@ static void teleportals_setup(struct InitData const &d, struct GameData &r){
 // Post setup ----------------------------------------------
 void post_setup(PostInitData &pd, InitData &d, GameData &gd) {
 	// Start all animations
-	start_animations(gd.animdata->animhold, pd.matcher, d.startingTime);
+	start_animations(gd.animdata->animhold, pd.matcher, d.startingTime,
+	 DotAnimatorCallback);
 	// Update sprite - actor movement map
 	d.callbacks->get_cocaclo().akmovs = &gd.akmovs;
 } // post_setup

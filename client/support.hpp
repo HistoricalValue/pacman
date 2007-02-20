@@ -53,4 +53,14 @@ struct AnimatorProgressor : public std::unary_function<
 	private :
 	timestamp_t timesand;
 }; // struct AnimatorProgressor
+
+// Closure information for dot callbacks
+struct DotInfo {
+	const uint8_t number_of_repeats;
+	uint8_t repeats_made;
+	DotInfo(uint8_t number_of_repeats); ~DotInfo(void);
+}; // struct Dotinfo
+
+// Callback for dot sprites
+void DotAnimatorCallback(Animator*, void*);
 #endif // __callbacks_hpp__

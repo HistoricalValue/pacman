@@ -27,4 +27,11 @@
 #define SCREEN_BPP	(32)
 #define SCREEN_FLAGS	(SDL_HWSURFACE|SDL_DOUBLEBUF)
 
+/* Special sprite types */
+/* Dots */
+#define DOT_SPRITE_ID_FIRST	2000
+#define DOT_SPRITE_ID_LAST	3000
+/* Ghosts */
+#define GHOST_SPRITE_ID_FIRST	3003
+#define GHOST_SPRITE_ID_LAST	4000
 #endif /* __config_h__ */

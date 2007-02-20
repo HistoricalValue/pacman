@@ -49,4 +49,4 @@ struct Anim2SpriteMatcher : public std::unary_function<Animation const*,
 };
 
 void start_animations(AnimationHolder*, Anim2SpriteMatcher*,
- timestamp_t currTime);
+ timestamp_t currTime, void (*DotAnimatorCallback)(Animator*, void*));
