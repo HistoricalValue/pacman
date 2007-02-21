@@ -347,10 +347,10 @@ PDCR::PDCR(InitData const &d, GameData &r) :
 {
 	std::list<AnimationFilm*> films;
 	AnimationFilmHolder *ah = r.animdata->filmhold;
-	films.push_back(ah->GetFilm("dot"));
-	films.push_back(ah->GetFilm("dot_punainen"));
-	films.push_back(ah->GetFilm("dot_sini"));
-	films.push_back(ah->GetFilm("dot_oranssi"));
+	films.push_back(ah->GetFilm("dotg"));
+	films.push_back(ah->GetFilm("dotr"));
+	films.push_back(ah->GetFilm("dotb"));
+	films.push_back(ah->GetFilm("doto"));
 
 	koka = new Dot::_coca(films);
 }
