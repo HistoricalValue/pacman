@@ -9,7 +9,7 @@ win32 :
 	$(MAKE) all __WIN32=yes_n00b
 clean :
 	$(MAKE) -C src clean
-	$(MAKE) -C test clean
+#	$(MAKE) -C test clean
 	$(MAKE) -C client clean
 
 touch :
