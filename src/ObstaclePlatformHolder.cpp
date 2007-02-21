@@ -36,6 +36,8 @@ struct plats_data {
 };
 static std::ostream& operator<<(std::ostream&, plats_data&);
 
+#define CONVERTX(A) (A)
+#define CONVERTY(A) ((A) + 40)
 static void parseLine(SpriteHolder* sh,
  ObstaclePlatformHolder::obstplats_map& plats,
  std::string& line)
@@ -49,8 +51,8 @@ static void parseLine(SpriteHolder* sh,
 	// Read platform ID
 	d.id = cppstrtol(*tok, 10);
 	// Read platform x and y
-	d.x = cppstrtol(*++tok, 10);
-	d.y = cppstrtol(*++tok, 10);
+	d.x = CONVERTX(cppstrtol(*++tok, 10));
+	d.y = CONVERTY(cppstrtol(*++tok, 10));
 	// Read number of obstacle sprites and create table
 	spritesnum = cppstrtol(*++tok, 10);
 	//d.sprites = new plats_data::sprite_data[spritesnum];
@@ -83,6 +85,8 @@ static void parseLine(SpriteHolder* sh,
 	// add to the map
 	plats[d.id] = n00b;
 }
+#undef CONVERTX
+#undef CONVERTY
 
 static bool shouldParseLine(std::string const& line) { 
 	bool result = false;

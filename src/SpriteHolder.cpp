@@ -125,20 +125,23 @@ static bool isCommentLine(std::string& line) {
 	return line.at(0) == '#';
 } // isCommentLine
 
+#define CONVERTX(A) (A)
+#define CONVERTY(A) ((A) + 40)
 static void parseLine(Tokeniser **tokptr, AnimationFilmHolder* afh,
  std::string& line, std::list<std::string>& delims,
  SpriteHolder::SpritesMap& sprites)
 {
 	Tokeniser* tok = new Tokeniser(line, delims);
+
 	*tokptr = tok;
 	sprite_data d;
 
 	// read sprite id
 	d.id = cppstrtol(**tok, 10);
 	// read x
-	d.x = cppstrtol(*++*tok, 10);
+	d.x = CONVERTX(cppstrtol(*++*tok, 10));
 	// read y
-	d.y = cppstrtol(*++*tok, 10);
+	d.y = CONVERTY(cppstrtol(*++*tok, 10));
 	// z-order
 	d.z = cppstrtol(*++*tok, 10);
 	// read animation film id
@@ -167,6 +170,8 @@ static void parseLine(Tokeniser **tokptr, AnimationFilmHolder* afh,
 	db("Created sprite");
 	std::cerr << *s << std::endl;
 } // parseLine
+#undef CONVERTX
+#undef CONVERTY
 
 namespace cs454_2006 {
 struct SpriteMatchPredicate : public std::unary_function<Sprite*, bool> {

@@ -13,6 +13,7 @@
 #include "Animation.hpp"
 #include "SDL/SDL_ttf.h"
 #include "support.hpp"
+#include "config.h"
 
 enum ss_t { // special sprite type
 	ss_pacman, ss_stalker, ss_kieken, ss_random, ss_retard
@@ -61,10 +62,10 @@ struct Screen {
 
 	// Ignore
 	Screen(
-	 int width = 496,
-	 int height = 600,
-	 int bpp = 32,
-	 uint32_t flags = SDL_HWSURFACE|SDL_DOUBLEBUF);
+	 int width = SCREEN_WIDTH,
+	 int height = SCREEN_HEIGHT,
+	 int bpp = SCREEN_BPP,
+	 uint32_t flags = SCREEN_FLAGS);
 	~Screen(void);
 }; // struct Screen
 struct InitData {
