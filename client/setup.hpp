@@ -8,6 +8,8 @@
 #include "AI.hpp"
 #include "AnimatorHolder.hpp"
 #include "config.h"
+#include "support.hpp"
+#include "Dot.hpp"
 
 // Setup functions ---------------------------------------------------------
 static void libs_setup(struct InitData const&, struct GameData &);
@@ -99,4 +101,6 @@ struct PDCR : public for_each_functor<Sprite*> {
 // Pacman-Dot Collision Registerer
 	void operator()(Sprite*);
 	PDCR(InitData const&, GameData&);
+	private :
+	Dot::_coca *koka;
 }; // struct PDCR

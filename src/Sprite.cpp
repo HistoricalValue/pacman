@@ -70,6 +70,8 @@ void Sprite::SetCollisionCallback (CollisionCallback f, void* c) {
 
 spriteid_t Sprite::getID(void) const { return id; }
 
+AnimationFilm *Sprite::getFilm(void) const { return currFilm; }
+void Sprite::setFilm(AnimationFilm *f) { currFilm = f; }
 // Constructor
 Sprite::Sprite (int _x, int _y, AnimationFilm* film, spriteid_t _id): 
  x(_x), y(_y), currFilm(film), isVisible(true),

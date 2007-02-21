@@ -7,6 +7,7 @@
 
 #include "client.hpp"
 #include "commons.hpp"
+#include "Dot.hpp"
 
 struct _cocaclo {
 	std::map<GameSprite*, ActorMovement*> *akmovs;
@@ -63,4 +64,12 @@ struct DotInfo {
 
 // Callback for dot sprites
 void DotAnimatorCallback(Animator*, void*);
+// Callback for dot sprites callback data
+struct Dot::_coca {
+	AnimationFilm *operator++(void);
+	_coca(std::list<AnimationFilm*>const&);
+	private :
+	std::list<AnimationFilm*> films;
+	std::list<AnimationFilm*>::iterator currFilm;
+}; // struct Dot::_coca
 #endif // __callbacks_hpp__

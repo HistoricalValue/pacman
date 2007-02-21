@@ -111,5 +111,22 @@ void DotAnimatorCallback(Animator *a, void *c) {
 } // DotAnimatorCallback
 
 void Dot::collisionCallback(Sprite *dot, Sprite *stoocker, void *c) {
-	struct coca *koka = CAST(struct coca*, c);
+	if (c) {
+		struct _coca &koka = *CAST(struct _coca*, c);
+		dot->setFilm(++koka);
+	} else
+		std::cerr<<"Pakitmi!"<<std::endl;
 } // collisionCallback
+
+AnimationFilm *Dot::_coca::operator++(void) {
+	if (currFilm == films.end())
+		return *(currFilm = films.begin());
+	return *currFilm++;
+//	return (currFilm == films.end()) ?
+//	 (currFilm = films.begin()) :
+//	 *(++currFilm);
+} // Dot::_coca::++
+
+Dot::_coca::_coca(std::list<AnimationFilm*> const &_films) :
+	films(_films),
+	currFilm(films.begin()) { }

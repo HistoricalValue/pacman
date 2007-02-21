@@ -238,10 +238,14 @@ void PDCR::operator() (Sprite *s) {
 	// if sprite is a dot sprite
 	if (s->getID() >= DOT_SPRITE_ID_FIRST &&
 	 s->getID() < DOT_SPRITE_ID_LAST
-	)
+	) {
 		// register it with pacman for collision checking
 		// (sprite aliases in GameData have been set at this point)
 		d.cc->Register(s, r.pacman);
+
+		// Also, give callback feedback to dot
+		s->SetCollisionCallback(Dot::collisionCallback, koka);
+	}
 } // PDCR::()
 
 // CocaSetter : CollisionCallback setter
@@ -339,7 +343,17 @@ CocaSetter::CocaSetter(Sprite::CollisionCallback _coca, _cocaclo &cocaclo_):
 	coca(_coca),
 	cocaclo(cocaclo_) { }
 PDCR::PDCR(InitData const &d, GameData &r) :
-	for_each_functor<Sprite*>(d, r) { }
+	for_each_functor<Sprite*>(d, r)
+{
+	std::list<AnimationFilm*> films;
+	AnimationFilmHolder *ah = r.animdata->filmhold;
+	films.push_back(ah->GetFilm("dot"));
+	films.push_back(ah->GetFilm("dot_punainen"));
+	films.push_back(ah->GetFilm("dot_sini"));
+	films.push_back(ah->GetFilm("dot_oranssi"));
+
+	koka = new Dot::_coca(films);
+}
 
 // ----------------- Even more trivial destructors ------------------
 Ghosts::~Ghosts(void) { }
