@@ -7,6 +7,7 @@
 #ifndef __Dot_hpp__
 #define __Dot_hpp__
 
+#include "commons.hpp"
 #include "GameSprite.hpp"
 
 class Dot : public GameSprite {
@@ -17,6 +18,8 @@ class Dot : public GameSprite {
 	void resetNumberOfRepeats(void);
 	bool animationIsFinished(void);
 	Dot(int x, int y, AnimationFilm *film, spriteid_t id, uint8_t numr);
+	static
+	void collisionCallback(Sprite*, Sprite*, void *c = CAST(void*,0));
 	private :
 	uint8_t const number_of_repeats;
 	uint8_t repeats;

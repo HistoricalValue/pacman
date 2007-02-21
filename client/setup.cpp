@@ -195,13 +195,17 @@ static void collision_setup(InitData const &d, GameData &r) {
 	// Register all ghosts for collision checking with all waypoints
 	std::for_each(r.sss.begin() + 1, r.sss.end(), GWCR(d, r));
 
-	// Set up pacman collisioning with teleporters
+	// Set up pacman collision checking with teleporters
 	d.cc->Register(
 	 r.animdata->wayhold->getWaypoint(d.weeds[d.RT]), // Right teleport
 	 r.pacman);
 	d.cc->Register(
 	 r.animdata->wayhold->getWaypoint(d.weeds[d.LT]), // Left teleport
 	 r.pacman);
+	// Set up pacman collision checking with eatable bullets
+	std::list<Sprite*> const &sprites = r.animdata->spritehold->
+	 getSprites();
+	std::for_each(sprites.begin(), sprites.end(), PDCR(d, r));
 
 	// Set up custom callback 
 	std::list<ObstacleSprite*> const &obsts = r.animdata->spritehold->
@@ -228,6 +232,17 @@ void GWCR::operator() (GameSprite *ghost) {
 	for (ite = waypoints.begin(); ite != waypoints.end(); ite++)
 		d.cc->Register(*ite, ghost);
 } // GWCR::()
+
+// Pacman - Dot Collision Registerer
+void PDCR::operator() (Sprite *s) {
+	// if sprite is a dot sprite
+	if (s->getID() >= DOT_SPRITE_ID_FIRST &&
+	 s->getID() < DOT_SPRITE_ID_LAST
+	)
+		// register it with pacman for collision checking
+		// (sprite aliases in GameData have been set at this point)
+		d.cc->Register(s, r.pacman);
+} // PDCR::()
 
 // CocaSetter : CollisionCallback setter
 void CocaSetter::operator() (ObstacleSprite *o) {
@@ -323,6 +338,8 @@ GWCR::GWCR(InitData const &d, GameData &r) :
 CocaSetter::CocaSetter(Sprite::CollisionCallback _coca, _cocaclo &cocaclo_):
 	coca(_coca),
 	cocaclo(cocaclo_) { }
+PDCR::PDCR(InitData const &d, GameData &r) :
+	for_each_functor<Sprite*>(d, r) { }
 
 // ----------------- Even more trivial destructors ------------------
 Ghosts::~Ghosts(void) { }

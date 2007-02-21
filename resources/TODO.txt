@@ -6,3 +6,5 @@
 * Fix top and bottom wall containers which are not accurate sprites that they exeed the graphic to the right 
 
 * Add configurable (upon build? defined? // dynamic configurable) limits for types of sprites (game, obstacle, ghost, more to come??)
+
+* Move ghosts into lair and set up waypoints to allow them to get out and not get in again and all these

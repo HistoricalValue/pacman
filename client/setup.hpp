@@ -7,6 +7,7 @@
 #include <iterator>
 #include "AI.hpp"
 #include "AnimatorHolder.hpp"
+#include "config.h"
 
 // Setup functions ---------------------------------------------------------
 static void libs_setup(struct InitData const&, struct GameData &);
@@ -93,3 +94,9 @@ struct CocaSetter {
 	Sprite::CollisionCallback coca;
 	_cocaclo &cocaclo;
 }; // struct CocaSetter
+// Sets up collision checking between pacman and the eatable dots
+struct PDCR : public for_each_functor<Sprite*> {
+// Pacman-Dot Collision Registerer
+	void operator()(Sprite*);
+	PDCR(InitData const&, GameData&);
+}; // struct PDCR
