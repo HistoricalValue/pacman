@@ -41,6 +41,8 @@ struct waydata {
 	unsigned char up, right, down, left;
 };
 #define conftopx(A) ((A)<<3)
+#define CONVERTX(A) (A)
+#define CONVERTY(A) ((A) + 40)
 static void parseLine(WaypointHolder* self, std::string& line,
  std::list<std::string>& delims)
 {
@@ -50,8 +52,8 @@ static void parseLine(WaypointHolder* self, std::string& line,
 	// read id
 	d.id = cppstrtol(*tok, 10);
 	// read x and y
-	d.x = conftopx(cppstrtol(*++tok, 10));
-	d.y = conftopx(cppstrtol(*++tok, 10));
+	d.x = CONVERTX(conftopx(cppstrtol(*++tok, 10)));
+	d.y = CONVERTY(conftopx(cppstrtol(*++tok, 10)));
 	// read up, right, down, left
 	d.left = cppstrtol(*++tok, 10);
 	d.up = cppstrtol(*++tok, 10);
@@ -70,6 +72,8 @@ static void parseLine(WaypointHolder* self, std::string& line,
 	);
 	std::cerr << *n00b <<std::endl;
 } // parseLine
+#undef CONVERTX
+#undef CONVERTY
 
 void WaypointHolder::addWaypoint(Waypoint* w) {
 	waypoints.push_back(w);
