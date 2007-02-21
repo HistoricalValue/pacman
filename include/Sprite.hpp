@@ -42,6 +42,8 @@ class Sprite {
 	virtual void Move(int dx, int dy);
 	void Display(SDL_Surface *dest);
 	spriteid_t getID(void) const;
+	AnimationFilm *getFilm(void) const;
+	void setFilm(AnimationFilm*);
 	friend std::ostream& operator << (std::ostream&, Sprite& s);
 
 	Sprite (int _x, int _y, AnimationFilm* film, spriteid_t _id);

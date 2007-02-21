@@ -109,3 +109,7 @@ void DotAnimatorCallback(Animator *a, void *c) {
 	} else
 		++(*d);
 } // DotAnimatorCallback
+
+void Dot::collisionCallback(Sprite *dot, Sprite *stoocker, void *c) {
+	struct coca *koka = CAST(struct coca*, c);
+} // collisionCallback

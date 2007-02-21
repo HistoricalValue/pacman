@@ -10,7 +10,3 @@ Dot::Dot(int x, int y, AnimationFilm *film, spriteid_t id, uint8_t numr) :
 	number_of_repeats(numr),
 	repeats(number_of_repeats)
 { Sprite::SetCollisionCallback(collisionCallback); }
-
-void Dot::collisionCallback(Sprite *dot, Sprite *stoocker, void *c) {
-	std::cerr<<"Pakman it mi omg"<<std::endl;
-} // collisionCallback

@@ -20,6 +20,7 @@ class Dot : public GameSprite {
 	Dot(int x, int y, AnimationFilm *film, spriteid_t id, uint8_t numr);
 	static
 	void collisionCallback(Sprite*, Sprite*, void *c = CAST(void*,0));
+	struct _coca; // collision closure
 	private :
 	uint8_t const number_of_repeats;
 	uint8_t repeats;
