@@ -28,6 +28,8 @@ void CollisionChecker::Commit(void) {
 	std::list<Pair>::iterator ite;
 	for (ite = cancel_queue.begin(); ite != cancel_queue.end(); ite++)
 		pairs.remove(*ite);
+	
+	cancel_queue.clear();
 	return;
 }
 
