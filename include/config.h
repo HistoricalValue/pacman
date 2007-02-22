@@ -25,7 +25,7 @@
 #define SCREEN_WIDTH 	(800)
 #define SCREEN_HEIGHT 	(600)
 #define SCREEN_BPP	(32)
-#define SCREEN_FLAGS	(SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_FULLSCREEN)
+#define SCREEN_FLAGS	(SDL_HWSURFACE|SDL_DOUBLEBUF)
 
 /* Special sprite types */
 /* Dots */
