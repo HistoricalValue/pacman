@@ -22,6 +22,13 @@ class AI {
 	private :
 	static std::map<GameSprite*, ActorMovement*> moves;
 	static Targets* targets;
+	static std::vector<spriteid_t> ids;
+	enum sprite_type {
+		_STALKER,
+		_RETARD,
+		_DIZZY,
+		LOST
+	};
 
 	static void Stalker(Waypoint* waypoint, Ghost* ghost, Sprite* target);
 	static void Chicken(Waypoint* waypoint, Ghost* ghost, Sprite* target);

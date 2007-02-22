@@ -27,6 +27,13 @@
 #define SCREEN_BPP	(32)
 #define SCREEN_FLAGS	(SDL_HWSURFACE|SDL_DOUBLEBUF)
 
+/* Special sprite IDs */
+#define PACMAN
+#define STALKER
+#define KIEKEN
+#define RANDOM
+#define RETARD
+
 /* Special sprite types */
 /* Dots */
 #define DOT_SPRITE_ID_FIRST	2000
