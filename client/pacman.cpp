@@ -100,6 +100,7 @@ static void gaim_loop(GameData &d) {
 		std::for_each(d.akmovs.begin(), d.akmovs.end(),
 		 AnimatorProgressor(timesand));
 		// collision checking happens through callbacks
+		d.cc->Commit();
 
 		// Draw on the screen
 		SDL_FillRect(d.screen, NULL, d.bg);

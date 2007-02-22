@@ -66,10 +66,7 @@ struct DotInfo {
 void DotAnimatorCallback(Animator*, void*);
 // Callback for dot sprites callback data
 struct Dot::_coca {
-	AnimationFilm *operator++(void);
-	_coca(std::list<AnimationFilm*>const&);
-	private :
-	std::list<AnimationFilm*> films;
-	std::list<AnimationFilm*>::iterator currFilm;
+	CollisionChecker *cc;
+	Sprite *pacman;
 }; // struct Dot::_coca
 #endif // __callbacks_hpp__

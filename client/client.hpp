@@ -44,6 +44,8 @@ struct GameData {
 	Uint32 bg;
 	// Loop time
 	timestamp_t currTime;
+	// The collision checker
+	CollisionChecker *cc;
 
 	// Ignore
 	GameData(void); ~GameData(void);
@@ -118,4 +120,5 @@ struct PostInitData {
 }; // struct PostInitData
 
 void post_setup(PostInitData &, InitData &, GameData &);
+
 #endif // __client_hpp__

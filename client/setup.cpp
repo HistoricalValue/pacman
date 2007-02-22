@@ -30,6 +30,8 @@ struct GameData &setup(struct InitData &d) {
 	AnimatorHolder::setAfterMoveCall(&d.callbacks->get_amc());
 	// Set up teleportation waypoints
 	teleportals_setup(d, r);
+	// Let game data have access to the collision checker instance
+	r.cc = d.cc;
 
 	return r;
 } // setup
@@ -343,17 +345,12 @@ CocaSetter::CocaSetter(Sprite::CollisionCallback _coca, _cocaclo &cocaclo_):
 	coca(_coca),
 	cocaclo(cocaclo_) { }
 PDCR::PDCR(InitData const &d, GameData &r) :
-	for_each_functor<Sprite*>(d, r)
+	for_each_functor<Sprite*>(d, r),
+	koka(new Dot::_coca())
 {
-	std::list<AnimationFilm*> films;
-	AnimationFilmHolder *ah = r.animdata->filmhold;
-//	films.push_back(ah->GetFilm("dotb"));
-//	films.push_back(ah->GetFilm("dotg"));
-	films.push_back(ah->GetFilm("dotr"));
-//	films.push_back(ah->GetFilm("doto"));
-
-	koka = new Dot::_coca(films);
-}
+	koka->cc = d.cc;
+	koka->pacman = r.pacman;
+} // PDCR::PDCR
 
 // ----------------- Even more trivial destructors ------------------
 Ghosts::~Ghosts(void) { }

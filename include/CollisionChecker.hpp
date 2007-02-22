@@ -10,6 +10,7 @@ class CollisionChecker {
 	
 	typedef std::pair<Sprite*, Sprite*> Pair;
 	std::list<Pair> pairs;
+	std::list<Pair> cancel_queue;
 
 	CollisionChecker(void);
 	
@@ -22,6 +23,7 @@ class CollisionChecker {
 	void Register (Sprite* callbacker, Sprite* stooker);
 	void Cancel (Sprite* callbacker, Sprite* stooker);
 	void Check (void);
+	void Commit(void);
 };
 
 #endif

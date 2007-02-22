@@ -1,4 +1,5 @@
 #include "support.hpp"
+#include<set>
 
 // Implementation headers
 #include "Dot.hpp"
@@ -113,20 +114,12 @@ void DotAnimatorCallback(Animator *a, void *c) {
 void Dot::collisionCallback(Sprite *dot, Sprite *stoocker, void *c) {
 	if (c) {
 		struct _coca &koka = *CAST(struct _coca*, c);
-		dot->setFilm(++koka);
+		nf(!koka.cc, "No collision checker provided.");
+		nf(!koka.pacman, "No pacman provided.");
+		nf(!dot, "Wtf");
+		koka.cc->Cancel(dot, koka.pacman);
+		dot->SetVisibility(false);
 	} else
 		std::cerr<<"Pakitmi!"<<std::endl;
 } // collisionCallback
 
-AnimationFilm *Dot::_coca::operator++(void) {
-	if (currFilm == films.end())
-		return *(currFilm = films.begin());
-	return *currFilm++;
-//	return (currFilm == films.end()) ?
-//	 (currFilm = films.begin()) :
-//	 *(++currFilm);
-} // Dot::_coca::++
-
-Dot::_coca::_coca(std::list<AnimationFilm*> const &_films) :
-	films(_films),
-	currFilm(films.begin()) { }

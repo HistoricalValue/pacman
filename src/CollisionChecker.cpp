@@ -20,7 +20,14 @@ void CollisionChecker::Register (Sprite* s1, Sprite* s2) {
 
 void CollisionChecker::Cancel (Sprite* s1, Sprite* s2) {
 	Pair p(s1, s2);
-	pairs.remove(p);
+	cancel_queue.push_back(p);
+	return;
+}
+
+void CollisionChecker::Commit(void) {
+	std::list<Pair>::iterator ite;
+	for (ite = cancel_queue.begin(); ite != cancel_queue.end(); ite++)
+		pairs.remove(*ite);
 	return;
 }
 
