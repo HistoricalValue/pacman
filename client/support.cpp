@@ -65,7 +65,7 @@ Sprite* Matcher::operator() (Animation* a) const {
 	} else if ((anid >= 1002 && anid <= 1005)) { // cartman mov
 		// do not run those ones
 		noRun = true;
-	} else if (anid >= 3000 && anid <= 3023) { // ghost snailz
+	} else if (anid >= 3000 && anid <= 3100) { // ghost snailz
 		noRun = true;
 	} else if (anid == 3024) { // choco yum
 		spid = 1015;

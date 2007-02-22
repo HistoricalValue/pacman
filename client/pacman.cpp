@@ -42,12 +42,15 @@ static void setup_setup_data(InitData &d) {
 	 WAYPOINTS_CONFIG_FILE);
 	//
 	// Special sprites IDs
-	d.speeds.assign(2, 0);
+	d.speeds.assign(5, 0);
 	d.speeds[ss_pacman] = 1001;
 	d.speeds[ss_stalker] = 3003;
+	d.speeds[ss_kieken] = 3004;
+	d.speeds[ss_random] = 3005;
+	d.speeds[ss_retard] = 3006;
 	//
 	// Animation IDs for each special sprite
-	d.anids.assign(2, *new AnimationIDs);
+	d.anids.assign(5, *new AnimationIDs);
 	for (size_t i = 0; i < 4; i++) {
 		// Pacman
 		d.anids[ss_pacman].mv[i] = (1002 + i);
@@ -55,6 +58,15 @@ static void setup_setup_data(InitData &d) {
 		// Stalker
 		d.anids[ss_stalker].mv[i] = (3000 + i);
 		d.anids[ss_stalker].fr[i] = (3004 + i);
+		// chicken
+		d.anids[ss_kieken].mv[i] = (3010 + i);
+		d.anids[ss_kieken].fr[i] = (3014 + i);
+		// random
+		d.anids[ss_random].mv[i] = (3020 + i);
+		d.anids[ss_random].fr[i] = (3024 + i);
+		// retard	
+		d.anids[ss_retard].mv[i] = (3030 + i);
+		d.anids[ss_retard].fr[i] = (3034 + i);
 	}
 	//
 	// Point to collision checker
