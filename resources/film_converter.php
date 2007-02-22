@@ -9,7 +9,7 @@ Argument needed: filename to read.
 Prints result to stdout.
 
 <?php
-} // help
+return;} // help
 
 $old_config = file($argv[1]);
 
