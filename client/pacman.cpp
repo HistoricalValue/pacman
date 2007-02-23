@@ -83,6 +83,11 @@ static void setup_setup_data(InitData &d) {
 	// Set bg colour
 	d.bg.r = d.bg.g = d.bg.b = 0x20;
 	//
+	// Set IDs of power ups
+	d.pids.push_back(5000);
+	d.pids.push_back(5001);
+	d.pids.push_back(5002);
+	d.pids.push_back(5003);
 	// Starting time
 	d.startingTime = getTimestamp();
 

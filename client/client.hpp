@@ -106,6 +106,8 @@ struct InitData {
 	CollisionChecker *cc;
 	// Background colour
 	Colour bg;
+	// Power up sprites IDs
+	std::list<spriteid_t> pids;
 
 	// Ignore
 	InitData(void); ~InitData(void);

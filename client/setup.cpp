@@ -205,10 +205,11 @@ static void collision_setup(InitData const &d, GameData &r) {
 	d.cc->Register(
 	 r.animdata->wayhold->getWaypoint(d.weeds[d.LT]), // Left teleport
 	 r.pacman);
-	// Set up pacman collision checking with eatable bullets
+	// Set up pacman collision checking with eatable bullets & power ups
 	std::list<Sprite*> const &sprites = r.animdata->spritehold->
 	 getSprites();
 	std::for_each(sprites.begin(), sprites.end(), PDCR(d, r));
+
 
 	// Set up custom callback 
 	std::list<ObstacleSprite*> const &obsts = r.animdata->spritehold->
@@ -238,6 +239,10 @@ void GWCR::operator() (GameSprite *ghost) {
 
 // Pacman - Dot Collision Registerer
 void PDCR::operator() (Sprite *s) {
+	// check if sprite is a power up
+	std::list<spriteid_t>::const_iterator power_result =
+	 std::find_if(d.pids.begin(), d.pids.end(),
+	 std::bind1st(std::equal_to<spriteid_t>(), s->getID()));
 	// if sprite is a dot sprite
 	if (s->getID() >= DOT_SPRITE_ID_FIRST &&
 	 s->getID() < DOT_SPRITE_ID_LAST
@@ -248,6 +253,13 @@ void PDCR::operator() (Sprite *s) {
 
 		// Also, give callback feedback to dot
 		s->SetCollisionCallback(Dot::collisionCallback, koka);
+	} else if ((power_result != d.pids.end())) { // sprite is a powerup
+		// register for collision with pacman
+		// (sprite aliases are set)
+		d.cc->Register(s, r.pacman);
+
+		// Set special power up callbacl
+		s->SetCollisionCallback(powerup_coca, pkoka);
 	}
 } // PDCR::()
 
@@ -300,7 +312,9 @@ InitData::InitData(void) :
 	sdlflags(0),
 	custset(),
 	screen(),
-	cc(static_cast<CollisionChecker*>(0)) { }
+	cc(static_cast<CollisionChecker*>(0)),
+	bg(),
+	pids() { }
 Ghosts::Ghosts(Ghost *d) :
 	stalker(d),
 	kieken(d),
@@ -347,7 +361,8 @@ CocaSetter::CocaSetter(Sprite::CollisionCallback _coca, _cocaclo &cocaclo_):
 	cocaclo(cocaclo_) { }
 PDCR::PDCR(InitData const &d, GameData &r) :
 	for_each_functor<Sprite*>(d, r),
-	koka(new Dot::_coca())
+	koka(new Dot::_coca()),
+	pkoka(new _pcoca())
 {
 	koka->cc = d.cc;
 	koka->pacman = r.pacman;

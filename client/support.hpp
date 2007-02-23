@@ -37,7 +37,8 @@ struct Callbacks {
 	_cocaclo cocaclo;
 }; // struct Callbacks
 
-extern void collision_callback(Sprite*, Sprite*, void *c = NULL);
+extern void collision_callback(Sprite*, Sprite*, void *c = CAST(void*, 0));
+extern void powerup_coca(Sprite*, Sprite*, void *c = CAST(void*, 0));
 extern void cleanup(void);
 
 struct Matcher : public Anim2SpriteMatcher {
@@ -69,4 +70,7 @@ struct Dot::_coca {
 	CollisionChecker *cc;
 	Sprite *pacman;
 }; // struct Dot::_coca
+
+struct _pcoca { // Power up collision callback data
+}; // struct _pcoca
 #endif // __callbacks_hpp__

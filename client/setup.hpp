@@ -103,4 +103,5 @@ struct PDCR : public for_each_functor<Sprite*> {
 	PDCR(InitData const&, GameData&);
 	private :
 	Dot::_coca *koka;
+	_pcoca *pkoka;
 }; // struct PDCR

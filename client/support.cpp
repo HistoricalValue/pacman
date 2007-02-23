@@ -125,3 +125,9 @@ void Dot::collisionCallback(Sprite *dot, Sprite *stoocker, void *c) {
 		std::cerr<<"Pakitmi!"<<std::endl;
 } // collisionCallback
 
+void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
+	if (c) {
+		_pcoca *pkoka = CAST(_pcoca*, c);
+		p->SetVisibility(false); // powerup
+	}
+} // powerup_coca
