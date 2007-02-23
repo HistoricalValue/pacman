@@ -373,6 +373,7 @@ PDCR::PDCR(InitData const &d, GameData &r) :
 	pkoka->akmovs = &r.akmovs;
 	pkoka->ghost = &r.ghost;
 	pkoka->filmhold = r.animdata->filmhold;
+	pkoka->animhold = r.animdata->animhold;
 } // PDCR::PDCR
 
 // ----------------- Even more trivial destructors ------------------

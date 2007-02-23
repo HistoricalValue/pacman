@@ -76,5 +76,6 @@ struct _pcoca { // Power up collision callback data
 	std::map<GameSprite*, ActorMovement*> const *akmovs;
 	struct Ghosts const *ghost;
 	AnimationFilmHolder *filmhold;
+	AnimationHolder *animhold;
 }; // struct _pcoca
 #endif // __callbacks_hpp__
