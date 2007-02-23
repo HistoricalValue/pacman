@@ -1,9 +1,14 @@
 #include "Scheduler.hpp"
 #include <algorithm>
 
+struct TaskData { };
+
 struct Task {
-	bool operator==(Task const&) const;
-	bool operator==(Task const&);
+	virtual bool operator==(Task const&) const;
+	virtual bool operator==(Task const&);
+	virtual void operator()(TaskData&);
+	Task(void);
+	virtual ~Task(void);
 };
 
 void Scheduler::_register(task_t const &t, taskdata_t const &d) {
@@ -16,6 +21,11 @@ void Scheduler::_register(task_t const &t, taskdata_t const &d) {
 	 std::equal_to<task_t>(), t)) == times.end())
 	{
 		// Given task is not register, so register it.
-
+		tasks[t] = d;
+		times.push_back(t);
 	}
 } // Scheduler::_register
+
+void Scheduler::check(timestamp_t currTime) {
+	
+} // Scheduler::check

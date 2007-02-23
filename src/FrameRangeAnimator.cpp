@@ -63,3 +63,4 @@ bool FrameRangeAnimator::EnsureProgressable(unsigned int steps,
 } // MakeProgressable
 
 Sprite *FrameRangeAnimator::GetSprite(void) { return sprite; }
+FrameRangeAnimation *FrameRangeAnimator::GetAnimation(void) { return anim; }
