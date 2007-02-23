@@ -30,3 +30,5 @@ FrameRangeAnimation::FrameRangeAnimation (
 
 delay_t FrameRangeAnimation::GetDelay(void) const { return delay; }
 bool FrameRangeAnimation::GetContinuous(void) const { return continuous; }
+
+void FrameRangeAnimation::SetDelay(delay_t d) { delay = d; }
