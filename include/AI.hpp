@@ -23,7 +23,7 @@ class AI {
 	static std::map<GameSprite*, ActorMovement*> moves;
 	static Targets* targets;
 	static std::vector<spriteid_t> ids;
-	static int distanceFromPacman(Waypoint *waypoint );
+	static double distanceFromPacman(Waypoint *waypoint );
 	//enum sprite_type {
 		//KIRA,
 		//NEAR,

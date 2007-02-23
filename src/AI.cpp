@@ -12,22 +12,29 @@ std::vector<spriteid_t> AI::ids(4);
 
 
 
-int AI::distanceFromPacman(Waypoint *waypoint ){
+double AI::distanceFromPacman(Waypoint *waypoint ){
 	int _x = abs(waypoint->GetX() -targets->pacman->GetX());
 	int _y = abs(waypoint->GetY() - targets->pacman->GetY());
-	return (int)sqrt(_x*_x - _y*_y);
+	return sqrt(_x*_x + _y*_y);
 }
 
 void AI::Think(Waypoint *waypoint, Ghost* ghost){
 	ghoststate_t state = ghost->GetState();
 	switch(state){
 		case NORMAL:
-			if(ghost->getID()==3003 || ghost->getID()==3004) 
+			if(ghost->getID()==3003)
 				Stalker(waypoint, ghost, targets->pacman);	
+ 			else if(ghost->getID()==3004){ 
+				std::cerr<<"distance="<<distanceFromPacman(waypoint)<<std::endl;
+				if(distanceFromPacman(waypoint)>100)
+					Stalker(waypoint, ghost, targets->pacman);	
+				else			
+					Chicken(waypoint, ghost, targets->pacman);	
+			}
 			else if(ghost->getID()==3005)
 				Random(waypoint, ghost);	
 			else if(ghost->getID()==3006){
-				if(distanceFromPacman(waypoint)>96)
+				if(distanceFromPacman(waypoint)>120)
 					Random(waypoint, ghost);	
 				else			
 					Stalker(waypoint, ghost, targets->pacman);	
