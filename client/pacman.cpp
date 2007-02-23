@@ -120,7 +120,6 @@ static void gaim_loop(GameData &d) {
 		d.animdata->spritehold->displaySprites(d.screen);
 		// if one wants to display the junctions, they should
 		// first set the Waypoint.bug
-		d.animdata->wayhold->display(d.screen);
 		SDL_Flip(d.screen);
 
 		// Cap gaim loop speed
