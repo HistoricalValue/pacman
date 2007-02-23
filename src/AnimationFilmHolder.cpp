@@ -102,7 +102,9 @@ static AnimationFilm* loadFilm(char *l) {
 } // loadFilm()
 
 // transform configuration file units to pixels
-#define cun2px(A)	((A)<<3)
+#define cun2px(A)	(A)
+// Old one
+// #define cun2px(A)	((A)<<3)
 static SDL_Rect* torect(char *l) {
 	tokener tok(",", l+1);
 	SDL_Rect* result = new SDL_Rect;
