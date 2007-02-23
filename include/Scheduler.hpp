@@ -7,6 +7,8 @@
 #ifndef __Scheduler_hpp__
 #define __Scheduler_hpp__
 
+#include <map>
+#include <list>
 #include "Animator.hpp" // for timestamp_t
 
 typedef struct Task *task_t;
@@ -15,9 +17,9 @@ typedef struct TaskData *taskdata_t;
 class Scheduler {
 	public :
 	typedef enum {DONE, PENDING} status_t;
-	void _register(task_t&, taskdata_t&);
-	status_t track(task_t&);
-	bool cancel(task_t&);
+	void _register(task_t const&, taskdata_t const&);
+	status_t track(task_t const&);
+	bool cancel(task_t const&);
 	void check(timestamp_t currTime);
 	Scheduler(void);
 	~Scheduler(void);
