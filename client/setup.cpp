@@ -222,7 +222,11 @@ static void collision_setup(InitData const &d, GameData &r) {
 void SSS_CollisionRegisterer::operator() (std::pair<obstplatid_t const,
  ObstaclePlatform*>& p)
 {
-	std::for_each(r.sss.begin(), r.sss.end(), SOPCR(p.second));
+	std::for_each(r.sss.begin(),
+	 //r.sss.end(),
+	 r.sss.begin() + 1,
+	 SOPCR(p.second)
+	);
 } // SSS_CollisionRegisterer::()
 
 // Sprite - Obstalce Platform Collision Registerer
