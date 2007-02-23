@@ -368,8 +368,11 @@ PDCR::PDCR(InitData const &d, GameData &r) :
 	koka(new Dot::_coca()),
 	pkoka(new _pcoca())
 {
-	koka->cc = d.cc;
+	koka->cc = pkoka->cc = d.cc;
 	koka->pacman = r.pacman;
+	pkoka->sss = &r.sss;
+	pkoka->ghost = &r.ghost;
+	pkoka->filmhold = r.animdata->filmhold;
 } // PDCR::PDCR
 
 // ----------------- Even more trivial destructors ------------------
