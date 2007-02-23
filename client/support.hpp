@@ -73,7 +73,7 @@ struct Dot::_coca {
 
 struct _pcoca { // Power up collision callback data
 	CollisionChecker *cc;
-	std::vector<GameSprite*> const *sss;
+	std::map<GameSprite*, ActorMovement*> const *akmovs;
 	struct Ghosts const *ghost;
 	AnimationFilmHolder *filmhold;
 }; // struct _pcoca

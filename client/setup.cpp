@@ -370,7 +370,7 @@ PDCR::PDCR(InitData const &d, GameData &r) :
 {
 	koka->cc = pkoka->cc = d.cc;
 	koka->pacman = r.pacman;
-	pkoka->sss = &r.sss;
+	pkoka->akmovs = &r.akmovs;
 	pkoka->ghost = &r.ghost;
 	pkoka->filmhold = r.animdata->filmhold;
 } // PDCR::PDCR
