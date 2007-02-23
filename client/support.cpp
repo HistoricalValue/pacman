@@ -69,8 +69,10 @@ Sprite* Matcher::operator() (Animation* a) const {
 		noRun = true;
 	} else if (anid == 3024) { // choco yum
 		spid = 1015;
-	} else if (anid >= 4000 && anid <= 5000) { // dot animation
+	} else if (anid >= 4000 && anid < 5000) { // dot animation
 		spid = anid - 2000;
+	} else if (anid >= 5000 && anid < 6000) { // power ups
+		spid = anid;
 	} else {
 		spid = a->GetId();
 		spid = anid;

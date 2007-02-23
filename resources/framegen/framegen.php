@@ -13,12 +13,12 @@ $offy = intval($argv[5]);
 
 $x = $y = 0;
 $id = 2000;
-$op = 1;
+$op = 0;
 switch ($op) {
 	case 0 :
 		$i = $times;
 		while ($i--) {
-			echo (' {'.($x + $off).','.$y.',4,4}');
+			echo (' {'.($x + $offx).','.($y + $offy).',32,32}');
 			$x += $dx; $y += $dy;
 		}
 		break;
