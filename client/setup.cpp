@@ -2,6 +2,7 @@
 
 // Private headers
 #include "setup.hpp"
+#include "SurfaceLoader.hpp"
 
 struct GameData *setup(struct InitData *d) { return &setup(*d); }
 struct GameData &setup(struct InitData &d) {
@@ -32,7 +33,8 @@ struct GameData &setup(struct InitData &d) {
 	teleportals_setup(d, r);
 	// Let game data have access to the collision checker instance
 	r.cc = d.cc;
-
+	//to be removed -- waypoints printing
+	//r.animdata->wayhold->setBug(SurfaceLoader::getInstance()->loadSurface("resources/animation_films/waypoint.png"));
 	return r;
 } // setup
 
