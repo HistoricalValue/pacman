@@ -68,7 +68,9 @@ Sprite* Matcher::operator() (Animation* a) const {
 	} else if (anid >= 3000 && anid <= 3100) { // ghost snailz
 		noRun = true;
 	} else if (anid == 3024) { // choco yum
-		spid = 1015;
+		// No run -- no sprite
+		noRun = true;
+		//spid = 1015;
 	} else if (anid >= 4000 && anid < 5000) { // dot animation
 		spid = anid - 2000;
 	} else if (anid >= 5000 && anid < 6000) { // power ups
