@@ -8,6 +8,8 @@
 #include "client.hpp"
 #include "commons.hpp"
 #include "Dot.hpp"
+#include "FrameRangeAnimator.hpp"
+#include "FrameRangeAnimation.hpp"
 
 struct _cocaclo {
 	std::map<GameSprite*, ActorMovement*> *akmovs;
@@ -73,8 +75,8 @@ struct Dot::_coca {
 
 struct _pcoca { // Power up collision callback data
 	CollisionChecker *cc;
-	std::map<GameSprite*, ActorMovement*> const *akmovs;
-	struct Ghosts const *ghost;
+	std::map<GameSprite*, ActorMovement*> *akmovs;
+	struct Ghosts *ghost;
 	AnimationFilmHolder *filmhold;
 	AnimationHolder *animhold;
 }; // struct _pcoca
