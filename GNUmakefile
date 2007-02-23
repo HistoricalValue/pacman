@@ -19,7 +19,7 @@ purge :
 	find . -iregex '.*\.[od]' -exec rm '{}' \;
 
 run :
-	./client/pacman 2>&1 | tee ./resources/pacman.log
+	./client/pacman 2>&1 | tee ./resources/pacman.log | tail
 
 pac :
 	$(MAKE) -C src default
