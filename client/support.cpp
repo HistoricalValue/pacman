@@ -129,7 +129,7 @@ void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
 	if (c) {
 		_pcoca *pkoka = CAST(_pcoca*, c);
 		p->SetVisibility(false); // powerup
-		pkoka->ghost->stalker->setFilm(pkoka->filmhold->getFilm("snailyeat"));
+		pkoka->ghost->stalker->setFilm(pkoka->filmhold->GetFilm("snailyeat"));
 		FrameRangeAnimator* fra = (*pkoka->akmovs)[pkoka->ghost->stalker]->getFrameRangeAnimator();
 		fra->GetAnimation()->SetDelay(16);
 		fra->Start(pkoka->ghost->stalker, fra->GetAnimation(), getCurrentTime());
