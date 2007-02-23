@@ -32,9 +32,11 @@ class ActorMovement {
 	MovingAnimator* getMovingAnimator(void);
 	FrameRangeAnimator* getFrameRangeAnimator(void);
 	enum move_t getLastMove(void) const;
+	void setDelay(delay_t);
 	private :
 	struct AnimatorPair;
 	struct SuspendFunctor;
+	struct DelaySetter;
 	GameSprite* actor;
 	std::vector<AnimatorPair*> animators;
 	AnimatorPair *w2g, *running; // actor wants to go

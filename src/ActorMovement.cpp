@@ -28,7 +28,17 @@ struct ActorMovement::AnimatorPair {
 	MovingAnimator* mv;
 	FrameRangeAnimator* fr;
 	const char* direction;
-};
+}; // struct AnimatorPair
+
+// Delay setter
+struct ActorMovement::DelaySetter :
+ public std::unary_function<AnimatorPair*, void>
+{
+	void operator()(AnimatorPair*);
+	DelaySetter(delay_t);
+	private :
+	delay_t d;
+}; // struct DelaySetter
 
 // Constructor
 ActorMovement::ActorMovement(GameSprite* _actor,
@@ -41,10 +51,14 @@ ActorMovement::ActorMovement(GameSprite* _actor,
 {
 	assert(_mv.size() >= 4 && _fr.size() >= 4);
 	SuspendFunctor sfunctor(t);
-	animators.push_back(new AnimatorPair("UP",_mv.at(UP), _fr.at(UP)));
-	animators.push_back(new AnimatorPair("RIGHT",_mv.at(RIGHT), _fr.at(RIGHT)));
-	animators.push_back(new AnimatorPair("DOWN",_mv.at(DOWN), _fr.at(DOWN)));
-	animators.push_back(new AnimatorPair("LEFT",_mv.at(LEFT), _fr.at(LEFT)));
+	animators.push_back(
+	 new AnimatorPair("UP",_mv.at(UP), _fr.at(UP)));
+	animators.push_back(
+	 new AnimatorPair("RIGHT",_mv.at(RIGHT), _fr.at(RIGHT)));
+	animators.push_back(
+	 new AnimatorPair("DOWN",_mv.at(DOWN), _fr.at(DOWN)));
+	animators.push_back(
+	 new AnimatorPair("LEFT",_mv.at(LEFT), _fr.at(LEFT)));
 	std::for_each(animators.begin(), animators.end(), sfunctor);
 } // constructor
 
@@ -159,3 +173,15 @@ enum ActorMovement::move_t ActorMovement::getLastMove(void) const {
 			break;
 	return i == 4 ? NOWHERE : static_cast<enum move_t>(i);
 } // getLastMove
+
+void ActorMovement::setDelay(delay_t d) {
+	std::for_each(animators.begin(), animators.end(),
+	 DelaySetter(d));
+} // setDelay
+
+ActorMovement::DelaySetter::DelaySetter(delay_t _d) : d(_d) { }
+
+void ActorMovement::DelaySetter::operator()(AnimatorPair *p) {
+	p->getMV()->getAnimation()->SetDelay(d);
+	p->getFR()->GetAnimation()->SetDelay(d);
+} // ActorMovement::DelaySetter::()
