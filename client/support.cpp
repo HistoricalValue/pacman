@@ -131,9 +131,21 @@ void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
 	if (c) {
 		_pcoca *pkoka = CAST(_pcoca*, c);
 		p->SetVisibility(false); // powerup
-		pkoka->ghost->stalker->setFilm(pkoka->filmhold->GetFilm("snailyeat"));
-		FrameRangeAnimator* fra = (*pkoka->akmovs)[pkoka->ghost->stalker]->getFrameRangeAnimator();
-		fra->GetAnimation()->SetDelay(16);
-		fra->Start(pkoka->ghost->stalker, fra->GetAnimation(), getCurrentTime());
+//		pkoka->ghost->stalker->setFilm(pkoka->filmhold->GetFilm("snailyeat"));
+//		MovingAnimator *ma = (*pkoka->akmovs)[pkoka->ghost->stalker]->getMovingAnimator();
+//		(*pkoka->akmovs)[pkoka->ghost->stalker]->setDelay(25);
+//		pkoka->ghost->stalker->SetState(SCARED);
+		setScared(pkoka->ghost->stalker, pkoka);
+		setScared(pkoka->ghost->random, pkoka);
+		setScared(pkoka->ghost->retard, pkoka);
+		setScared(pkoka->ghost->kieken, pkoka);
 	}
 } // powerup_coca
+
+void setScared(Ghost *ghost, _pcoca *pkoka){
+	ghost->setFilm(pkoka->filmhold->GetFilm("snailyeat"));
+	MovingAnimator *ma = (*pkoka->akmovs)[ghost]->getMovingAnimator();
+	(*pkoka->akmovs)[ghost]->setDelay(25);
+	ghost->SetState(SCARED);
+	return;
+}

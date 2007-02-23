@@ -10,6 +10,7 @@
 #include "Dot.hpp"
 #include "FrameRangeAnimator.hpp"
 #include "FrameRangeAnimation.hpp"
+#include "AI.hpp"
 
 struct _cocaclo {
 	std::map<GameSprite*, ActorMovement*> *akmovs;
@@ -67,6 +68,7 @@ struct DotInfo {
 
 // Callback for dot sprites
 void DotAnimatorCallback(Animator*, void*);
+
 // Callback for dot sprites callback data
 struct Dot::_coca {
 	CollisionChecker *cc;
@@ -80,4 +82,5 @@ struct _pcoca { // Power up collision callback data
 	AnimationFilmHolder *filmhold;
 	AnimationHolder *animhold;
 }; // struct _pcoca
+void setScared(Ghost *ghost, _pcoca *pkoka);
 #endif // __callbacks_hpp__
