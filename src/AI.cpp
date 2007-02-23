@@ -9,16 +9,32 @@ std::map<GameSprite*, ActorMovement*> AI::moves;
 Targets* AI::targets;
 std::vector<spriteid_t> AI::ids(4);
 
+
+
+
+int AI::distanceFromPacman(Waypoint *waypoint ){
+	int _x = abs(waypoint->GetX() -targets->pacman->GetX());
+	int _y = abs(waypoint->GetY() - targets->pacman->GetY());
+	return (int)sqrt(_x*_x - _y*_y);
+}
+
 void AI::Think(Waypoint *waypoint, Ghost* ghost){
 	ghoststate_t state = ghost->GetState();
-	switch(ghost->getID()) {
-		case _STALKER:break;
-		case LOST:break;
-	}
-
 	switch(state){
 		case NORMAL:
-			Stalker(waypoint, ghost, targets->pacman);
+			if(ghost->getID()==3003 || ghost->getID()==3004) 
+				Stalker(waypoint, ghost, targets->pacman);	
+			else if(ghost->getID()==3005)
+				Random(waypoint, ghost);	
+			else if(ghost->getID()==3006){
+				if(distanceFromPacman(waypoint)>160)
+					Random(waypoint, ghost);	
+				else			
+					Stalker(waypoint, ghost, targets->pacman);	
+			}
+			else
+				assert(0);
+//			Stalker(waypoint, ghost, targets->pacman);
 			break;
 		case SCARED:
 			Chicken(waypoint, ghost, targets->pacman);
@@ -110,17 +126,18 @@ void AI::Random(Waypoint* waypoint, Ghost* ghost){
 	if(waypoint->canGoRight() && lastmove != ActorMovement::LEFT)
 		directions[counter++] = ActorMovement::RIGHT;
 
-	nf(!counter, "Waypoint must be disabled.\n");
+	//nf(!counter, "Waypoint must be disabled.\n");
+	if(!counter) return;//DEBUG LINE
 	am->pressed(directions[rand() % counter], getCurrentTime());
 }
 
 void AI::SetMoves(std::map<GameSprite*, ActorMovement*> _moves){
 	moves = _moves;
-	std::map<GameSprite*, ActorMovement*>::const_iterator ite = _moves.begin();
-	ids[_STALKER] = ite->first->getID();
-	ids[_RETARD] = (*++ite).first->getID();
-	ids[_DIZZY] = (*++ite).first->getID();
-	ids[LOST] = (*++ite).first->getID();
+	//std::map<GameSprite*, ActorMovement*>::const_iterator ite = _moves.begin();
+	//ids[KIRA] = ite->first->getID();
+	//ids[NEAR] = (*++ite).first->getID();
+	//ids[MISA] = (*++ite).first->getID();
+	//ids[RYUK] = (*++ite).first->getID();
 }
 
 void AI::SetTargets(Targets* _targets){
