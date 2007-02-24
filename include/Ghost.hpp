@@ -15,6 +15,8 @@ class Ghost : public GameSprite {
 	public :
 	void SetState(ghoststate_t _state);
 	ghoststate_t GetState(void);
+	static void collision_callback(Sprite*, Sprite*,
+	 void *c = static_cast<void*>(0));
 
 	Ghost(int x, int y, AnimationFilm *f, spriteid_t id);
 	~Ghost(void);
