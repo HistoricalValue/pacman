@@ -97,4 +97,5 @@ Scheduler::~Scheduler(void) {
 	delete executor;
 }
 Task::~Task(void) { }
+TaskData::~TaskData(void) {}
 Scheduler::IsDirtyPredicate::~IsDirtyPredicate(void) { }

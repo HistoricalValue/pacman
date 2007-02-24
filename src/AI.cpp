@@ -37,7 +37,7 @@ void AI::Think(Waypoint *waypoint, Ghost* ghost){
 					Random(waypoint, ghost);	
 				else			
 					Stalker(waypoint, ghost, targets->pacman);	
-			}
+			} 
 			else
 				assert(0);
 //			Stalker(waypoint, ghost, targets->pacman);

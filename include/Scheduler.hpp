@@ -48,6 +48,6 @@ class Task {
 	timestamp_t time;
 	bool recurring, dirty;
 }; // class Task
-struct TaskData { };
+struct TaskData { virtual ~TaskData(); };
 
 #endif // __Scheduler_hpp__
