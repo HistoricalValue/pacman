@@ -82,5 +82,4 @@ struct _pcoca { // Power up collision callback data
 	AnimationFilmHolder *filmhold;
 	AnimationHolder *animhold;
 }; // struct _pcoca
-void setScared(Ghost *ghost, _pcoca *pkoka);
 #endif // __callbacks_hpp__

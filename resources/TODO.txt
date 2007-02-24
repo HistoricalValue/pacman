@@ -1,10 +1,16 @@
 * Remove useless collision checkings (add bool about whether it should check and move the point where amc (after move callback) is called.
+
 * Tend all TODOs in the code.
 
 * Consider removing platform member obstacle sprites from sprite holder (check ChangeLog of revision 16)
 
 * Fix top and bottom wall containers which are not accurate sprites that they exeed the graphic to the right 
 
+* Fix setup : add custom setup function option and make special sprite aliasing a special custom setup function
+
+== SEMI-DONE ==
 * Add configurable (upon build? defined? // dynamic configurable) limits for types of sprites (game, obstacle, ghost, more to come??)
 
+== DONE ==
 * Move ghosts into lair and set up waypoints to allow them to get out and not get in again and all these
+
