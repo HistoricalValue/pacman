@@ -14,6 +14,7 @@
 #include "SDL/SDL_ttf.h"
 #include "support.hpp"
 #include "config.h"
+#include "Scheduler.hpp"
 
 enum ss_t { // special sprite type
 	ss_pacman, ss_stalker, ss_kieken, ss_random, ss_retard
@@ -46,6 +47,8 @@ struct GameData {
 	timestamp_t currTime;
 	// The collision checker
 	CollisionChecker *cc;
+	// The task scheduler
+	Scheduler *sch;
 
 	// Ignore
 	GameData(void); ~GameData(void);

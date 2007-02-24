@@ -13,6 +13,8 @@ struct GameData &setup(struct InitData &d) {
 	d.startingTime = getTimestamp();
 	// Set up screen
 	screen_setup(d, r);
+	// Create the scheduler
+	r.sch = new Scheduler(d.startingTime);
 	// Create and get Animation Data
 	r.animdata = setup_animations(d.animsetup);
 	// Fetch special sprites -- no aliases at this point!
@@ -374,6 +376,7 @@ PDCR::PDCR(InitData const &d, GameData &r) :
 	pkoka->ghost = &r.ghost;
 	pkoka->filmhold = r.animdata->filmhold;
 	pkoka->animhold = r.animdata->animhold;
+	pkoka->sch = r.sch;
 } // PDCR::PDCR
 
 // ----------------- Even more trivial destructors ------------------

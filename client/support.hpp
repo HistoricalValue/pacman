@@ -11,6 +11,7 @@
 #include "FrameRangeAnimator.hpp"
 #include "FrameRangeAnimation.hpp"
 #include "AI.hpp"
+#include "Scheduler.hpp"
 
 struct _cocaclo {
 	std::map<GameSprite*, ActorMovement*> *akmovs;
@@ -81,5 +82,6 @@ struct _pcoca { // Power up collision callback data
 	struct Ghosts *ghost;
 	AnimationFilmHolder *filmhold;
 	AnimationHolder *animhold;
+	Scheduler *sch;
 }; // struct _pcoca
 #endif // __callbacks_hpp__
