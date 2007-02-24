@@ -10,6 +10,7 @@
 #include "config.h"
 #include "support.hpp"
 #include "Dot.hpp"
+#include "PowerUp.hpp"
 
 // Setup functions ---------------------------------------------------------
 static void libs_setup(struct InitData const&, struct GameData &);

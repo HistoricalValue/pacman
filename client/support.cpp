@@ -4,8 +4,6 @@
 // Implementation headers
 #include "Dot.hpp"
 
-static void setScared(Ghost*, std::map<GameSprite*, ActorMovement*> &,
- AnimationFilm*);
 
 int Callbacks::_amc::operator() (Animator *a) const {
 	cc->Check();
@@ -129,29 +127,3 @@ void Dot::collisionCallback(Sprite *dot, Sprite *stoocker, void *c) {
 	} else
 		std::cerr<<"Pakitmi!"<<std::endl;
 } // collisionCallback
-
-void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
-	if (c) {
-		_pcoca *pkoka = CAST(_pcoca*, c);
-		p->SetVisibility(false); // powerup
-
-		// Change ghosts' status, animation film and anim delay
-		AnimationFilm *scared_film = pkoka->filmhold->
-		 GetFilm("snailyeat");
-		std::map<GameSprite*, ActorMovement*> &akmovs =
-		 *pkoka->akmovs;
-		setScared(pkoka->ghost->stalker, akmovs, scared_film);
-		setScared(pkoka->ghost->random, akmovs, scared_film);
-		setScared(pkoka->ghost->retard, akmovs, scared_film);
-		setScared(pkoka->ghost->kieken, akmovs, scared_film);
-	}
-} // powerup_coca
-
-static void setScared(Ghost *ghost,
- std::map<GameSprite*, ActorMovement*> &akmovs,
- AnimationFilm *film)
-{
-	ghost->SetState(SCARED);
-	ghost->setFilm(film);
-	akmovs[ghost]->setDelay(25);
-} // setScared

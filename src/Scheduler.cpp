@@ -1,4 +1,5 @@
 #include "Scheduler.hpp"
+#include "commons.hpp"
 #include <algorithm>
 
 // Checks for each task if it should be executed and executes it if it
@@ -33,6 +34,8 @@ void Scheduler::check(timestamp_t currTime) {
 	executor->setCurrentTime(currTime);
 	// Check and run what tasks is needed
 	std::for_each(times.begin(), times.end(), *executor);
+	// Clean up (remove) dirty tasks
+	times.remove_if(isdirty);
 } // Scheduler::check
 
 bool Scheduler::cancel(task_t const &t) {
@@ -44,11 +47,11 @@ bool Scheduler::cancel(task_t const &t) {
 
 // Task Executor Implementation --------------------------------------------
 void Scheduler::TaskExecutor::operator()(task_t t) const {
-	if (t->getTime() >= currTime) { // should run task
+	if (currTime >= t->getTime()) { // should run task
 		(*t)(sch->tasks[t]);
-		// if task is no reoccuring, remove from the queue
+		// if task is no reoccuring, mark task for removal
 		if (!t->isRecurring())
-			sch->cancel(t);
+			t->makeDirty();
 		else
 			// Advance task's execution time and leave
 			// registered
@@ -63,14 +66,26 @@ void Scheduler::TaskExecutor::setCurrentTime(timestamp_t _currTime) {
 // Task Implementation -----------------------------------------------------
 timestamp_t Task::getTime(void) const { return time; }
 bool Task::isRecurring(void) const { return recurring; }
+void Task::makeDirty(void) { dirty = true; }
+bool Task::isDirty(void) const { return dirty; }
 
+// IsDirtyPredicate Implementation -----------------------------------------
+bool Scheduler::IsDirtyPredicate::operator()(Task *t) {
+	return t->isDirty();
+} // IsDirtyPredicate::()
 
 // Constructors
 Scheduler::Scheduler(timestamp_t _startingTime) :
-	executor(new TaskExecutor(_startingTime, this)) { }
+	executor(new TaskExecutor(_startingTime, this)),
+	isdirty() { }
 Scheduler::TaskExecutor::TaskExecutor(timestamp_t _currTime,Scheduler*_sch):
 	currTime(_currTime),
 	sch(_sch) { }
+Task::Task(timestamp_t _time, bool _recurring) :
+	time(_time),
+	recurring(_recurring),
+	dirty(false) { }
+Scheduler::IsDirtyPredicate::IsDirtyPredicate(void) { }
 
 // Destructors
 Scheduler::~Scheduler(void) {
@@ -81,3 +96,5 @@ Scheduler::~Scheduler(void) {
 	}
 	delete executor;
 }
+Task::~Task(void) { }
+Scheduler::IsDirtyPredicate::~IsDirtyPredicate(void) { }

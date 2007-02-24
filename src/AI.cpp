@@ -25,7 +25,6 @@ void AI::Think(Waypoint *waypoint, Ghost* ghost){
 			if(ghost->getID()==3003)
 				Stalker(waypoint, ghost, targets->pacman);	
  			else if(ghost->getID()==3004){ 
-				std::cerr<<"distance="<<distanceFromPacman(waypoint)<<std::endl;
 				if(distanceFromPacman(waypoint)>100)
 					Stalker(waypoint, ghost, targets->pacman);	
 				else			
@@ -34,7 +33,7 @@ void AI::Think(Waypoint *waypoint, Ghost* ghost){
 			else if(ghost->getID()==3005)
 				Random(waypoint, ghost);	
 			else if(ghost->getID()==3006){
-				if(distanceFromPacman(waypoint)>120)
+				if(distanceFromPacman(waypoint)>200)
 					Random(waypoint, ghost);	
 				else			
 					Stalker(waypoint, ghost, targets->pacman);	

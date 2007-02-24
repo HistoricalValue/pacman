@@ -24,23 +24,29 @@ class Scheduler {
 	Scheduler(timestamp_t starting_time);
 	~Scheduler(void);
 	private :
+	struct IsDirtyPredicate : public std::unary_function<Task*,bool> {
+		bool operator()(Task *);
+		IsDirtyPredicate(void); ~IsDirtyPredicate(void);
+	}; // struct IsDirtyPredicate
 	struct TaskExecutor;
 	std::map<task_t, taskdata_t> tasks;
 	std::list<task_t> times;
 	TaskExecutor *executor;
+	IsDirtyPredicate isdirty;
 }; // class Scheduler
 
 class Task {
 	public :
-	virtual bool operator==(Task const*) const = 0;
-	virtual void operator()(taskdata_t) const = 0;
+	virtual void operator()(taskdata_t) = 0;
 	virtual Task&operator++(void) = 0;
-	Task(timestamp_t diff, bool recurring); virtual ~Task(void);
+	Task(timestamp_t time, bool recurring); virtual ~Task(void);
 	timestamp_t getTime(void) const;
+	bool isDirty(void) const;
+	void makeDirty(void);
 	bool isRecurring(void) const;
 	private :
 	timestamp_t time;
-	bool recurring;
+	bool recurring, dirty;
 }; // class Task
 struct TaskData { };
 

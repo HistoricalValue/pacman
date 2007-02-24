@@ -118,6 +118,9 @@ static void gaim_loop(GameData &d) {
 		 AnimatorProgressor(timesand));
 		// collision checking happens through callbacks
 		d.cc->Commit();
+		
+		// Run scheduled tasks
+		d.sch->check(timesand);
 
 		// Draw on the screen
 		SDL_FillRect(d.screen, NULL, d.bg);
