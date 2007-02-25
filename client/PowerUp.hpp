@@ -29,4 +29,7 @@ struct _gcoca : public _pcoca {
 // Pacman-Ghost collision callback
 extern void Ghost_collision_callback(Sprite *, Sprite *,
  void *c = CAST(void*, 0));
+
+extern void ghost_uneating_callback(Sprite*, Sprite*,
+ void *c = CAST(void*, 0));
 #endif // __PowerUp_hpp__

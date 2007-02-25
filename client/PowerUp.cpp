@@ -113,3 +113,7 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 		db("Warning: Useless pacman-ghost callback");
 	}
 } // collision_callback
+
+void ghost_uneating_callback(Sprite *waypoint, Sprite *_ghost, void *c) {
+	
+} // ghost_uneating_callback
