@@ -330,7 +330,7 @@ InitData::InitData(void) :
 	speeds(),
 	anids(), 
 	callbacks(CAST(Callbacks*, 0)),
-	weeds(3),
+	weeds(4),
 	sdlflags(0),
 	custset(),
 	screen(),
@@ -396,7 +396,7 @@ PDCR::PDCR(InitData const &d, GameData &r) :
 } // PDCR::PDCR
 PGCR::PGCR(InitData const &d, GameData &r) :
 	for_each_functor<GameSprite*>(d, r),
-	pkoka(new _pcoca)
+	pkoka(new _gcoca)
 {
 	pkoka->cc = d.cc;
 	pkoka->akmovs = &r.akmovs;
@@ -404,6 +404,8 @@ PGCR::PGCR(InitData const &d, GameData &r) :
 	pkoka->filmhold = r.animdata->filmhold;
 	pkoka->animhold = r.animdata->animhold;
 	pkoka->sch = r.sch;
+	pkoka->left_right = gd.animdata->wayhold->getWaypoint(d.weeds[TM]);
+	pkoka->down = gd.animdata->wayhold->getWaypoint(d.weeds[TI]);
 } // PGCR::PGCR
 UserRunner::UserRunner(PostInitData &_pd, InitData &_d, GameData &_gd) :
 	pd(_pd),

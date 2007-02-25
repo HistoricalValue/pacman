@@ -10,6 +10,7 @@
 #include "AnimationFilmHolder.hpp"
 #include "AnimationHolder.hpp"
 #include "Scheduler.hpp"
+#include "Waypoint.hpp"
 #include <map>
 
 struct _pcoca { // Power up collision callback data
@@ -22,6 +23,9 @@ struct _pcoca { // Power up collision callback data
 }; // struct _pcoca
 extern void powerup_coca(Sprite*, Sprite*, void *c = CAST(void*, 0));
 
+struct _gcoca : public _pcoca {
+	Waypoint *left_right, *down;
+}; // struct _gcoca
 // Pacman-Ghost collision callback
 extern void Ghost_collision_callback(Sprite *, Sprite *,
  void *c = CAST(void*, 0));
