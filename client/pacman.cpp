@@ -96,6 +96,9 @@ static void setup_setup_data(InitData &d) {
 static void setup_post_setup_data(PostInitData &d, GameData &gd) {
 	// Create animation to sprite matcher
 	d.matcher = new Matcher(gd.animdata->spritehold);
+
+	// Give custom post init functions to set-up-er
+	//TODO add
 } // setup_post_setup_data
 
 static timestamp_t currTime;

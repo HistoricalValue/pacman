@@ -295,7 +295,11 @@ void post_setup(PostInitData &pd, InitData &d, GameData &gd) {
 	 DotAnimatorCallback);
 	// Update sprite - actor movement map
 	d.callbacks->get_cocaclo().akmovs = &gd.akmovs;
+
+	// Run custom user functions
+	std::for_each(pd.user.begin(), pd.user.end(), UserRunner(pd,d,gd));
 } // post_setup
+void UserRunner::operator()(argument_type f) { f(pd, d, gd); }
 
 // ----------------- Trivial constructors ------------------
 GameData::GameData(void) :
@@ -378,6 +382,10 @@ PDCR::PDCR(InitData const &d, GameData &r) :
 	pkoka->animhold = r.animdata->animhold;
 	pkoka->sch = r.sch;
 } // PDCR::PDCR
+UserRunner::UserRunner(PostInitData &_pd, InitData &_d, GameData &_gd) :
+	pd(_pd),
+	d(_d),
+	gd(_gd) { }
 
 // ----------------- Even more trivial destructors ------------------
 Ghosts::~Ghosts(void) { }

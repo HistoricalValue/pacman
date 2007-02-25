@@ -122,6 +122,8 @@ struct GameData &setup(struct InitData &);
 struct PostInitData {
 	// Animation to Sprite matcher
 	Anim2SpriteMatcher *matcher;
+	// Post Init Custom functions
+	std::list<void(*)(PostInitData&, InitData&, GameData&)> user;
 }; // struct PostInitData
 
 void post_setup(PostInitData &, InitData &, GameData &);

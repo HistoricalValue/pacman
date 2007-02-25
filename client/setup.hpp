@@ -106,3 +106,14 @@ struct PDCR : public for_each_functor<Sprite*> {
 	Dot::_coca *koka;
 	_pcoca *pkoka;
 }; // struct PDCR
+// User runner -- runs the custom user post init functions
+struct UserRunner : public std::unary_function<void(*)(PostInitData&,
+ InitData&, GameData&), void>
+{
+	result_type operator()(argument_type);
+	UserRunner(PostInitData&, InitData&, GameData&);
+	private :
+	PostInitData &pd;
+	InitData &d;
+	GameData &gd;
+};
