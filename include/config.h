@@ -41,4 +41,8 @@
 /* Ghosts */
 #define GHOST_SPRITE_ID_FIRST	3003
 #define GHOST_SPRITE_ID_LAST	4000
+/* Waypoints */
+#define WAYPOINT_TRAFICMAN_LEFTRIGHT	800
+#define WAYPOINT_TRAFICMAN_INSIDE	888
+#define WAYPOINT_UNEATER		850
 #endif /* __config_h__ */
