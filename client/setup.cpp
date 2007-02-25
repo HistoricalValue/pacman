@@ -3,6 +3,7 @@
 // Private headers
 #include "setup.hpp"
 #include "SurfaceLoader.hpp"
+#include "PowerUp.hpp"
 
 struct GameData *setup(struct InitData *d) { return &setup(*d); }
 struct GameData &setup(struct InitData &d) {
@@ -212,11 +213,8 @@ static void collision_setup(InitData const &d, GameData &r) {
 	 getSprites();
 	std::for_each(sprites.begin(), sprites.end(), PDCR(d, r));
 
-	// Set up collision checking of pacman and ghosts
-	d.cc->Register(r.ghost.stalker, r.pacman);
-	d.cc->Register(r.ghost.random, r.pacman);
-	d.cc->Register(r.ghost.kieken, r.pacman);
-	d.cc->Register(r.ghost.retard, r.pacman);
+	// Set up collision checking of ghosts with pacman
+	std::for_each(r.sss.begin() + 1, r.sss.end(), PGCR(d, r));
 
 	// Set up custom callback 
 	std::list<ObstacleSprite*> const &obsts = r.animdata->spritehold->
@@ -273,6 +271,15 @@ void PDCR::operator() (Sprite *s) {
 		s->SetCollisionCallback(powerup_coca, pkoka);
 	}
 } // PDCR::()
+
+// Pacman Ghost Collision Registerer
+void PGCR::operator()(GameSprite *ghost) {
+	// Register ghost collision with pacman
+	// (sprites aliases have been set)
+	d.cc->Register(ghost, r.pacman);
+	// Set up custom callback to ghost sprites
+	ghost->SetCollisionCallback (Ghost_collision_callback, pkoka);
+} // PGCR::()
 
 // CocaSetter : CollisionCallback setter
 void CocaSetter::operator() (ObstacleSprite *o) {
@@ -387,6 +394,17 @@ PDCR::PDCR(InitData const &d, GameData &r) :
 	pkoka->animhold = r.animdata->animhold;
 	pkoka->sch = r.sch;
 } // PDCR::PDCR
+PGCR::PGCR(InitData const &d, GameData &r) :
+	for_each_functor<GameSprite*>(d, r),
+	pkoka(new _pcoca)
+{
+	pkoka->cc = d.cc;
+	pkoka->akmovs = &r.akmovs;
+	pkoka->ghost = &r.ghost;
+	pkoka->filmhold = r.animdata->filmhold;
+	pkoka->animhold = r.animdata->animhold;
+	pkoka->sch = r.sch;
+} // PGCR::PGCR
 UserRunner::UserRunner(PostInitData &_pd, InitData &_d, GameData &_gd) :
 	pd(_pd),
 	d(_d),
@@ -399,3 +417,4 @@ for_each_functor<arg_t>::~for_each_functor(void) { }
 AnimationIDs::~AnimationIDs(void) { }
 InitData::~InitData(void) { }
 Screen::~Screen(void) { }
+PGCR::~PGCR(void) { }

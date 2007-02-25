@@ -22,4 +22,7 @@ struct _pcoca { // Power up collision callback data
 }; // struct _pcoca
 extern void powerup_coca(Sprite*, Sprite*, void *c = CAST(void*, 0));
 
+// Pacman-Ghost collision callback
+extern void Ghost_collision_callback(Sprite *, Sprite *,
+ void *c = CAST(void*, 0));
 #endif // __PowerUp_hpp__

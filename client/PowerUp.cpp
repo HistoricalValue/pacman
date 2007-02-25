@@ -91,3 +91,10 @@ void GhostRevertTask::operator()(TaskData *d) {
 
 Task &GhostRevertTask::operator++(void) { return *this; }
 
+void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
+	if (c) {
+		// It gets called : D
+		_pcoca *pkoka = CAST(_pcoca*, c);
+	} else
+		db("Warning: Useless pacman-ghost callback");
+} // collision_callback

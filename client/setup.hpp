@@ -116,4 +116,11 @@ struct UserRunner : public std::unary_function<void(*)(PostInitData&,
 	PostInitData &pd;
 	InitData &d;
 	GameData &gd;
-};
+}; // struct UserRunner
+// Pacman Ghost collision registerer
+struct PGCR : public for_each_functor<GameSprite *> {
+	void operator() (GameSprite*);
+	PGCR(InitData const&, GameData&); ~PGCR(void);
+	private :
+	_pcoca *pkoka;
+}; // struct PGCR
