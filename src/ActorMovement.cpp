@@ -183,5 +183,5 @@ ActorMovement::DelaySetter::DelaySetter(delay_t _d) : d(_d) { }
 
 void ActorMovement::DelaySetter::operator()(AnimatorPair *p) {
 	p->getMV()->getAnimation()->SetDelay(d);
-	p->getFR()->GetAnimation()->SetDelay(d);
+//	p->getFR()->GetAnimation()->SetDelay(d);
 } // ActorMovement::DelaySetter::()
