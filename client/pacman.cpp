@@ -3,6 +3,7 @@
 #include "config.h"
 #include "inputControl.hpp"
 #include "AnimatorHolder.hpp"
+#include "CustomPostinit.hpp"
 
 static void setup_setup_data(InitData &);
 static void setup_post_setup_data(PostInitData &, GameData &);
@@ -98,7 +99,7 @@ static void setup_post_setup_data(PostInitData &d, GameData &gd) {
 	d.matcher = new Matcher(gd.animdata->spritehold);
 
 	// Give custom post init functions to set-up-er
-	//TODO add
+	registerCustomPostinit(d.user);
 } // setup_post_setup_data
 
 static timestamp_t currTime;

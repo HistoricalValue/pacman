@@ -1,0 +1,5 @@
+#ifndef __custompostinit_unregister_waypoint_888_hpp__
+#define __custompostinit_unregister_waypoint_888_hpp__
+#include "CustomPostinit_Commons.hpp"
+CPI_DECLARE(custompostinit_unregister_waypoint_888);
+#endif // __custompostinit_unregister_waypoint_888_hpp__
