@@ -92,9 +92,22 @@ void GhostRevertTask::operator()(TaskData *d) {
 Task &GhostRevertTask::operator++(void) { return *this; }
 
 void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
-	if (c) {
+	Ghost* gs = dynamic_cast<Ghost*>(ghost);
+	if(gs->GetState() == SCARED) { if (c) {
 		// It gets called : D
 		_pcoca *pkoka = CAST(_pcoca*, c);
+		AnimationFilm *retreat_film = pkoka->filmhold->
+		 GetFilm("snailyate");
+		std::map<GameSprite*, ActorMovement*> &akmovs =
+		 *pkoka->akmovs;
+
+		gs->SetState(RETREAT);
+		gs->setFilm(retreat_film);
+		akmovs[gs]->setDelay(17);
+		CollisionChecker::Singleton()->Cancel(gs, );
+		
+		
 	} else
 		db("Warning: Useless pacman-ghost callback");
+	}
 } // collision_callback
