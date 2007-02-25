@@ -212,6 +212,11 @@ static void collision_setup(InitData const &d, GameData &r) {
 	 getSprites();
 	std::for_each(sprites.begin(), sprites.end(), PDCR(d, r));
 
+	// Set up collision checking of pacman and ghosts
+	d.cc->Register(r.ghost.stalker, r.pacman);
+	d.cc->Register(r.ghost.random, r.pacman);
+	d.cc->Register(r.ghost.kieken, r.pacman);
+	d.cc->Register(r.ghost.retard, r.pacman);
 
 	// Set up custom callback 
 	std::list<ObstacleSprite*> const &obsts = r.animdata->spritehold->

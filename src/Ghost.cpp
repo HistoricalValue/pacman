@@ -17,5 +17,5 @@ GameSprite(x, y, f, id) {
 Ghost::~Ghost(void) { }
 
 void Ghost::collision_callback(Sprite *, Sprite *, void *c) {
-
+	// It is called .. many times per ghost touch.
 } // collision_callback
