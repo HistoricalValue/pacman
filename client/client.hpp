@@ -94,7 +94,8 @@ struct InitData {
 	enum wp_t { // waypoint type
 		LT = 0, // left teleport
 		RT = 1, // right teleport
-		TM = 2  // traffic man
+		TM = 2, // traffic man - away
+		TI = 3  // traffic man - inside
 	};
 	std::vector<waypointid_t> weeds; // wid
 	// Library init flags
