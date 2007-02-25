@@ -115,5 +115,22 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 } // collision_callback
 
 void ghost_uneating_callback(Sprite *waypoint, Sprite *_ghost, void *c) {
+	Ghost* gs = dynamic_cast<Ghost*>(_ghost);
+	if(gs->GetState() == RETREAT) if(c){
+		AnimationFilm *film;
+		_gcoca *gkoka = CAST(_gcoca*, c);
+		if(gs == gkoka->ghost->stalker)
+			film = gkoka->filmhold->GetFilm("snaily");
+		else if(gs == gkoka->ghost->random)
+			film = gkoka->filmhold->GetFilm("snailyl");
+		else if(gs == gkoka->ghost->retard)
+			film = gkoka->filmhold->GetFilm("snailyd");
+		else film = gkoka->filmhold->GetFilm("snailyb");
+		gs->SetState(NORMAL);
+		gs->setFilm(film);
+		(*gkoka->akmovs)[gs]->pressed(ActorMovement::UP, getCurrentTime());
+		CollisionChecker::Singleton()->Cancel(gkoka->down, gs);	
+		CollisionChecker::Singleton()->Register(gkoka->left_right, gs);
+	}
 	
 } // ghost_uneating_callback
