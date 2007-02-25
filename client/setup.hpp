@@ -122,5 +122,5 @@ struct PGCR : public for_each_functor<GameSprite *> {
 	void operator() (GameSprite*);
 	PGCR(InitData const&, GameData&); ~PGCR(void);
 	private :
-	_pcoca *pkoka;
+	_gcoca *pkoka;
 }; // struct PGCR

@@ -404,8 +404,8 @@ PGCR::PGCR(InitData const &d, GameData &r) :
 	pkoka->filmhold = r.animdata->filmhold;
 	pkoka->animhold = r.animdata->animhold;
 	pkoka->sch = r.sch;
-	pkoka->left_right = gd.animdata->wayhold->getWaypoint(d.weeds[TM]);
-	pkoka->down = gd.animdata->wayhold->getWaypoint(d.weeds[TI]);
+	pkoka->left_right = r.animdata->wayhold->getWaypoint(d.weeds[d.TM]);
+	pkoka->down = r.animdata->wayhold->getWaypoint(d.weeds[d.TI]);
 } // PGCR::PGCR
 UserRunner::UserRunner(PostInitData &_pd, InitData &_d, GameData &_gd) :
 	pd(_pd),
