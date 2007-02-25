@@ -46,20 +46,22 @@ static void setScared(Ghost *ghost,
  std::map<GameSprite*, ActorMovement*> &akmovs,
  AnimationFilm *film)
 {
-	ghost->SetState(SCARED);
-	ghost->setFilm(film);
-	akmovs[ghost]->setDelay(25);
+	if(ghost->GetState() == NORMAL) {
+		ghost->SetState(SCARED);
+		ghost->setFilm(film);
+		akmovs[ghost]->setDelay(25);
+	}
 } // setScared
 
 static void ScaredToNormal(Ghost *ghost,
  std::map<GameSprite*, ActorMovement*> &akmovs,
  AnimationFilm *film)
 {
-	if(ghost->GetState() != SCARED)
-		return;
-	ghost->SetState(NORMAL);
-	ghost->setFilm(film);
-	akmovs[ghost]->setDelay(15);
+	if(ghost->GetState() == SCARED) {
+		ghost->SetState(NORMAL);
+		ghost->setFilm(film);
+		akmovs[ghost]->setDelay(15);
+	}
 }
 
 
@@ -95,17 +97,17 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 	Ghost* gs = dynamic_cast<Ghost*>(ghost);
 	if(gs->GetState() == SCARED) { if (c) {
 		// It gets called : D
-		_pcoca *pkoka = CAST(_pcoca*, c);
-		AnimationFilm *retreat_film = pkoka->filmhold->
+		_gcoca *gkoka = CAST(_gcoca*, c);
+		AnimationFilm *retreat_film = gkoka->filmhold->
 		 GetFilm("snailyate");
 		std::map<GameSprite*, ActorMovement*> &akmovs =
-		 *pkoka->akmovs;
+		 *gkoka->akmovs;
 
 		gs->SetState(RETREAT);
 		gs->setFilm(retreat_film);
 		akmovs[gs]->setDelay(17);
-		CollisionChecker::Singleton()->Cancel(gs, );
-		
+		CollisionChecker::Singleton()->Cancel(gkoka->left_right, gs);	
+		CollisionChecker::Singleton()->Register(gkoka->down, gs);
 		
 	} else
 		db("Warning: Useless pacman-ghost callback");
