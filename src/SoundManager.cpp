@@ -48,6 +48,7 @@ void SoundManager::ChangeState(){
 void SoundManager::PlayEffect(char* file){
   //loading the effect file
   effect = Mix_LoadWAV(file);
+  Mix_PlayChannel(1, effect, 0);
 }
 
 void SoundManager::StopEffect(){

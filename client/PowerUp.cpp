@@ -41,7 +41,7 @@ void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
 		 new GhostRevertTask(getCurrentTime() + EATABLE_DURATION),
 		 grtd);
 
-		SoundManager::Singleton()->Play("./resources/sounds/scratch.wav", 1);
+		SoundManager::Singleton()->PlayEffect("./resources/sounds/scratch.wav");
 	
 	}
 } // powerup_coca
