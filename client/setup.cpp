@@ -181,8 +181,7 @@ static void ai_setup(struct InitData const &d, struct GameData &r) {
 	// Set up ghost targets
 	Targets *targets = new Targets;
 	targets->pacman = r.pacman;
-	targets->lair = r.animdata->wayhold->getWaypoint(
-	 d.weeds[d.TM]);
+	targets->lair = r.animdata->wayhold->getWaypoint(d.weeds[d.LR]);
 	// Actor/ActorMovement pairs are already set up
 
 	// Let AI know about those things
@@ -330,7 +329,7 @@ InitData::InitData(void) :
 	speeds(),
 	anids(), 
 	callbacks(CAST(Callbacks*, 0)),
-	weeds(4),
+	weeds(5),
 	sdlflags(0),
 	custset(),
 	screen(),
@@ -406,6 +405,7 @@ PGCR::PGCR(InitData const &d, GameData &r) :
 	pkoka->sch = r.sch;
 	pkoka->left_right = r.animdata->wayhold->getWaypoint(d.weeds[d.TM]);
 	pkoka->down = r.animdata->wayhold->getWaypoint(d.weeds[d.TI]);
+	pkoka->lair = r.animdata->wayhold->getWaypoint(d.weeds[d.LR]);
 } // PGCR::PGCR
 UserRunner::UserRunner(PostInitData &_pd, InitData &_d, GameData &_gd) :
 	pd(_pd),

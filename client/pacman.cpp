@@ -79,8 +79,12 @@ static void setup_setup_data(InitData &d) {
 	// Special waypoint IDs
 	d.weeds[d.LT] = 666; // Left Teleport
 	d.weeds[d.RT] = 667; // Right Teleport
-	d.weeds[d.TM] = 800; // Traffic Man / Snail Lair
-	d.weeds[d.TI] = 888; // Traffic Man / Send snails inside lair
+	// Traffic Man / Send snails away
+	d.weeds[d.TM] = WAYPOINT_TRAFICMAN_AWAY;
+	// traffic man / send snails inside lair
+	d.weeds[d.TI] = WAYPOINT_TRAFICMAN_INSIDE;
+	// The lair target to lead ghosts back inside
+	d.weeds[d.LR] = WAYPOINT_LAIR;
 	//
 	// Set bg colour
 	d.bg.r = d.bg.g = d.bg.b = 0x20;

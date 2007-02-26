@@ -24,7 +24,7 @@ struct _pcoca { // Power up collision callback data
 extern void powerup_coca(Sprite*, Sprite*, void *c = CAST(void*, 0));
 
 struct _gcoca : public _pcoca {
-	Waypoint *left_right, *down;
+	Waypoint *left_right, *down, *lair;
 }; // struct _gcoca
 // Pacman-Ghost collision callback
 extern void Ghost_collision_callback(Sprite *, Sprite *,
