@@ -4,7 +4,6 @@
 #include "inputControl.hpp"
 #include "AnimatorHolder.hpp"
 #include "CustomPostinit.hpp"
-#include "SurfaceLoader.hpp"
 
 static void setup_setup_data(InitData &);
 static void setup_post_setup_data(PostInitData &, GameData &);
@@ -115,10 +114,6 @@ static void gaim_loop(GameData &d) {
 	bool exit = false;
 	register uint64_t total_sand = 0;
 	register uint16_t numloops = 0;
-	register uint8_t subliminal = 0;
-	SDL_Rect subdest = {200, 200};
-	SDL_Surface *sub = SurfaceLoader::getInstance()->
-	 loadSurface("./resources/pleasure-state-gioia-contour-bra.png");
 	while (!exit) {
 		// get gaim loop starting time
 		d.currTime = timesand = currTime = getTimestamp();
@@ -142,10 +137,6 @@ static void gaim_loop(GameData &d) {
 		d.animdata->spritehold->displaySprites(d.screen);
 		// if one wants to display the junctions, they should
 		// first set the Waypoint.bug
-		if (++subliminal == 10) {
-			subliminal = 0;
-			SDL_BlitSurface(sub, NULL, d.screen, &subdest);
-		}
 		SDL_Flip(d.screen);
 
 		// Cap gaim loop speed
