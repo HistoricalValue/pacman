@@ -50,7 +50,7 @@ static void setScared(Ghost *ghost,
 	if(ghost->GetState() == NORMAL) {
 		ghost->SetState(SCARED);
 		ghost->setFilm(film);
-		akmovs[ghost]->setDelay(25);
+		akmovs[ghost]->setDelay(30);
 	}
 } // setScared
 
@@ -106,7 +106,7 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 
 		gs->SetState(RETREAT);
 		gs->setFilm(retreat_film);
-		akmovs[gs]->setDelay(17);
+		akmovs[gs]->setDelay(12);
 		CollisionChecker::Singleton()->Cancel(gkoka->left_right, gs);	
 		CollisionChecker::Singleton()->Register(gkoka->down, gs);
 
@@ -126,12 +126,13 @@ void ghost_uneating_callback(Sprite *waypoint, Sprite *_ghost, void *c) {
 		if(gs == gkoka->ghost->stalker)
 			film = gkoka->filmhold->GetFilm("snaily");
 		else if(gs == gkoka->ghost->random)
-			film = gkoka->filmhold->GetFilm("snailyl");
-		else if(gs == gkoka->ghost->retard)
 			film = gkoka->filmhold->GetFilm("snailyd");
-		else film = gkoka->filmhold->GetFilm("snailyb");
+		else if(gs == gkoka->ghost->retard)
+			film = gkoka->filmhold->GetFilm("snailyb");
+		else film = gkoka->filmhold->GetFilm("snailyl");
 		gs->SetState(NORMAL);
 		gs->setFilm(film);
+		(*gkoka->akmovs)[gs]->setDelay(15);
 		(*gkoka->akmovs)[gs]->pressed(ActorMovement::UP, getCurrentTime());
 		CollisionChecker::Singleton()->Cancel(gkoka->down, gs);	
 		CollisionChecker::Singleton()->Register(gkoka->left_right, gs);
