@@ -11,7 +11,7 @@ CPPFLAGS += -I../include $(ADD_CPPFLAGS)
 CC = $(CXX)
 CFLAGS = $(CXXFLAGS)
 LD = ld
-LDFLAGS += -lSDL -lSDL_image -lSDL_ttf 
+LDFLAGS += -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
 
 bins += $(ADD_bins)
 

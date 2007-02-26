@@ -6,8 +6,8 @@
 #ifndef __config_h__
 #define __config_h__
 
-#include "SDL/SDL_mixer.h"
 #include "SDL/SDL.h"
+#include "SDL/SDL_mixer.h"
 
 /* Most of the following are self descriptive */
 #define ANIMATION_FILM_CONFIG_FILE \

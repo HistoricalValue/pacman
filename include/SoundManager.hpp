@@ -12,7 +12,6 @@ class SoundManager {
   static Mix_Chunk* effect;
   static Uint16 audio_format;
   static int audio_channels, audio_rate, audio_buffers;
-  static int is_init;
 public:
   SoundManager();
   static SoundManager* Singleton(void);

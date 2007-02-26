@@ -1,5 +1,11 @@
 #include "SoundManager.hpp"
 
+Mix_Chunk *SoundManager::effect;
+Mix_Music *SoundManager::bgmusic;
+int SoundManager::audio_channels, SoundManager::audio_rate,
+ SoundManager::audio_buffers;
+Uint16 SoundManager::audio_format;
+
 SoundManager* SoundManager::Singleton(void){
   SoundManager* s;
   s->bgmusic = NULL;
