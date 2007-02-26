@@ -6,6 +6,7 @@
 #ifndef __config_h__
 #define __config_h__
 
+#include "SDL/SDL_mixer.h"
 #include "SDL/SDL.h"
 
 /* Most of the following are self descriptive */
@@ -25,8 +26,7 @@
 #define SCREEN_WIDTH 	(800)
 #define SCREEN_HEIGHT 	(600)
 #define SCREEN_BPP	(32)
-#define SCREEN_FLAGS	(SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_AUDIO)
-
+#define SCREEN_FLAGS	(SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_INIT_AUDIO)
 /* Special sprite IDs */
 #define PACMAN		1001
 #define STALKER
