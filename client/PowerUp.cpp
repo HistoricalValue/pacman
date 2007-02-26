@@ -37,7 +37,7 @@ void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
 		GhostRevertTaskData *grtd = new GhostRevertTaskData;
 		grtd->pkoka = pkoka;
 		pkoka->sch->_register(
-		 new GhostRevertTask(getCurrentTime() + 5000),
+		 new GhostRevertTask(getCurrentTime() + EATABLE_DURATION),
 		 grtd);
 	
 	}

@@ -48,4 +48,7 @@
 #define WAYPOINT_GET_BACK		WAYPOINT_TRAFICMAN_AWAY
 #define WAYPOINT_TRAFICMAN_INSIDE	888
 #define WAYPOINT_UNEATER		850
+
+/* Settings */
+#define EATABLE_DURATION		10000 // milisecond
 #endif /* __config_h__ */
