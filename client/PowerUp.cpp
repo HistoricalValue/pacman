@@ -39,6 +39,7 @@ void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
 		pkoka->sch->_register(
 		 new GhostRevertTask(getCurrentTime() + 5000),
 		 grtd);
+	
 	}
 } // powerup_coca
 
@@ -108,6 +109,9 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 		akmovs[gs]->setDelay(17);
 		CollisionChecker::Singleton()->Cancel(gkoka->left_right, gs);	
 		CollisionChecker::Singleton()->Register(gkoka->down, gs);
+
+		////testing
+		CollisionChecker::Singleton()->Cancel(gkoka->lair, gs);
 		
 	} else
 		db("Warning: Useless pacman-ghost callback");
