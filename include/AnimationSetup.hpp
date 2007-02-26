@@ -4,6 +4,8 @@
  * (Animation, Animator, Sprite and subclasses).
  */
 
+#ifndef __AnimationSetup_hpp__
+#define __AnimationSetup_hpp__
 #include <string>
 #include "AnimationFilmHolder.hpp"
 #include "AnimationHolder.hpp"
@@ -50,3 +52,5 @@ struct Anim2SpriteMatcher : public std::unary_function<Animation const*,
 
 void start_animations(AnimationHolder*, Anim2SpriteMatcher*,
  timestamp_t currTime, void (*DotAnimatorCallback)(Animator*, void*));
+
+#endif // __AnimationSetup_hpp__
