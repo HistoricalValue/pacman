@@ -28,7 +28,7 @@
 #define SCREEN_FLAGS	(SDL_HWSURFACE|SDL_DOUBLEBUF)
 
 /* Special sprite IDs */
-#define PACMAN
+#define PACMAN		1001
 #define STALKER
 #define KIEKEN
 #define RANDOM

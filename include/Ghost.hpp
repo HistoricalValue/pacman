@@ -15,7 +15,7 @@ class Ghost : public GameSprite {
 	public :
 	void SetState(ghoststate_t _state);
 	ghoststate_t GetState(void);
-
+	bool CollisionCheck(Sprite*);
 	Ghost(int x, int y, AnimationFilm *f, spriteid_t id);
 	~Ghost(void);
 };
