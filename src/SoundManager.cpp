@@ -11,7 +11,7 @@ SoundManager* SoundManager::Singleton(void){
   s->bgmusic = NULL;
   //inits
   s->audio_rate = 22050;
-  s->audio_format = AUDIO_S16;
+  s->audio_format = MIX_DEFAULT_FORMAT;
   s->audio_channels = 2;
   s->audio_buffers = 4096;
   s->bgmusic = NULL;

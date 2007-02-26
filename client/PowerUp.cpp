@@ -3,6 +3,7 @@
 // Implementation headers
 #include "Ghost.hpp"
 #include "client.hpp"
+#include "SoundManager.hpp"
 
 static void setScared(Ghost*, std::map<GameSprite*, ActorMovement*> &,
  AnimationFilm*);
@@ -39,6 +40,8 @@ void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
 		pkoka->sch->_register(
 		 new GhostRevertTask(getCurrentTime() + EATABLE_DURATION),
 		 grtd);
+
+		SoundManager::Singleton()->Play("./resources/sounds/scratch.wav", 1);
 	
 	}
 } // powerup_coca
