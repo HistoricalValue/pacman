@@ -71,7 +71,6 @@ GhostRevertTask::GhostRevertTask(timestamp_t time) :
 GhostRevertTask::~GhostRevertTask(void) { }
 
 void GhostRevertTask::operator()(TaskData *d) {
-	db("Task Data");
 	_pcoca *pkoka = dynamic_cast<GhostRevertTaskData*>(d)->pkoka;
 
 	// Change ghosts' status, animation film and anim delay

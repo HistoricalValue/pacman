@@ -4,6 +4,7 @@
 #include "setup.hpp"
 #include "SurfaceLoader.hpp"
 #include "PowerUp.hpp"
+#include "SoundManager.hpp"
 
 struct GameData *setup(struct InitData *d) { return &setup(*d); }
 struct GameData &setup(struct InitData &d) {
@@ -36,6 +37,9 @@ struct GameData &setup(struct InitData &d) {
 	teleportals_setup(d, r);
 	// Let game data have access to the collision checker instance
 	r.cc = d.cc;
+	// Sound set up
+	SoundManager::Singleton()->Play(
+	 "./resources/sounds/11_game_over.mp3", -1);
 
 	return r;
 } // setup
