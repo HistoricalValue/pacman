@@ -84,7 +84,7 @@ static void setup_setup_data(InitData &d) {
 	// traffic man / send snails inside lair
 	d.weeds[d.TI] = WAYPOINT_TRAFICMAN_INSIDE;
 	// The lair target to lead ghosts back inside
-	d.weeds[d.LR] = WAYPOINT_LAIR;
+	d.weeds[d.LR] = WAYPOINT_GET_BACK;
 	//
 	// Set bg colour
 	d.bg.r = d.bg.g = d.bg.b = 0x20;
