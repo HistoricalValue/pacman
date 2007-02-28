@@ -1,6 +1,7 @@
 #include "ObstaclePlatformAnimator.hpp"
 
 #include "commons.hpp"
+#include "AnimatorHolder.hpp"
 
 void ObstaclePlatformAnimator::Start(
  ObstaclePlatform *_platform,
@@ -11,12 +12,14 @@ void ObstaclePlatformAnimator::Start(
 	animation = _animation;
 	lastTime = startingTime;
 	state = ANIMATOR_RUNNING;
-	std::cerr<<platform<<" "<<animation<<" "<<lastTime<<std::endl;
+	AnimatorHolder::MarkAsRunning(this);
 } // Start
 
 void ObstaclePlatformAnimator::Progress(timestamp_t currTime) {
+	std::cerr<<"Progress "<<currTime<<" "<<lastTime<<" ";
 	delay_t delay = animation->GetDelay();
 	timestamp_t diff = timestamp_diff(currTime, lastTime);
+	std::cerr<<diff<<" diff>=delau"<<(diff>=delay)<<std::endl;
 	if (diff >= delay) { // should progress
 		// Move the thing
 		platform->Move(animation->GetDx(), animation->GetDy());
@@ -31,8 +34,7 @@ void ObstaclePlatformAnimator::Progress(timestamp_t currTime) {
 } // Progress
 
 bool ObstaclePlatformAnimator::ShouldProgress(timestamp_t currTime) {
-	std::cerr<<"asjpasjda"<<std::endl;
-	return animation->GetDelay() >= timestamp_diff(lastTime, currTime);
+	return timestamp_diff(currTime, lastTime) >= animation->GetDelay();
 } // ShouldProgress
 
 ObstaclePlatform *ObstaclePlatformAnimator::getPlatform(void) const {
