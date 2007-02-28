@@ -1,18 +1,23 @@
 #include "SoundManager.hpp"
 
-Mix_Chunk *SoundManager::effect;
-Mix_Music *SoundManager::bgmusic;
-int SoundManager::audio_channels, SoundManager::audio_rate,
- SoundManager::audio_buffers;
-Uint16 SoundManager::audio_format;
+//Mix_Chunk *SoundManager::effect;
+//x_Chunk *SoundManager::bgmusic;
+//int SoundManager::audio_channels, SoundManager::audio_rate,
+// SoundManager::audio_buffers;
+//Uint16 SoundManager::audio_format;
+SoundManager* SoundManager::s = NULL;
 
-SoundManager* SoundManager::Singleton(void){
-  SoundManager* s;
-  s->bgmusic = NULL;
+SoundManager::SoundManager(void){ }
+
+SoundManager *SoundManager::Singleton(void){
+  //s.bgmusic = NULL;
   //inits
+  if(!s)
+    s=new SoundManager();
   s->audio_rate = 22050;
   s->audio_format = MIX_DEFAULT_FORMAT;
   s->audio_channels = 2;
+  Mix_AllocateChannels(3);
   s->audio_buffers = 4096;
   s->bgmusic = NULL;
   s->effect = NULL;
@@ -25,16 +30,26 @@ SoundManager* SoundManager::Singleton(void){
 
 //Playing main background music
 // -1 for infinite repeats
-void SoundManager::Play(char* file, int repeats){
-  bgmusic = Mix_LoadMUS(file);
-  Mix_PlayMusic(bgmusic, repeats);
+void SoundManager::Play(int channel, char* file, int repeats){
+  bgmusic = Mix_LoadWAV(file);
+  Mix_PlayChannel(channel, bgmusic, repeats);
+  Mix_VolumeChunk(bgmusic, 64);
+}
+
+void SoundManager::MuteChannel(int channelnum){
+  Mix_VolumeChunk(Mix_GetChunk(channelnum),0);
+}
+
+void SoundManager::lolChannel(int channelnum){
+  Mix_VolumeChunk(Mix_GetChunk(channelnum),64 );
 }
 
 void SoundManager::Stop(){
   //stops the music
-  Mix_HaltMusic();
+
+   Mix_FreeChunk(bgmusic);
   //freeing the pointer
-  Mix_FreeMusic(bgmusic);
+  //Mix_FreeMusic(bgmusic);
   bgmusic = NULL;
 }
 
@@ -54,4 +69,3 @@ void SoundManager::PlayEffect(char* file){
 void SoundManager::StopEffect(){
   Mix_FreeChunk(effect);
 }
-

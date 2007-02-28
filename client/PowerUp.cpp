@@ -44,8 +44,9 @@ void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
 		 new GhostRevertTask(getCurrentTime() + EATABLE_DURATION),
 		 grtd);
 
-		SoundManager::Singleton()->PlayEffect("./resources/sounds/scratch.wav");
-	
+		//	SoundManager::Singleton()->PlayEffect("./resources/sounds/scratch.wav");
+		SoundManager::Singleton()->MuteChannel(0);
+		SoundManager::Singleton()->lolChannel(1);
 	}
 } // powerup_coca
 
@@ -95,6 +96,8 @@ void GhostRevertTask::operator()(TaskData *d) {
 	ScaredToNormal(pkoka->ghost->random, akmovs, d_film);
 	ScaredToNormal(pkoka->ghost->retard, akmovs, b_film);
 	ScaredToNormal(pkoka->ghost->kieken, akmovs, l_film);
+	SoundManager::Singleton()->MuteChannel(1);
+      	SoundManager::Singleton()->lolChannel(0);
 } // GhostRevertTask::()
 
 Task &GhostRevertTask::operator++(void) { return *this; }
@@ -141,6 +144,7 @@ void ghost_uneating_callback(Sprite *waypoint, Sprite *_ghost, void *c) {
 		(*gkoka->akmovs)[gs]->pressed(ActorMovement::UP, getCurrentTime());
 		CollisionChecker::Singleton()->Cancel(gkoka->down, gs);	
 		CollisionChecker::Singleton()->Register(gkoka->left_right, gs);
-	}
+
+      	}
 	
 } // ghost_uneating_callback
