@@ -14,7 +14,7 @@ class ObstaclePlatformAnimator : public Animator {
 	public :
 	void Start(ObstaclePlatform*, MovingAnimation*, timestamp_t start);
 	void Progress(timestamp_t currTime);
-	bool ShouldProgress(timestamp_t currTime) const;
+	bool ShouldProgress(timestamp_t currTime);
 	ObstaclePlatform *getPlatform(void) const;
 	MovingAnimation *getAnimation(void) const;
 

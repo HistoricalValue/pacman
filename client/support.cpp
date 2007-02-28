@@ -77,8 +77,9 @@ Sprite* Matcher::operator() (Animation* a) const {
 	} else if (anid >= 5000 && anid < 6000) { // power ups
 		spid = anid;
 	} else {
-		spid = a->GetId();
-		spid = anid;
+		noRun = true;
+//		spid = a->GetId();
+//		spid = anid;
 	}
 	return noRun ? NULL : sh->getSprite(spid);
 }

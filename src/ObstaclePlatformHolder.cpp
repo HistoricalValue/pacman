@@ -155,3 +155,9 @@ ObstaclePlatformHolder::obstplats_map&
 ObstaclePlatformHolder::getObstaclePlatforms(void) {
 	return plats;
 }
+
+ObstaclePlatform *ObstaclePlatformHolder::getObstaclePlatform(
+ obstplatid_t id)
+{
+	return plats[id];
+}

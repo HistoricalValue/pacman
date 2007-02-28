@@ -10,6 +10,8 @@ void ObstaclePlatformAnimator::Start(
 	platform = _platform;
 	animation = _animation;
 	lastTime = startingTime;
+	state = ANIMATOR_RUNNING;
+	std::cerr<<platform<<" "<<animation<<" "<<lastTime<<std::endl;
 } // Start
 
 void ObstaclePlatformAnimator::Progress(timestamp_t currTime) {
@@ -19,13 +21,17 @@ void ObstaclePlatformAnimator::Progress(timestamp_t currTime) {
 		// Move the thing
 		platform->Move(animation->GetDx(), animation->GetDy());
 		// Ignore continuity and stuff
-		// ---
+		if (!animation->GetContinuous()) {
+			state = ANIMATOR_FINISHED;
+			NotifyStopped();
+		}
 		// Update last time
 		lastTime += delay;
 	}
 } // Progress
 
-bool ObstaclePlatformAnimator::ShouldProgress(timestamp_t currTime) const {
+bool ObstaclePlatformAnimator::ShouldProgress(timestamp_t currTime) {
+	std::cerr<<"asjpasjda"<<std::endl;
 	return animation->GetDelay() >= timestamp_diff(lastTime, currTime);
 } // ShouldProgress
 

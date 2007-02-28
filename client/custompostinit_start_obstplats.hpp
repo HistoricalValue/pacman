@@ -1,0 +1,5 @@
+#ifndef __custompostinit_start_obstplats_hpp__
+#define __custompostinit_start_obstplats_hpp__
+#include "CustomPostinit_Commons.hpp"
+CPI_DECLARE(custompostinit_start_obstplats);
+#endif // __custompostinit_start_obstplats_hpp__
