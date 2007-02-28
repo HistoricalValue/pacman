@@ -1,5 +1,5 @@
 #!/bin/sh
 
 bzr push ftp://isilando@web142.ixwebhosting.com/isilando.com/var/csd/pluckman/pac-bazaar/
-bzr push /spare/pac-bazaar/
+#bzr push /spare/pac-bazaar/
 bzr push
