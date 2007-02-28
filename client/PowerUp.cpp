@@ -21,6 +21,7 @@ struct GhostRevertTask : public Task {
 }; // struct GhostRevertTask
 
 void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
+	static Task *ghost_revert_task = CAST(Task*, 0);
 	if (p->IsVisible()) if (c) {
 		_pcoca *pkoka = CAST(_pcoca*, c);
 		p->SetVisibility(false); // powerup
@@ -35,9 +36,11 @@ void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
 		setScared(pkoka->ghost->retard, akmovs, scared_film);
 		setScared(pkoka->ghost->kieken, akmovs, scared_film);
 
+		if (ghost_revert_task)
+			pkoka->sch->cancel(ghost_revert_task);
 		GhostRevertTaskData *grtd = new GhostRevertTaskData;
 		grtd->pkoka = pkoka;
-		pkoka->sch->_register(
+		pkoka->sch->_register(ghost_revert_task =
 		 new GhostRevertTask(getCurrentTime() + EATABLE_DURATION),
 		 grtd);
 
