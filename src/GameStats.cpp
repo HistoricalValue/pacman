@@ -2,17 +2,18 @@
 
 GameStats::GameStats(SurfaceLoader *sl) {
 	score = 0; lives = 3; level = 1;
-	font_logo = TTF_OpenFont("resources/fonts/SPLATS.TTF", 30);
+	font_logo = TTF_OpenFont("resources/fonts/Crackman.ttf", 50);
 	font_text = TTF_OpenFont("resources/fonts/Lemonhd.ttf",25);
 }
 
 void GameStats::Draw(SDL_Surface *screen) {
-	SDL_Color logoColor = { 255, 255, 255 };
+	SDL_Color logoColor = { 61, 171, 139 };
 	SDL_Color textColor = { 255, 255, 255 };
 	
-	SDL_Rect logo_pos = { 500, 500 };
+	SDL_Rect logo_pos = { 520, 40 };
 	logo = TTF_RenderUTF8_Blended(font_logo, "Pac-Man", logoColor);
 	SDL_BlitSurface(logo, NULL, screen, &logo_pos);
+
 }
 /*
 void GameStats::LoopDraw(SDL_Surface *screen) {
