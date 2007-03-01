@@ -15,8 +15,8 @@ class GameStats {
 	
 	public:
 	GameStats(SurfaceLoader*);
-	void InitialDraw(SDL_Surface*);
-	void LoopDraw(SDL_Surface*);
+	void Draw(SDL_Surface*);
+  //void LoopDraw(SDL_Surface*);
 	void SetScore(unsigned int);
 	void SetLives(unsigned int);
 	void SetLevel(unsigned int);
