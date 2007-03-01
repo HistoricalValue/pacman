@@ -1,0 +1,11 @@
+^
+
+-------------- This line and the following will be ignored --------------
+
+modified:
+  client/CustomPostinit.hpp
+  src/SoundManager.cpp
+unknown:
+  client/custompostinit_stats.cpp
+  client/custompostinit_stats.hpp
+  resources/fonts
