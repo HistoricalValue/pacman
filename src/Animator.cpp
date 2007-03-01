@@ -50,7 +50,6 @@ void Animator::Suspend(timestamp_t currTime) {
 		suspendedTime = currTime;
 		exState = state;
 		state = ANIMATOR_STOPPED;
-		db("here");
 		if (_register) // if registered with the holder
 			AnimatorHolder::MarkAsSuspended(this);
 	} else
