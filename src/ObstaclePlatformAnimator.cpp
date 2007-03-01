@@ -16,10 +16,8 @@ void ObstaclePlatformAnimator::Start(
 } // Start
 
 void ObstaclePlatformAnimator::Progress(timestamp_t currTime) {
-	std::cerr<<"Progress "<<currTime<<" "<<lastTime<<" ";
 	delay_t delay = animation->GetDelay();
 	timestamp_t diff = timestamp_diff(currTime, lastTime);
-	std::cerr<<diff<<" diff>=delau"<<(diff>=delay)<<std::endl;
 	if (diff >= delay) { // should progress
 		// Move the thing
 		platform->Move(animation->GetDx(), animation->GetDy());
