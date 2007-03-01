@@ -122,6 +122,7 @@ static void gaim_loop(GameData &d) {
 		// Handle input events
 		inputControl(d, bools);
 
+		std::cerr<<__FILE__<<" "<<paused<<std::endl;
 		if (!paused) {
 			// Progress everything
 			AnimatorHolder::Progress(timesand);

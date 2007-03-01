@@ -97,13 +97,11 @@ AnimatorHolder::_susres::result_type
 AnimatorHolder::_susres::operator()(argument_type animator) {
 	switch (m) {
 		case suspend :
-			r.remove(animator);
 			x.push_back(animator);
 			animator->Suspend(t);
 			break;
 		case resume :
 			x.remove(animator);
-			r.push_back(animator);
 			animator->Resume(t);
 			break;
 	}
