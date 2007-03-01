@@ -1,9 +1,12 @@
 #include "AnimatorHolder.hpp"
 using namespace cs454_2006;
 
-std::list<Animator*> AnimatorHolder::running;
-std::list<Animator*> AnimatorHolder::suspended;
+std::list<Animator*>
+	AnimatorHolder::running,
+	AnimatorHolder::suspended,
+	AnimatorHolder::x_running;
 amc_t const* AnimatorHolder::amc;
+AnimatorHolder::_susres AnimatorHolder::susres(running, x_running);
 
 // ProgressFunctor members    -------------
 void AnimatorHolder::ProgressFunctor::operator () (Animator* a) const {
@@ -14,7 +17,8 @@ void AnimatorHolder::ProgressFunctor::operator () (Animator* a) const {
 			(*amc)(a);
 	}
 } // operator ()
- // Constructor
+
+// Constructor
 AnimatorHolder::ProgressFunctor::ProgressFunctor(timestamp_t _t) : t(_t) { }
 // End ProgressFunctor members  -------------
 
@@ -59,4 +63,49 @@ void AnimatorHolder::setAfterMoveCall(amc_t const* _amc) { amc = _amc; }
 
 std::list<Animator*> AnimatorHolder::getRunning(void) {
 	return running;
-} // getRunningAnimators
+} // getRunning
+
+std::list<Animator*> AnimatorHolder::getSuspended(void) {
+	return suspended;
+} // getSuspended
+
+void AnimatorHolder::suspendAllRunning(timestamp_t currTime) {
+	std::for_each(running.begin(), running.end(),
+	 susres[susres.suspend] = currTime);
+} // suspendAllRunning
+
+void AnimatorHolder::resumeAllExRunning(timestamp_t currTime) {
+	std::for_each(x_running.begin(), x_running.end(),
+	 susres[susres.resume] = currTime);
+} // resumeAllExRunning
+
+// Suspender/Resumer Implementation ------------------------------------
+AnimatorHolder::_susres::_susres(std::list<Animator*> &_r,
+ std::list<Animator*> &_x) : r(_r), x(_x) { }
+
+AnimatorHolder::_susres &AnimatorHolder::_susres::operator[](enum mode _m) {
+	m = _m;
+	return *this;
+} // susres[]
+
+AnimatorHolder::_susres &AnimatorHolder::_susres::operator=(timestamp_t T) {
+	t = T;
+	return *this;
+} // susres =
+
+AnimatorHolder::_susres::result_type
+AnimatorHolder::_susres::operator()(argument_type animator) {
+	switch (m) {
+		case suspend :
+			r.remove(animator);
+			x.push_back(animator);
+			animator->Suspend(t);
+			break;
+		case resume :
+			x.remove(animator);
+			r.push_back(animator);
+			animator->Resume(t);
+			break;
+	}
+} // susres()
+// -----------------------------------------------------------------------
