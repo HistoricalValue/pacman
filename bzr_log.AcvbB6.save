@@ -1,9 +1,0 @@
-ll
-
--------------- This line and the following will be ignored 
---------------
-
-modified:
-  src/SoundManager.cpp unknown:
-  resources/sounds/bobos2.wav uit resources/sounds/mask2.wav
-  resources/sounds/maskdream.wav quit
