@@ -56,3 +56,7 @@ void AnimatorHolder::TimeShift (timestamp_t currTime) {
 amc_t const* AnimatorHolder::getAfterMoveCall(void) { return amc; }
 
 void AnimatorHolder::setAfterMoveCall(amc_t const* _amc) { amc = _amc; }
+
+std::list<Animator*> AnimatorHolder::getRunning(void) {
+	return running;
+} // getRunningAnimators

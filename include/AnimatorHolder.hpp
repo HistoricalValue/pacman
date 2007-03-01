@@ -39,6 +39,8 @@ class AnimatorHolder {
 	static void TimeShift (timestamp_t currTime);
 	static amc_t const* getAfterMoveCall(void);
 	static void setAfterMoveCall(amc_t const*);
+	static std::list<Animator*> getRunning(void);
+	static std::list<Animator*> getSuspended(void);
 };
 
 #endif
