@@ -29,24 +29,6 @@ class AnimatorHolder {
 		void operator()(Animator *a) const;
 		TimeshiftFunctor (timestamp_t _t);
 	};
-<<<<<<< TREE
-	// Suspender/Resumer
-	class _susres : public std::unary_function<Animator*, void> {
-		public :
-		enum mode {suspend, resume};
-		result_type operator()(argument_type);
-		_susres &operator[](enum mode);
-		_susres &operator=(timestamp_t);
-		_susres(std::list<Animator*> &_r, std::list<Animator*> &_x);
-		void setMode(enum mode);
-		private :
-		std::list<Animator*> &r, &x;
-		enum mode m;
-		timestamp_t t;
-	};
-	static _susres susres;
-	static amc_t const *amc;
-=======
 	public :
 	// Suspender/Resumer
 	class _susres : public std::unary_function<Animator*, void> {
@@ -65,7 +47,6 @@ class AnimatorHolder {
 	private :
 	static _susres susres;
 	static amc_t const *amc;
->>>>>>> MERGE-SOURCE
 	public:
 	static void Register (Animator *a);
 	static void Cancel (Animator *a);

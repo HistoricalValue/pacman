@@ -1,15 +1,3 @@
-<<<<<<< TREE
-#include "pause.hpp"
-
-#include "AnimatorHolder.hpp"
-
-void cleanPause(GameData &d, bool &paused) {
-	// Set paused state opposite than before
-	paused = !paused;
-	
-	// Suspend all running animators
-} // cleanPause
-=======
 #include "pause.hpp"
 
 #include "AnimatorHolder.hpp"
@@ -50,9 +38,7 @@ void cleanPause(GameData &d, bool &paused) {
 		 susres[susres.suspend] = d.currTime);
 	}
 	// Set paused state opposite than before
-	std::cerr<<__FILE__<<" 1 "<<paused<<std::endl;
 	paused = !paused;
-	std::cerr<<__FILE__<<" 2 "<<paused<<std::endl;
 } // cleanPause
 
 // Susres implementation -------------------------------------------------
@@ -73,4 +59,3 @@ _susres::operator()(argument_type p) {
 _susres &_susres::operator[](enum mode _m) { m = _m; return *this; }
 _susres &_susres::operator=(timestamp_t _t) { t = _t; return *this; }
 _susres::~_susres(void) { }
->>>>>>> MERGE-SOURCE
