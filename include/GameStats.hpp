@@ -8,10 +8,11 @@
 class GameStats {
 	SDL_Surface 	*logo, *title_score, *title_lives, 
 			*title_fruits, *title_seperator,
-			*fruit, *pacman, *title_level;
+			*fruit, *pacman, *title_level, *num_level, *num_score;
+        SDL_Rect ptitle_level, ptitle_score, ptitle_lives, 
+	  ptitle_bonus, plogo, ptitle_fruits;
 	unsigned int 	score, lives, level;
-	TTF_Font *font_logo, *font_text;
-	SDL_Color logoColor, textColor;
+	TTF_Font *font_logo, *font_text, *num_text;
 	
 	public:
 	GameStats(SurfaceLoader*);
