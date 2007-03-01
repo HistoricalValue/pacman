@@ -70,13 +70,13 @@ std::list<Animator*> AnimatorHolder::getSuspended(void) {
 } // getSuspended
 
 void AnimatorHolder::suspendAllRunning(timestamp_t currTime) {
-	std::for_each(running.begin(), running.end(),
-	 susres[susres.suspend] = currTime);
+	std::list<Animator*> r = running;
+	std::for_each(r.begin(), r.end(), susres[susres.suspend] = currTime);
 } // suspendAllRunning
 
 void AnimatorHolder::resumeAllExRunning(timestamp_t currTime) {
-	std::for_each(x_running.begin(), x_running.end(),
-	 susres[susres.resume] = currTime);
+	std::list<Animator*> x = x_running;
+	std::for_each(x.begin(), x.end(), susres[susres.resume] = currTime);
 } // resumeAllExRunning
 
 // Suspender/Resumer Implementation ------------------------------------
