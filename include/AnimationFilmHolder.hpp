@@ -10,10 +10,10 @@ class AnimationFilmHolder {
 	typedef std::map<std::string, AnimationFilm*> FilmMap;
 	FilmMap		filmMap;
 //  Not used...
-//  AnimationFilm*	filmMem;
+//  AnimationFilm	*filmMem;
 	public:
-	AnimationFilm* GetFilm (std::string const& id) const;
-	AnimationFilmHolder (std::string const* path);
+	AnimationFilm *GetFilm (std::string const &id) const;
+	AnimationFilmHolder (std::string const *path);
 	~AnimationFilmHolder(void);
 };
 

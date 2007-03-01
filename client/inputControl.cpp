@@ -3,8 +3,8 @@
 // Implementation headers
 #include "pause.hpp"
 
-void handleEvent_keyDown(GameData &d, SDL_Event& event, _bools&);
-void handleEvent_keyUp(GameData &d, SDL_Event& event, _bools&);
+void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools&);
+void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools&);
 
 void inputControl(GameData &d, _bools &bools) {
 	SDL_Event event;
@@ -26,7 +26,7 @@ void inputControl(GameData &d, _bools &bools) {
 	}
 } // inputControl
 
-void handleEvent_keyDown(GameData &d, SDL_Event& event, _bools &bools) {
+void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools &bools) {
 	enum ActorMovement::move_t pressed;
 	switch (event.key.keysym.sym) {
 		// Pacman actor directive buttons -- notify ActorMovement
@@ -47,7 +47,7 @@ void handleEvent_keyDown(GameData &d, SDL_Event& event, _bools &bools) {
 //	d.akmovs[d.ghost.stalker]->pressed(pressed, d.currTime);
 }
 
-void handleEvent_keyUp(GameData &d, SDL_Event& event, _bools &bools) {
+void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools &bools) {
 	enum ActorMovement::move_t released;
 	switch (event.key.keysym.sym) {
 		// Pacman actor directive buttons -- notify ActorMovement

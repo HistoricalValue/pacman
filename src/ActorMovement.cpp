@@ -20,14 +20,14 @@ struct ActorMovement::AnimatorPair {
 	// Performs all operations which have to be sure that there will be
 	// no collision in order to take place.
 	void CatchUp(timestamp_t);
-	operator Animator* (void);
-	MovingAnimator* getMV(void);
-	FrameRangeAnimator* getFR(void);
-//	Animator* operator*(void);
+	operator Animator *(void);
+	MovingAnimator *getMV(void);
+	FrameRangeAnimator *getFR(void);
+//	Animator *operator*(void);
 	private :
-	MovingAnimator* mv;
-	FrameRangeAnimator* fr;
-	const char* direction;
+	MovingAnimator *mv;
+	FrameRangeAnimator *fr;
+	const char *direction;
 }; // struct AnimatorPair
 
 // Delay setter
@@ -41,10 +41,10 @@ struct ActorMovement::DelaySetter :
 }; // struct DelaySetter
 
 // Constructor
-ActorMovement::ActorMovement(GameSprite* _actor,
- std::vector<MovingAnimator*> const& _mv,
- std::vector<FrameRangeAnimator*> const& _fr,
- amc_t& _amc,
+ActorMovement::ActorMovement(GameSprite *_actor,
+ std::vector<MovingAnimator*> const &_mv,
+ std::vector<FrameRangeAnimator*> const &_fr,
+ amc_t &_amc,
  timestamp_t t) :
  actor(_actor), w2g(static_cast<AnimatorPair*>(0)),
  running(w2g), w2g_collided(false), amc(_amc)
@@ -109,20 +109,20 @@ void ActorMovement::progress(timestamp_t currTime) {
 	}
 } // progress
 
-void ActorMovement::collided(GameSprite* _actor) {
+void ActorMovement::collided(GameSprite *_actor) {
 	if (_actor->getID() == actor->getID()) // it's our actor
 		w2g_collided = true;
 } // collided
 
 // Suspend Functor
-void ActorMovement::SuspendFunctor::operator() (ActorMovement::AnimatorPair* a) const
+void ActorMovement::SuspendFunctor::operator() (ActorMovement::AnimatorPair *a) const
 	{ a->Suspend(t); }
 ActorMovement::SuspendFunctor::SuspendFunctor(timestamp_t _t) : t(_t) { }
 
 // AnimatorPair
 // constructor
-ActorMovement::AnimatorPair::AnimatorPair( char const* _d,
- MovingAnimator* _mv, FrameRangeAnimator* _fr) : mv(_mv), fr(_fr),
+ActorMovement::AnimatorPair::AnimatorPair( char const *_d,
+ MovingAnimator *_mv, FrameRangeAnimator *_fr) : mv(_mv), fr(_fr),
  direction(_d){ }
 
 void ActorMovement::AnimatorPair::Suspend(timestamp_t currTime) {
@@ -154,7 +154,7 @@ void ActorMovement::AnimatorPair::CatchUp(timestamp_t currTime) {
 	fr->Progress(currTime);
 }
 
-ActorMovement::AnimatorPair::operator Animator* (void) { return mv; }
+ActorMovement::AnimatorPair::operator Animator *(void) { return mv; }
 
 // Get Animators
 MovingAnimator*

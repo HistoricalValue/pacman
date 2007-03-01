@@ -18,7 +18,7 @@ class AnimatorHolder {
 	{
 		timestamp_t t;
 		public: 
-		void operator()(Animator* a) const;
+		void operator()(Animator *a) const;
 		ProgressFunctor (timestamp_t _t);
 	};
 	// Timeshifts the given Animator
@@ -26,7 +26,7 @@ class AnimatorHolder {
 	{
 		timestamp_t t;
 		public :
-		void operator()(Animator* a) const;
+		void operator()(Animator *a) const;
 		TimeshiftFunctor (timestamp_t _t);
 	};
 	// Suspender/Resumer
@@ -44,15 +44,15 @@ class AnimatorHolder {
 		timestamp_t t;
 	};
 	static _susres susres;
-	static amc_t const* amc;
+	static amc_t const *amc;
 	public:
-	static void Register (Animator* a);
-	static void Cancel (Animator* a);
-	static void MarkAsRunning (Animator* a);
-	static void MarkAsSuspended (Animator* a);
+	static void Register (Animator *a);
+	static void Cancel (Animator *a);
+	static void MarkAsRunning (Animator *a);
+	static void MarkAsSuspended (Animator *a);
 	static void Progress (timestamp_t currTime);
 	static void TimeShift (timestamp_t currTime);
-	static amc_t const* getAfterMoveCall(void);
+	static amc_t const *getAfterMoveCall(void);
 	static void setAfterMoveCall(amc_t const*);
 	static std::list<Animator*> getRunning(void);
 	static std::list<Animator*> getSuspended(void);

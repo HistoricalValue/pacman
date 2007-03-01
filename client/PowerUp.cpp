@@ -103,7 +103,7 @@ void GhostRevertTask::operator()(TaskData *d) {
 Task &GhostRevertTask::operator++(void) { return *this; }
 
 void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
-	Ghost* gs = dynamic_cast<Ghost*>(ghost);
+	Ghost *gs = dynamic_cast<Ghost*>(ghost);
 	if(gs->GetState() == SCARED) { if (c) {
 		// It gets called : D
 		_gcoca *gkoka = CAST(_gcoca*, c);
@@ -127,7 +127,7 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 } // collision_callback
 
 void ghost_uneating_callback(Sprite *waypoint, Sprite *_ghost, void *c) {
-	Ghost* gs = dynamic_cast<Ghost*>(_ghost);
+	Ghost *gs = dynamic_cast<Ghost*>(_ghost);
 	if(gs->GetState() == RETREAT) if(c){
 		AnimationFilm *film;
 		_gcoca *gkoka = CAST(_gcoca*, c);

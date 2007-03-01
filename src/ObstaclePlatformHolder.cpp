@@ -5,12 +5,12 @@
 #include "commons.hpp"
 using namespace cs454_2006;
 
-static bool shouldParseLine(std::string const& line);
+static bool shouldParseLine(std::string const &line);
 static void parseLine(SpriteHolder*,
- ObstaclePlatformHolder::obstplats_map& plats, std::string& line);
+ ObstaclePlatformHolder::obstplats_map &plats, std::string &line);
 
 ObstaclePlatformHolder::ObstaclePlatformHolder(
- std::string const& cf, SpriteHolder* sh)
+ std::string const &cf, SpriteHolder *sh)
 {
 	std::string line;
 	std::ifstream fin(cf.c_str(), std::ios::in);
@@ -34,13 +34,13 @@ struct plats_data {
 	unsigned int x, y;
 	obstplatid_t id;
 };
-static std::ostream& operator<<(std::ostream&, plats_data&);
+static std::ostream &operator<<(std::ostream&, plats_data&);
 
 #define CONVERTX(A) (A)
 #define CONVERTY(A) ((A) + 40)
-static void parseLine(SpriteHolder* sh,
- ObstaclePlatformHolder::obstplats_map& plats,
- std::string& line)
+static void parseLine(SpriteHolder *sh,
+ ObstaclePlatformHolder::obstplats_map &plats,
+ std::string &line)
 {
 	std::list<std::string> delims;
 	delims.push_back(" ");
@@ -77,7 +77,7 @@ static void parseLine(SpriteHolder* sh,
 	std::cerr<<"===================="<<std::endl<<d<<std::endl<<
 	 "========================="<<std::endl;
 
-	ObstaclePlatform* n00b = new ObstaclePlatform(d.x, d.y);
+	ObstaclePlatform *n00b = new ObstaclePlatform(d.x, d.y);
 	for (unsigned long int i = 0; i < spritesnum; i++)
 		n00b->Add(d.sprites[i].s,
 		 d.sprites[i].x, d.sprites[i].y);
@@ -88,7 +88,7 @@ static void parseLine(SpriteHolder* sh,
 #undef CONVERTX
 #undef CONVERTY
 
-static bool shouldParseLine(std::string const& line) { 
+static bool shouldParseLine(std::string const &line) { 
 	bool result = false;
 	if (!Tokeniser::isEmptyLine(line)) {
 		if (!Tokeniser::isCommentLine(line))
@@ -101,12 +101,12 @@ static bool shouldParseLine(std::string const& line) {
 struct PrintFunctor : public std::unary_function<plats_data::sprite_data,
  void>{
 	 void operator()(plats_data::sprite_data&);
-	 PrintFunctor(std::ostream& o);
+	 PrintFunctor(std::ostream &o);
 	 private:
-	 std::ostream& o;
+	 std::ostream &o;
 };
 
-std::ostream& operator<<(std::ostream& o, plats_data& d) {
+std::ostream &operator<<(std::ostream &o, plats_data &d) {
 	static char const obstplat[] = "ObstaclePlatform: ";
 	static char const xy[] = "(x,y) = ";
 	static char const id[] = "id = ";
@@ -121,11 +121,11 @@ std::ostream& operator<<(std::ostream& o, plats_data& d) {
 	return o;
 }
 
-void PrintFunctor::operator()(plats_data::sprite_data& s) {
+void PrintFunctor::operator()(plats_data::sprite_data &s) {
 	o<<std::endl<<*s.s;
 }
 
-PrintFunctor::PrintFunctor(std::ostream& _o) : o(_o) { }
+PrintFunctor::PrintFunctor(std::ostream &_o) : o(_o) { }
 
 // Displaying platforms
 struct DisplayFunctor : public std::unary_function<
@@ -135,14 +135,14 @@ struct DisplayFunctor : public std::unary_function<
 	 ObstaclePlatform*>&);
 	DisplayFunctor(SDL_Surface*);
 	private :
-	SDL_Surface* destination;
+	SDL_Surface *destination;
 };
 
-void ObstaclePlatformHolder::displayPlatforms(SDL_Surface* d) {
+void ObstaclePlatformHolder::displayPlatforms(SDL_Surface *d) {
 	std::for_each(plats.begin(), plats.end(), DisplayFunctor(d));
 } // displayPlatforms
 
-DisplayFunctor::DisplayFunctor(SDL_Surface* _destination) :
+DisplayFunctor::DisplayFunctor(SDL_Surface *_destination) :
  destination(_destination) { }
 
 void DisplayFunctor::operator() (std::pair<short unsigned int const,

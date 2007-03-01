@@ -17,12 +17,12 @@ typedef unsigned short int obstplatid_t;
 class ObstaclePlatformHolder {
 	public :
 	typedef std::map<obstplatid_t, ObstaclePlatform*> obstplats_map;
-	ObstaclePlatformHolder(std::string const& config_file_path,
-	 SpriteHolder* sprite_holder);
+	ObstaclePlatformHolder(std::string const &config_file_path,
+	 SpriteHolder *sprite_holder);
 	~ObstaclePlatformHolder(void);
-	ObstaclePlatform* getObstaclePlatform(obstplatid_t id);
-	obstplats_map& getObstaclePlatforms(void);
-	void displayPlatforms(SDL_Surface* destination);
+	ObstaclePlatform *getObstaclePlatform(obstplatid_t id);
+	obstplats_map &getObstaclePlatforms(void);
+	void displayPlatforms(SDL_Surface *destination);
 	private :
 	obstplats_map plats;
 };

@@ -36,7 +36,7 @@ FrameRangeAnimator::FrameRangeAnimator(bool _register) :
 FrameRangeAnimator::~FrameRangeAnimator(void)
 { }
 
-void FrameRangeAnimator::Start (Sprite* s, FrameRangeAnimation* a, timestamp_t t) {
+void FrameRangeAnimator::Start (Sprite *s, FrameRangeAnimation *a, timestamp_t t) {
 	sprite = s;
 	anim = a;
 	lastTime = t;

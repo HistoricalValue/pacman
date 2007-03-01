@@ -12,7 +12,7 @@
 
 namespace cs454_2006 {
 
-void nofail(int v, char const* msg, char const* file, line_t line)
+void nofail(int v, char const *msg, char const *file, line_t line)
 {
 	if (v) {
 		std::cerr << std::endl << " *** Failure: " << file <<
@@ -22,7 +22,7 @@ void nofail(int v, char const* msg, char const* file, line_t line)
 	}
 } // nofail ()
 
-void blit(SDL_Surface* src, SDL_Surface* dst, off_t x, off_t y)
+void blit(SDL_Surface *src, SDL_Surface *dst, off_t x, off_t y)
 {
 	std::cerr << "Blitting " << src << " onto " <<
 	 dst << "(" << x << "," << y << ")" << std::endl;
@@ -31,7 +31,7 @@ void blit(SDL_Surface* src, SDL_Surface* dst, off_t x, off_t y)
 	 SDL_GetError());
 } // blit()
 
-void blit_centre(SDL_Surface* src, SDL_Surface* dst)
+void blit_centre(SDL_Surface *src, SDL_Surface *dst)
 {
 	SDL_Rect r = {
 	 (dst->w - src->w) >> 1,
@@ -48,7 +48,7 @@ Offset::operator unsigned short () { return v; }
 long const Offset::max_val = (0x00000000ffffl);
 
 // Tokeniser stuff
-Tokeniser::Tokeniser(std::string& l, std::list<std::string>& ds) :
+Tokeniser::Tokeniser(std::string &l, std::list<std::string>& ds) :
 	delims(ds), ctok(NULL)
 {
 	line = static_cast<char*>(malloc(l.length() + 1));
@@ -90,19 +90,19 @@ void Tokeniser::advance(void) {
 	}
 } // advance
 
-Tokeniser& Tokeniser::operator ++(void) {
+Tokeniser &Tokeniser::operator ++(void) {
 	advance();
 	return *this;
 } // Tokeniser++
 
 Tokeniser::operator std::string*(void) { return ctok; }
-std::string* Tokeniser::operator -> (void) { return ctok; }
+std::string *Tokeniser::operator -> (void) { return ctok; }
 
 Tokeniser::~Tokeniser(void) {
 	delete original;
 } // destructor
 
-bool Tokeniser::isEmptyLine(std::string const& line) {
+bool Tokeniser::isEmptyLine(std::string const &line) {
 	bool result = true;
 	
 	std::string::const_iterator ite;
@@ -113,7 +113,7 @@ bool Tokeniser::isEmptyLine(std::string const& line) {
 	return result;
 } // isEmptyLine
 
-bool Tokeniser::isCommentLine(std::string const& line) {
+bool Tokeniser::isCommentLine(std::string const &line) {
 	bool result = false;
 	if (!isEmptyLine(line)) {
 		result = line.at(0) == '#';
@@ -138,7 +138,7 @@ timestamp_t getTimestamp(void) {
 //	 + (t.tv_usec / 1000);
 } // getTimestamp
 
-long cppstrtol(std::string& s, int b) { return strtol(s.c_str(), NULL, b); }
+long cppstrtol(std::string &s, int b) { return strtol(s.c_str(), NULL, b); }
 
 int ensureTrue(int value) { return value ? 0 : -1; }
 

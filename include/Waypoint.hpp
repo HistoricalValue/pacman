@@ -25,7 +25,7 @@ class Waypoint : public Sprite {
 	bool canGoRight(void);
 	bool canGoDown(void);
 	bool canGoLeft(void);
-	friend std::ostream& operator<<(std::ostream&, Waypoint&);
+	friend std::ostream &operator<<(std::ostream&, Waypoint&);
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "MovingAnimation.hpp"
 
-std::ostream& operator << (std::ostream& o, MovingAnimation& a) {
+std::ostream &operator << (std::ostream &o, MovingAnimation &a) {
 	static const char tab ='\t', comma = ',', rbrace = '}' ;
 	static const char animid[] = "Animation ";
 	static const char dxdy[] = "{dx, dy} = {";

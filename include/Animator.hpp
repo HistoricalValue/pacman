@@ -17,7 +17,7 @@ protected:
 	timestamp_t		lastTime, suspendedTime;
 	animatorstate_t		state, exState;
 	FinishCallback		onFinish;
-	void*			finishClosure;
+	void			*finishClosure;
 	void NotifyStopped (void);
 	bool _register;
 public:

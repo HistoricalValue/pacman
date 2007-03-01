@@ -17,14 +17,14 @@
 
 class SpriteHolder {
 	public :
-	void addSprite(Sprite* s, int z_order);
-	Sprite* removeSprite(Sprite* s);
-	Sprite* getSprite(spriteid_t);
-	void displaySprites(SDL_Surface* dst);
-	std::list<Sprite*> const& getSprites(void) const;
-	std::list<GameSprite*> const& getGameSprites(void) const;
-	std::list<ObstacleSprite*> const& getObstacleSprites(void) const;
-	SpriteHolder(std::string& config_file_path, AnimationFilmHolder*);
+	void addSprite(Sprite *s, int z_order);
+	Sprite *removeSprite(Sprite *s);
+	Sprite *getSprite(spriteid_t);
+	void displaySprites(SDL_Surface *dst);
+	std::list<Sprite*> const &getSprites(void) const;
+	std::list<GameSprite*> const &getGameSprites(void) const;
+	std::list<ObstacleSprite*> const &getObstacleSprites(void) const;
+	SpriteHolder(std::string &config_file_path, AnimationFilmHolder*);
 	~SpriteHolder(void);
 	typedef std::map<int, std::list<Sprite*> > SpritesMap;
 	private :

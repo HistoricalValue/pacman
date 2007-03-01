@@ -53,7 +53,7 @@ _cocaclo::_cocaclo(void) :
  akmovs(static_cast<std::map<GameSprite*, ActorMovement*>*>(0)) { }
 _cocaclo::~_cocaclo(void) { }
 
-Sprite* Matcher::operator() (Animation* a) const {
+Sprite *Matcher::operator() (Animation *a) const {
 	bool noRun = false;
 	spriteid_t spid;
 	animid_t anid = a->GetId();
@@ -83,7 +83,7 @@ Sprite* Matcher::operator() (Animation* a) const {
 	}
 	return noRun ? NULL : sh->getSprite(spid);
 }
-Matcher::Matcher(SpriteHolder* _sh) : Anim2SpriteMatcher(_sh) { }
+Matcher::Matcher(SpriteHolder *_sh) : Anim2SpriteMatcher(_sh) { }
 Matcher::~Matcher(void) { }
 
 AnimatorProgressor::AnimatorProgressor(timestamp_t _timesand) :

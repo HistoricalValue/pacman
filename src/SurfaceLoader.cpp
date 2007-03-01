@@ -12,11 +12,11 @@ using namespace cs454_2006;
 // Loads and returns the requested surface.
 // If the surface has been requested/loaded before, it exists in the map
 // and is returned right away.
-SDL_Surface* SurfaceLoader::loadSurface(std::string const& path)
+SDL_Surface *SurfaceLoader::loadSurface(std::string const &path)
 {
 	// search if image has been loaded
 	SurfaceMap::const_iterator s = surfaces.find(path);
-	SDL_Surface* result;
+	SDL_Surface *result;
 	if (s == surfaces.end()) // has not been loaded
 		// load now
 		surfaces[path] = (result = load_image(path));
@@ -29,12 +29,12 @@ SDL_Surface* SurfaceLoader::loadSurface(std::string const& path)
 	return result;
 } // loadSurface()
 
-void SurfaceLoader::unload_image(SDL_Surface* s) const
+void SurfaceLoader::unload_image(SDL_Surface *s) const
 	{ SDL_FreeSurface(s); }
-void SurfaceLoader::unload_image(std::string& path) const
+void SurfaceLoader::unload_image(std::string &path) const
 	{ unload_image( getSurface(path) ); }
 
-SDL_Surface* SurfaceLoader::getSurface(std::string const& path) const {
+SDL_Surface *SurfaceLoader::getSurface(std::string const &path) const {
 	SurfaceMap::const_iterator s = surfaces.find(path);
 	return  s == surfaces.end() ? static_cast<SDL_Surface*>(0) : s->second;
 }
@@ -44,7 +44,7 @@ SurfaceLoader::~SurfaceLoader(void)
 	std::cerr << " *** Killing SurfaceLoader" << std::endl;
 	SurfaceMap::const_iterator ite = surfaces.begin();
 	while (ite != surfaces.end()) {
-		SDL_Surface* surf = ite++->second;
+		SDL_Surface *surf = ite++->second;
 		unload_image(surf);
 		std::cerr << " *** Unloaded surface at " << surf <<
 		 std::endl;
@@ -53,12 +53,12 @@ SurfaceLoader::~SurfaceLoader(void)
 	instance = NULL;
 } // ~SurfaceLoader()
 
-SDL_Surface* SurfaceLoader::load_image(std::string const& filename) const
+SDL_Surface *SurfaceLoader::load_image(std::string const &filename) const
 {
 	// tmp storage
-	SDL_Surface* loaded = NULL;
+	SDL_Surface *loaded = NULL;
 	// optimased
-	SDL_Surface* opted = NULL;
+	SDL_Surface *opted = NULL;
 	// Load
 	loaded = IMG_Load(filename.c_str());
 	// err check
@@ -87,11 +87,11 @@ SurfaceLoader::SurfaceLoader(void) {
 	std::cerr << " *** Created SurfaceHolder" << std::endl;
 } // SurfaceLoader()
 
-SurfaceLoader* SurfaceLoader::getInstance(void) {
+SurfaceLoader *SurfaceLoader::getInstance(void) {
 	if (!instance)
 		instance = new SurfaceLoader();
 	return instance;
 } // getInstance()
 
 // Singlaton class - single instance reference
-SurfaceLoader* SurfaceLoader::instance = NULL;
+SurfaceLoader *SurfaceLoader::instance = NULL;

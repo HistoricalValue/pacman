@@ -6,7 +6,7 @@
 using namespace cs454_2006;
 
 std::map<GameSprite*, ActorMovement*> AI::moves;
-Targets* AI::targets;
+Targets *AI::targets;
 std::vector<spriteid_t> AI::ids(4);
 
 
@@ -18,7 +18,7 @@ double AI::distanceFromPacman(Waypoint *waypoint ){
 	return sqrt(_x*_x + _y*_y);
 }
 
-void AI::Think(Waypoint *waypoint, Ghost* ghost){
+void AI::Think(Waypoint *waypoint, Ghost *ghost){
 	ghoststate_t state = ghost->GetState();
 	switch(state){
 		case NORMAL:
@@ -53,7 +53,7 @@ void AI::Think(Waypoint *waypoint, Ghost* ghost){
 	}
 }
 
-void AI::Stalker(Waypoint* waypoint, Ghost* ghost, Sprite* target){
+void AI::Stalker(Waypoint *waypoint, Ghost *ghost, Sprite *target){
 	bool up = false, down = false, left = false, right = false;
 	
 	int xdiff = target->GetX() - ghost->GetX();
@@ -86,7 +86,7 @@ void AI::Stalker(Waypoint* waypoint, Ghost* ghost, Sprite* target){
 	
 }
 
-void AI::Chicken(Waypoint* waypoint, Ghost* ghost, Sprite* target){
+void AI::Chicken(Waypoint *waypoint, Ghost *ghost, Sprite *target){
 	bool up = false, down = false, left = false, right = false;
 	
 	int xdiff = target->GetX() - ghost->GetX();
@@ -117,7 +117,7 @@ void AI::Chicken(Waypoint* waypoint, Ghost* ghost, Sprite* target){
 	Random(waypoint, ghost);	
 }
 
-void AI::Random(Waypoint* waypoint, Ghost* ghost){
+void AI::Random(Waypoint *waypoint, Ghost *ghost){
 	ActorMovement::move_t directions[4];
 	short int counter = 0;
 	ActorMovement *am = moves[ghost];
@@ -146,6 +146,6 @@ void AI::SetMoves(std::map<GameSprite*, ActorMovement*> _moves){
 	//ids[RYUK] = (*++ite).first->getID();
 }
 
-void AI::SetTargets(Targets* _targets){
+void AI::SetTargets(Targets *_targets){
 	targets = _targets;
 }

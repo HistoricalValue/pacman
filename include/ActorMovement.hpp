@@ -20,28 +20,28 @@ using namespace cs454_2006;
 class ActorMovement {
 	public :
 	enum move_t {UP, RIGHT, DOWN, LEFT, NOWHERE = -1};
-	ActorMovement(GameSprite* actor,
-	 std::vector<MovingAnimator*> const& anitors,
-	 std::vector<FrameRangeAnimator*> const& yums,
-	 amc_t& amc,
+	ActorMovement(GameSprite *actor,
+	 std::vector<MovingAnimator*> const &anitors,
+	 std::vector<FrameRangeAnimator*> const &yums,
+	 amc_t &amc,
 	 timestamp_t currTime);
 	void pressed(move_t direction, timestamp_t currTime);
 	void released(move_t direction, timestamp_t currTime);
 	void progress(timestamp_t currTime);
-	void collided(GameSprite* who);
-	MovingAnimator* getMovingAnimator(void);
-	FrameRangeAnimator* getFrameRangeAnimator(void);
+	void collided(GameSprite *who);
+	MovingAnimator *getMovingAnimator(void);
+	FrameRangeAnimator *getFrameRangeAnimator(void);
 	enum move_t getLastMove(void) const;
 	void setDelay(delay_t);
 	private :
 	struct AnimatorPair;
 	struct SuspendFunctor;
 	struct DelaySetter;
-	GameSprite* actor;
+	GameSprite *actor;
 	std::vector<AnimatorPair*> animators;
 	AnimatorPair *w2g, *running; // actor wants to go
 	bool w2g_collided;
-	amc_t& amc;
+	amc_t &amc;
 }; // class ActorMovement
 
 #endif // __ActorMovement_hpp__

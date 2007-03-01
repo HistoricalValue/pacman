@@ -45,14 +45,14 @@ char Sprite::GetFrame (void) const { return frameNo; }
 void Sprite::SetVisibility (bool v) { isVisible = v; }
 bool Sprite::IsVisible (void) const { return isVisible; }
 
-void Sprite::NotifyCollision (Sprite* target) {
+void Sprite::NotifyCollision (Sprite *target) {
 	if (onCollision)
 		(*onCollision)(this, target, collisionClosure);
 }
 void Sprite::SetPosition(int _x, int _y) { x = _x, y = _y; }
 void Sprite::Move(int dx, int dy) { x += dx; y += dy; }
 
-std::ostream& operator << (std::ostream& o, Sprite& s) {
+std::ostream &operator << (std::ostream &o, Sprite &s) {
 	static const char comma = ',', rbrace = '}';
 	static const char
 	 sprite[] = "Sprite ",
@@ -64,7 +64,7 @@ std::ostream& operator << (std::ostream& o, Sprite& s) {
 	 film << s.currFilm->GetId() << comma << s.currFilm << rbrace;
 } // <<
 
-void Sprite::SetCollisionCallback (CollisionCallback f, void* c) { 
+void Sprite::SetCollisionCallback (CollisionCallback f, void *c) { 
 	onCollision = f, collisionClosure = c;
 }
 
@@ -73,7 +73,7 @@ spriteid_t Sprite::getID(void) const { return id; }
 AnimationFilm *Sprite::getFilm(void) const { return currFilm; }
 void Sprite::setFilm(AnimationFilm *f) { currFilm = f; }
 // Constructor
-Sprite::Sprite (int _x, int _y, AnimationFilm* film, spriteid_t _id): 
+Sprite::Sprite (int _x, int _y, AnimationFilm *film, spriteid_t _id): 
  x(_x), y(_y), currFilm(film), isVisible(true),
  frameNo(-1), id(_id)
 {

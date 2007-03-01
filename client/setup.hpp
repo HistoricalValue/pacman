@@ -32,7 +32,7 @@ template <class arg_t> struct for_each_functor :
 	virtual void operator() (arg_t) = 0;
 	for_each_functor(InitData const&, GameData&);
 	virtual ~for_each_functor(void);
-	protected : InitData const& d; GameData &r;
+	protected : InitData const &d; GameData &r;
 }; // struct for_each_functor
 // SSAMS : Special Sprite Actor Movement Setup:
 // Creates and setups an ActorMovement instance for each special sprite.

@@ -5,7 +5,7 @@
 //int SoundManager::audio_channels, SoundManager::audio_rate,
 // SoundManager::audio_buffers;
 //Uint16 SoundManager::audio_format;
-SoundManager* SoundManager::s = NULL;
+SoundManager *SoundManager::s = NULL;
 
 SoundManager::SoundManager(void){ }
 
@@ -30,7 +30,7 @@ SoundManager *SoundManager::Singleton(void){
 
 //Playing main background music
 // -1 for infinite repeats
-void SoundManager::Play(int channel, char* file, int repeats){
+void SoundManager::Play(int channel, char *file, int repeats){
   bgmusic = Mix_LoadWAV(file);
   Mix_PlayChannel(channel, bgmusic, repeats);
   Mix_VolumeChunk(bgmusic, 64);
@@ -60,7 +60,7 @@ void SoundManager::ChangeState(){
     Mix_PauseMusic();
 }
   
-void SoundManager::PlayEffect(char* file){
+void SoundManager::PlayEffect(char *file){
   //loading the effect file
   effect = Mix_LoadWAV(file);
   Mix_PlayChannel(1, effect, 0);

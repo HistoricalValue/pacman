@@ -3,16 +3,16 @@
 #include "commons.hpp"
 using namespace cs454_2006;
 
-static void parseFile(WaypointHolder* self, std::string const&);
-static bool shouldParse(std::string const& line);
+static void parseFile(WaypointHolder *self, std::string const&);
+static bool shouldParse(std::string const &line);
 static void parseLine(WaypointHolder*, std::string&,
  std::list<std::string>& delims);
 
-WaypointHolder::WaypointHolder(std::string const& cf):bug(NULL) {
+WaypointHolder::WaypointHolder(std::string const &cf):bug(NULL) {
 	parseFile(this, cf);
 } // constructor
 
-static void parseFile(WaypointHolder* self, std::string const& cf)
+static void parseFile(WaypointHolder *self, std::string const &cf)
 {
 	std::ifstream fin(cf.c_str());
 	if (!fin) {
@@ -30,7 +30,7 @@ static void parseFile(WaypointHolder* self, std::string const& cf)
 	}
 } // parseLine
 
-static bool shouldParse(std::string const& line) {
+static bool shouldParse(std::string const &line) {
 	return !Tokeniser::isEmptyLine(line) &&
 	 !Tokeniser::isCommentLine(line);
 } // shouldParse 
@@ -43,7 +43,7 @@ struct waydata {
 #define conftopx(A) ((A)<<3)
 #define CONVERTX(A) (A)
 #define CONVERTY(A) ((A) + 40)
-static void parseLine(WaypointHolder* self, std::string& line,
+static void parseLine(WaypointHolder *self, std::string &line,
  std::list<std::string>& delims)
 {
 	Tokeniser tok(line, delims);
@@ -75,11 +75,11 @@ static void parseLine(WaypointHolder* self, std::string& line,
 #undef CONVERTX
 #undef CONVERTY
 
-void WaypointHolder::addWaypoint(Waypoint* w) {
+void WaypointHolder::addWaypoint(Waypoint *w) {
 	waypoints.push_back(w);
 } // addWaypoint
 
-void WaypointHolder::display(SDL_Surface* dst) {
+void WaypointHolder::display(SDL_Surface *dst) {
 	std::list<Waypoint*>::iterator ite;
 	for (ite = waypoints.begin(); ite != waypoints.end(); ite++) {
 		SDL_Rect dstpoint;
@@ -89,7 +89,7 @@ void WaypointHolder::display(SDL_Surface* dst) {
 	}
 } // display
 
-void WaypointHolder::setBug(SDL_Surface* _bug) {
+void WaypointHolder::setBug(SDL_Surface *_bug) {
 	bug = _bug;
 } // setBug
 
@@ -97,7 +97,7 @@ std::list<Waypoint*> WaypointHolder::getWaypoints(void) const {
 	return waypoints;
 } // getWaypoints
 
-void WaypointHolder::setCollision(GameSprite* g, CollisionChecker *cc,
+void WaypointHolder::setCollision(GameSprite *g, CollisionChecker *cc,
  bool should) {
 	std::list<Waypoint*>::iterator ite;
 	for (ite = waypoints.begin(); ite != waypoints.end(); ite++)
@@ -109,9 +109,9 @@ void WaypointHolder::setCollision(GameSprite* g, CollisionChecker *cc,
 struct WaypointMatchPredicate : public std::binary_function <
  waypointid_t, Waypoint*, bool>
 {
-	bool operator() (waypointid_t, Waypoint* _2) const;
+	bool operator() (waypointid_t, Waypoint *_2) const;
 };
-Waypoint* WaypointHolder::getWaypoint(waypointid_t id) const {
+Waypoint *WaypointHolder::getWaypoint(waypointid_t id) const {
 	std::list<Waypoint*>::const_iterator result;
 	WaypointMatchPredicate match;
 	result = std::find_if(
@@ -125,7 +125,7 @@ Waypoint* WaypointHolder::getWaypoint(waypointid_t id) const {
 	return *result;
 } // getWaypoint
 
-bool WaypointMatchPredicate::operator() (waypointid_t id, Waypoint* wp)
+bool WaypointMatchPredicate::operator() (waypointid_t id, Waypoint *wp)
 const {
 	return wp->getID() == id;
 } // operator()

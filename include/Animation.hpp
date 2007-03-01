@@ -11,7 +11,7 @@ class Animation  {
 	animid_t id;
 	public:
 	animid_t GetId (void) const;
-	virtual Animation* Clone (animid_t newId) const = 0;
+	virtual Animation *Clone (animid_t newId) const = 0;
 	Animation (animid_t _id);
 	virtual ~Animation();
 };

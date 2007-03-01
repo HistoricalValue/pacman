@@ -45,13 +45,13 @@ extern void collision_callback(Sprite*, Sprite*, void *c = CAST(void*, 0));
 extern void cleanup(void);
 
 struct Matcher : public Anim2SpriteMatcher {
-	Sprite* operator() (Animation*) const;
+	Sprite *operator() (Animation*) const;
 	Matcher(SpriteHolder*);
 	~Matcher(void);
 };
 
 struct AnimatorProgressor : public std::unary_function<
- std::pair<GameSprite* const, ActorMovement*>&, void>
+ std::pair<GameSprite *const, ActorMovement*>&, void>
 {
 	result_type operator() (argument_type);
 	AnimatorProgressor(timestamp_t);

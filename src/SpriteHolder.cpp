@@ -15,7 +15,7 @@ using namespace cs454_2006;
 struct sprite_data {
 	int x, y, z;
 	spriteid_t id;
-	AnimationFilm* film;
+	AnimationFilm *film;
 };
 
 static void parseConfigFile(std::string&, AnimationFilmHolder*,
@@ -40,7 +40,7 @@ struct ListInit : public std::unary_function<Sprite const*, void> {
 } // namespace cs454_2006
 
 // Constructor
-SpriteHolder::SpriteHolder(std::string& cfp, AnimationFilmHolder* afh) {
+SpriteHolder::SpriteHolder(std::string &cfp, AnimationFilmHolder *afh) {
 	parseConfigFile(cfp, afh, sprites);
 	
 	// set up lists
@@ -57,10 +57,10 @@ SpriteHolder::SpriteHolder(std::string& cfp, AnimationFilmHolder* afh) {
 SpriteHolder::~SpriteHolder(void) {}
 
 // Add/remove sprites
-void SpriteHolder::addSprite(Sprite* s, int z) {
+void SpriteHolder::addSprite(Sprite *s, int z) {
 	sprites[z].push_back(s);
 } // addSprite
-Sprite* SpriteHolder::removeSprite(Sprite* s) {
+Sprite *SpriteHolder::removeSprite(Sprite *s) {
 	SpritesMap::iterator ite = sprites.begin();
 	while (ite != sprites.end()) { // for each z priority
 		std::list<Sprite*>::iterator lite = ite->second.begin();
@@ -81,7 +81,7 @@ Sprite* SpriteHolder::removeSprite(Sprite* s) {
 } // removeSprite
 
 // Mass manipulation
-void SpriteHolder::displaySprites(SDL_Surface* dst) {
+void SpriteHolder::displaySprites(SDL_Surface *dst) {
 	SpritesMap::iterator ite = sprites.begin();
 	while (ite != sprites.end()) {
 		std::list<Sprite*>::iterator lite = ite->second.begin();
@@ -94,8 +94,8 @@ void SpriteHolder::displaySprites(SDL_Surface* dst) {
 	}
 } // displaySprites
 
-static void parseConfigFile(std::string& path, AnimationFilmHolder* afh,
- SpriteHolder::SpritesMap& sprites)
+static void parseConfigFile(std::string &path, AnimationFilmHolder *afh,
+ SpriteHolder::SpritesMap &sprites)
 {
 	// open input stream to configuration file
 	std::ifstream fin(path.c_str());
@@ -103,7 +103,7 @@ static void parseConfigFile(std::string& path, AnimationFilmHolder* afh,
 	std::string buf;
 
 	// set up
-	Tokeniser* tok;
+	Tokeniser *tok;
 	std::list<std::string> delims;
 	delims.push_back(" ");
 
@@ -114,24 +114,24 @@ static void parseConfigFile(std::string& path, AnimationFilmHolder* afh,
 	}
 } // parseConfigFile
 
-static bool shouldParseLine(std::string& line) {
+static bool shouldParseLine(std::string &line) {
 	bool result = false;
 	if (!Tokeniser::isEmptyLine(line))
 		result = !isCommentLine(line);
 	return result;
 } // shouldParseLine
 
-static bool isCommentLine(std::string& line) {
+static bool isCommentLine(std::string &line) {
 	return line.at(0) == '#';
 } // isCommentLine
 
 #define CONVERTX(A) (A)
 #define CONVERTY(A) ((A) + 40)
-static void parseLine(Tokeniser **tokptr, AnimationFilmHolder* afh,
- std::string& line, std::list<std::string>& delims,
- SpriteHolder::SpritesMap& sprites)
+static void parseLine(Tokeniser **tokptr, AnimationFilmHolder *afh,
+ std::string &line, std::list<std::string>& delims,
+ SpriteHolder::SpritesMap &sprites)
 {
-	Tokeniser* tok = new Tokeniser(line, delims);
+	Tokeniser *tok = new Tokeniser(line, delims);
 
 	*tokptr = tok;
 	sprite_data d;
@@ -148,7 +148,7 @@ static void parseLine(Tokeniser **tokptr, AnimationFilmHolder* afh,
 	d.film = afh->GetFilm(*++*tok);
 
 	// create and add sprite
-	Sprite* s;
+	Sprite *s;
 	if (d.id < 1000) { // ids 0 - 1000 are obstacles
 		s = new ObstacleSprite(d.x, d.y, d.film, d.id);
 	} else 
@@ -175,14 +175,14 @@ static void parseLine(Tokeniser **tokptr, AnimationFilmHolder* afh,
 
 namespace cs454_2006 {
 struct SpriteMatchPredicate : public std::unary_function<Sprite*, bool> {
-	bool operator () (Sprite* s) { return s->getID() == id; }
+	bool operator () (Sprite *s) { return s->getID() == id; }
 	SpriteMatchPredicate(spriteid_t _id) : id(_id) { }
 	private :
 	spriteid_t id;
 };
 } // namespace cs454_2006
 
-Sprite* SpriteHolder::getSprite(spriteid_t id) {
+Sprite *SpriteHolder::getSprite(spriteid_t id) {
 	std::list<Sprite*>::iterator spite;
 	if ( (spite = std::find_if(
 	 allsprites.begin(),
@@ -195,21 +195,21 @@ Sprite* SpriteHolder::getSprite(spriteid_t id) {
 	return *spite;
 } // getSprite
 
-std::list<Sprite*> const& SpriteHolder::getSprites(void) const
+std::list<Sprite*> const &SpriteHolder::getSprites(void) const
 	{ return allsprites; }
-std::list<GameSprite*> const& SpriteHolder::getGameSprites(void) const
+std::list<GameSprite*> const &SpriteHolder::getGameSprites(void) const
 	{ return gamesprites; }
-std::list<ObstacleSprite*> const& SpriteHolder::getObstacleSprites(void) const
+std::list<ObstacleSprite*> const &SpriteHolder::getObstacleSprites(void) const
 	{ return obstaclesprites; }
 
-void ListInit::operator() (Sprite* s) {
+void ListInit::operator() (Sprite *s) {
 	if (s->getID() < 1000) { // obstacle
-		ObstacleSprite* os = dynamic_cast<ObstacleSprite*>(s);
+		ObstacleSprite *os = dynamic_cast<ObstacleSprite*>(s);
 		nf(!os, "Sprite with ID less than 1000 is not an "
 		 "ObstacleSprite");
 		obst.push_back(os);
 	} else { // game
-		GameSprite* gm = dynamic_cast<GameSprite*>(s);
+		GameSprite *gm = dynamic_cast<GameSprite*>(s);
 		nf(!gm, "Sprite with ID more than 1000 is not a "
 		 "GameSprite");
 		game.push_back(gm);

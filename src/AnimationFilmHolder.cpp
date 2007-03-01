@@ -10,8 +10,8 @@
 using namespace cs454_2006;
 
 struct tokener {
-	tokener& operator++(void) { return advance(); };
-	tokener& operator++(int) { return advance(); };
+	tokener &operator++(void) { return advance(); };
+	tokener &operator++(int) { return advance(); };
 	char *operator*(void) { return t; };
 	tokener(const char *_delim, char *l) : delim(_delim)
 	{
@@ -21,17 +21,17 @@ struct tokener {
 	private :
 	const char *delim;
 	char *t;
-	tokener& advance(void) {
+	tokener &advance(void) {
 		t = strtok(NULL, delim);
 		if (!t) nf(-1, "No more tokens");
 		return *this;
 	};
 }; // tokener
-static AnimationFilm* loadFilm(char *config_line);
-static SDL_Rect* torect(char *rect_config);
+static AnimationFilm *loadFilm(char *config_line);
+static SDL_Rect *torect(char *rect_config);
 static bool isEmptyLine(const char *line);
 
-AnimationFilmHolder::AnimationFilmHolder(std::string const* path) {
+AnimationFilmHolder::AnimationFilmHolder(std::string const *path) {
 	std::ifstream fin(path->c_str(), std::ios::in);
 	if (!fin)
 		nf(-1, "Could not open file for reading");
@@ -44,7 +44,7 @@ AnimationFilmHolder::AnimationFilmHolder(std::string const* path) {
 		fin.getline(buf, buf_size);
 		parse = (buf[0] != '#') && !isEmptyLine(buf);
 		if (parse) {
-			AnimationFilm* film;
+			AnimationFilm *film;
 			film = loadFilm(buf);
 			if (film) {
 				filmMap[film->GetId()] = film;
@@ -58,7 +58,7 @@ AnimationFilmHolder::AnimationFilmHolder(std::string const* path) {
 } // constructor
 
 #define q(A) std::cout<<'"'<<(A)<<'"'<<std::endl
-static AnimationFilm* loadFilm(char *l) {
+static AnimationFilm *loadFilm(char *l) {
 	tokener tok(" ", l);
 
 	struct data {
@@ -85,7 +85,7 @@ static AnimationFilm* loadFilm(char *l) {
 		d.dims[i] = *++tok;
 
 	// load image
-	SurfaceLoader* sl = SurfaceLoader::getInstance();
+	SurfaceLoader *sl = SurfaceLoader::getInstance();
 	std::string path(d.path);
 	SDL_Surface *surf = sl->loadSurface(path);
 	
@@ -105,9 +105,9 @@ static AnimationFilm* loadFilm(char *l) {
 #define cun2px(A)	(A)
 // Old one
 // #define cun2px(A)	((A)<<3)
-static SDL_Rect* torect(char *l) {
+static SDL_Rect *torect(char *l) {
 	tokener tok(",", l+1);
-	SDL_Rect* result = new SDL_Rect;
+	SDL_Rect *result = new SDL_Rect;
 
 	// get x
 	result->x = cun2px(strtol(*tok, NULL, 10));
@@ -134,7 +134,7 @@ static bool isEmptyLine(const char *l) {
 	return result;
 } // isEmptyLine()
 
-AnimationFilm* AnimationFilmHolder::GetFilm(const std::string& id) const {
+AnimationFilm *AnimationFilmHolder::GetFilm(const std::string &id) const {
 	FilmMap::const_iterator i = filmMap.find(id);
 	assert(i != filmMap.end());
 	return i->second;

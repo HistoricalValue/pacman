@@ -1,10 +1,10 @@
 #include "CollisionChecker.hpp"
 
-CollisionChecker* CollisionChecker::cc = NULL;
+CollisionChecker *CollisionChecker::cc = NULL;
 
 CollisionChecker::CollisionChecker(void){}
 
-void CollisionChecker::Register (Sprite* s1, Sprite* s2) {
+void CollisionChecker::Register (Sprite *s1, Sprite *s2) {
 	Pair p(s1, s2);
 
 	std::list<Pair>::const_iterator i;
@@ -18,7 +18,7 @@ void CollisionChecker::Register (Sprite* s1, Sprite* s2) {
 	return;
 }
 
-void CollisionChecker::Cancel (Sprite* s1, Sprite* s2) {
+void CollisionChecker::Cancel (Sprite *s1, Sprite *s2) {
 	Pair p(s1, s2);
 	cancel_queue.push_back(p);
 	return;
@@ -34,13 +34,13 @@ void CollisionChecker::Commit(void) {
 }
 
 // CheckFunctor members
-void CollisionChecker::CheckFunctor::operator () (Pair const& p) const {
+void CollisionChecker::CheckFunctor::operator () (Pair const &p) const {
 	if (p.first->CollisionCheck(p.second))
 			p.first->NotifyCollision(p.second);
 }
 // ////////////////////
 
-CollisionChecker* CollisionChecker::Singleton(void) {
+CollisionChecker *CollisionChecker::Singleton(void) {
 	if (!cc)
 		cc = new CollisionChecker();
 	return cc;

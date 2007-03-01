@@ -18,8 +18,8 @@ public:
     void	     	SetDelay (delay_t v) ;
     bool		GetContinuous (void) const ;
     void	 	SetContinuous (bool v) ;
-    virtual Animation* Clone (animid_t newId) const;
-    friend std::ostream& operator<<(std::ostream&, MovingAnimation&);
+    virtual Animation *Clone (animid_t newId) const;
+    friend std::ostream &operator<<(std::ostream&, MovingAnimation&);
     MovingAnimation (
 	offset_t _dx, offset_t _dy, delay_t _delay, bool c, animid_t _id
     );

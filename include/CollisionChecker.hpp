@@ -15,13 +15,13 @@ class CollisionChecker {
 	CollisionChecker(void);
 	
 	struct CheckFunctor : public std::unary_function<Pair, void> {
-		void operator()(const Pair& p) const;
+		void operator()(const Pair &p) const;
 	};
 	
 	public:
-	static CollisionChecker* Singleton(void);
-	void Register (Sprite* callbacker, Sprite* stooker);
-	void Cancel (Sprite* callbacker, Sprite* stooker);
+	static CollisionChecker *Singleton(void);
+	void Register (Sprite *callbacker, Sprite *stooker);
+	void Cancel (Sprite *callbacker, Sprite *stooker);
 	void Check (void);
 	void Commit(void);
 };
