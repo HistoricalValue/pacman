@@ -129,18 +129,16 @@ static void gaim_loop(GameData &d) {
 			 AnimatorProgressor(timesand));
 			// collision checking happens through callbacks
 			d.cc->Commit();
-		}
 		
-		// Run scheduled tasks
-		d.sch->check(timesand);
+			// Run scheduled tasks
+			d.sch->check(timesand);
 
-		// Draw on the screen
-		SDL_FillRect(d.screen, NULL, d.bg);
-		d.animdata->plathold->displayPlatforms(d.screen);
-		d.animdata->spritehold->displaySprites(d.screen);
-		// if one wants to display the junctions, they should
-		// first set the Waypoint.bug
-		SDL_Flip(d.screen);
+			// Draw on the screen
+			SDL_FillRect(d.screen, NULL, d.bg);
+			d.animdata->plathold->displayPlatforms(d.screen);
+			d.animdata->spritehold->displaySprites(d.screen);
+			SDL_Flip(d.screen);
+		}
 
 		// Cap gaim loop speed
 		timestamp_t sanddiff = timestamp_diff(

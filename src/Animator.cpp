@@ -57,7 +57,7 @@ void Animator::Suspend(timestamp_t currTime) {
 } // Suspend
 
 void Animator::Resume(timestamp_t currTime) {
-	if (state == ANIMATOR_STOPPED) { // only act is animator is suspened
+	if (state == ANIMATOR_STOPPED) { // only act if animator is suspened
 		TimeShift(currTime - suspendedTime);
 		state = exState;
 		if (_register) // if registered with the Holder
