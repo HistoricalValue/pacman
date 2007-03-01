@@ -137,6 +137,7 @@ static void gaim_loop(GameData &d) {
 			SDL_FillRect(d.screen, NULL, d.bg);
 			d.animdata->plathold->displayPlatforms(d.screen);
 			d.animdata->spritehold->displaySprites(d.screen);
+			d.stats->Draw(d.screen);
 			SDL_Flip(d.screen);
 		}
 
