@@ -39,8 +39,9 @@ struct GameData &setup(struct InitData &d) {
 	r.cc = d.cc;
 	// Sound set up
 	
-	SoundManager::Singleton()->Play(0, "resources/sounds/bobos.wav", -1);
-     	SoundManager::Singleton()->Play(1, "resources/sounds/mask.wav", -1);
+	SoundManager::Singleton()->Play(0, "resources/sounds/bobos2.wav", -1);
+	SoundManager::Singleton()->lolChannel(0, 36);
+	SoundManager::Singleton()->Play(1, "resources/sounds/maskdream.wav", -1);
        	SoundManager::Singleton()->MuteChannel(1);
 	//	SoundManager::Singleton()->PlayEffect("resources/sounds/bobos.wav");
 	return r;

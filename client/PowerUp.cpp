@@ -21,7 +21,6 @@ struct GhostRevertTask : public Task {
 }; // struct GhostRevertTask
 
 void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
-	static Task *ghost_revert_task = CAST(Task*, 0);
 	if (p->IsVisible()) if (c) {
 		_pcoca *pkoka = CAST(_pcoca*, c);
 		p->SetVisibility(false); // powerup
@@ -36,17 +35,15 @@ void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
 		setScared(pkoka->ghost->retard, akmovs, scared_film);
 		setScared(pkoka->ghost->kieken, akmovs, scared_film);
 
-		if (ghost_revert_task)
-			pkoka->sch->cancel(ghost_revert_task);
 		GhostRevertTaskData *grtd = new GhostRevertTaskData;
 		grtd->pkoka = pkoka;
-		pkoka->sch->_register(ghost_revert_task =
+		pkoka->sch->_register(
 		 new GhostRevertTask(getCurrentTime() + EATABLE_DURATION),
 		 grtd);
 
 		//	SoundManager::Singleton()->PlayEffect("./resources/sounds/scratch.wav");
 		SoundManager::Singleton()->MuteChannel(0);
-		SoundManager::Singleton()->lolChannel(1);
+		SoundManager::Singleton()->lolChannel(1, 128);
 	}
 } // powerup_coca
 
@@ -97,7 +94,7 @@ void GhostRevertTask::operator()(TaskData *d) {
 	ScaredToNormal(pkoka->ghost->retard, akmovs, b_film);
 	ScaredToNormal(pkoka->ghost->kieken, akmovs, l_film);
 	SoundManager::Singleton()->MuteChannel(1);
-      	SoundManager::Singleton()->lolChannel(0);
+      	SoundManager::Singleton()->lolChannel(0, 36);
 } // GhostRevertTask::()
 
 Task &GhostRevertTask::operator++(void) { return *this; }
