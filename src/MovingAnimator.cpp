@@ -31,7 +31,7 @@ MovingAnimator::MovingAnimator(bool _register) : Animator(_register),
 
 MovingAnimator::~MovingAnimator(void) { }
 
-void MovingAnimator::Start (Sprite* s, MovingAnimation* a, timestamp_t t) {
+void MovingAnimator::Start (Sprite *s, MovingAnimation *a, timestamp_t t) {
 	sprite	= s;
 	anim 	= a;
 	lastTime = t;
@@ -55,7 +55,7 @@ bool MovingAnimator::EnsureProgressable(unsigned int steps,
 
 Sprite *MovingAnimator::GetSprite(void) const { return sprite; }
 MovingAnimation *MovingAnimator::getAnimation(void) const { return anim; }
-//void MovingAnimator::__backoff::operator () (MovingAnimator* animator) const
+//void MovingAnimator::__backoff::operator () (MovingAnimator *animator) const
 //{
 //	if (_backed) {
 //		animator->sprite = s;
@@ -69,7 +69,7 @@ MovingAnimation *MovingAnimator::getAnimation(void) const { return anim; }
 //	}
 //}
 //
-//void MovingAnimator::__backoff::operator = (MovingAnimator* animator) {
+//void MovingAnimator::__backoff::operator = (MovingAnimator *animator) {
 //	timestamp_t currTime = getTimestamp();
 //	// only save state if everything is non NULL
 //	// (which means that it's not the first time the animtor is being

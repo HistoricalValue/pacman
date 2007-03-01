@@ -14,16 +14,16 @@
 typedef unsigned short int waypointid_t;
 class WaypointHolder {
 	public :
-	WaypointHolder(std::string const& config_file_path);
-	Waypoint* getWaypoint(waypointid_t id) const;
+	WaypointHolder(std::string const &config_file_path);
+	Waypoint *getWaypoint(waypointid_t id) const;
 	std::list<Waypoint*> getWaypoints(void) const;
-	void addWaypoint(Waypoint* w);
+	void addWaypoint(Waypoint *w);
 	void setCollision(GameSprite*, CollisionChecker*, bool);
 	// For convencience
 	void setBug(SDL_Surface*);
 	void display(SDL_Surface*);
 	private :
 	std::list<Waypoint*> waypoints;
-	SDL_Surface* bug;
+	SDL_Surface *bug;
 };
 #endif // __WaypointHolder_hpp__

@@ -21,6 +21,7 @@ struct GhostRevertTask : public Task {
 }; // struct GhostRevertTask
 
 void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
+	static Task *ghost_revert_task = CAST(Task*, 0);
 	if (p->IsVisible()) if (c) {
 		_pcoca *pkoka = CAST(_pcoca*, c);
 		p->SetVisibility(false); // powerup
@@ -35,9 +36,11 @@ void powerup_coca(Sprite *p, Sprite *stoocker, void *c) {
 		setScared(pkoka->ghost->retard, akmovs, scared_film);
 		setScared(pkoka->ghost->kieken, akmovs, scared_film);
 
+		if (ghost_revert_task)
+			pkoka->sch->cancel(ghost_revert_task);
 		GhostRevertTaskData *grtd = new GhostRevertTaskData;
 		grtd->pkoka = pkoka;
-		pkoka->sch->_register(
+		pkoka->sch->_register(ghost_revert_task = 
 		 new GhostRevertTask(getCurrentTime() + EATABLE_DURATION),
 		 grtd);
 
@@ -100,7 +103,7 @@ void GhostRevertTask::operator()(TaskData *d) {
 Task &GhostRevertTask::operator++(void) { return *this; }
 
 void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
-	Ghost* gs = dynamic_cast<Ghost*>(ghost);
+	Ghost *gs = dynamic_cast<Ghost*>(ghost);
 	if(gs->GetState() == SCARED) { if (c) {
 		// It gets called : D
 		_gcoca *gkoka = CAST(_gcoca*, c);
@@ -124,7 +127,7 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 } // collision_callback
 
 void ghost_uneating_callback(Sprite *waypoint, Sprite *_ghost, void *c) {
-	Ghost* gs = dynamic_cast<Ghost*>(_ghost);
+	Ghost *gs = dynamic_cast<Ghost*>(_ghost);
 	if(gs->GetState() == RETREAT) if(c){
 		AnimationFilm *film;
 		_gcoca *gkoka = CAST(_gcoca*, c);

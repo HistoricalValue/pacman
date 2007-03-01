@@ -8,8 +8,8 @@
 #include <SDL/SDL_mixer.h>
 
 class SoundManager {
-	Mix_Chunk* bgmusic;
-	Mix_Chunk* effect;
+	Mix_Chunk *bgmusic;
+	Mix_Chunk *effect;
 	Uint16 audio_format;
 	int audio_channels, audio_rate, audio_buffers;
         static SoundManager *s;
@@ -21,7 +21,7 @@ class SoundManager {
         void MuteChannel(int channelnum);
         void lolChannel(int channelnum, int volume);
         void ChangeState();
-	void PlayEffect(char* file);
+	void PlayEffect(char *file);
 	void StopEffect();
 	~SoundManager(void);
 };

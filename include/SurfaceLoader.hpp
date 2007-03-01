@@ -23,9 +23,9 @@ class SurfaceLoader {
 	// a map with all surfaces
 	SurfaceMap surfaces;
 	// private convenience functions for loading/unloading images
-	SDL_Surface* load_image(std::string const& path) const;
-	void unload_image(SDL_Surface* s) const;
-	void unload_image(std::string& path) const;
+	SDL_Surface *load_image(std::string const &path) const;
+	void unload_image(SDL_Surface *s) const;
+	void unload_image(std::string &path) const;
 	// The colour-key, signifying the transparency colour
 	SDL_Colour colour_key;
 	// Singleton Class - instance holder
@@ -33,9 +33,9 @@ class SurfaceLoader {
 	SurfaceLoader (void);
 	public :
 	// fetches the requested image
-	SDL_Surface* loadSurface(std::string const& path);
-	SDL_Surface* getSurface(std::string const& path) const ;
-	static SurfaceLoader* getInstance(void);
+	SDL_Surface *loadSurface(std::string const &path);
+	SDL_Surface *getSurface(std::string const &path) const ;
+	static SurfaceLoader *getInstance(void);
 	~SurfaceLoader (void);
 };
 

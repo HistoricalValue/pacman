@@ -37,13 +37,7 @@ struct GameData &setup(struct InitData &d) {
 	teleportals_setup(d, r);
 	// Let game data have access to the collision checker instance
 	r.cc = d.cc;
-	// Sound set up
-	
-	SoundManager::Singleton()->Play(0, "resources/sounds/bobos2.wav", -1);
-	SoundManager::Singleton()->lolChannel(0, 36);
-	SoundManager::Singleton()->Play(1, "resources/sounds/maskdream.wav", -1);
-       	SoundManager::Singleton()->MuteChannel(1);
-	//	SoundManager::Singleton()->PlayEffect("resources/sounds/bobos.wav");
+
 	return r;
 } // setup
 
@@ -127,7 +121,7 @@ void FrameRangeAnimationFetcher::operator() (animid_t const &id) {
 } // FrameRangeAnimationFethcer::()
 
 // Animator Setup
-void AnimatorSetup::operator() (Animation* anim) {
+void AnimatorSetup::operator() (Animation *anim) {
 	nf(!anim, "NULL animation pointer -- check inits");
 	if (MovingAnimation *mv = dynamic_cast<MovingAnimation*>(anim)) {
 		// Create animator and do not register with Holder
@@ -199,7 +193,7 @@ static void ai_setup(struct InitData const &d, struct GameData &r) {
 static void collision_setup(InitData const &d, GameData &r) {
 	// Each obstacle platform must be registered with all
 	// special sprites.
-	ObstaclePlatformHolder::obstplats_map& obstplats =
+	ObstaclePlatformHolder::obstplats_map &obstplats =
 	 r.animdata->plathold->getObstaclePlatforms();
 	std::for_each(obstplats.begin(), obstplats.end(),
 	 SSS_CollisionRegisterer(d, r));
@@ -241,7 +235,7 @@ void SSS_CollisionRegisterer::operator() (std::pair<obstplatid_t const,
 } // SSS_CollisionRegisterer::()
 
 // Sprite - Obstalce Platform Collision Registerer
-void SOPCR::operator() (GameSprite* g) {
+void SOPCR::operator() (GameSprite *g) {
 	o->SetCollisionCheck(g, true);
 } // SOPRC::()
 

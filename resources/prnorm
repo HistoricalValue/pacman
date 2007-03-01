@@ -1,0 +1,2 @@
+#!/bin/sh
+find . -iregex '.*\.[ch]pp' -execdir sed -rie '/([[:alpha:]_][[:alnum:]_])([*&])([[:space:]]+)/s//\1\3\2/g' '{}' \;

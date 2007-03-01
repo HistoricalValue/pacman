@@ -42,20 +42,20 @@ void ObstacleSprite::Move (int dx, int dy) {
 	}
 }
 
-void ObstacleSprite::AddPushable(GameSprite* s) {
+void ObstacleSprite::AddPushable(GameSprite *s) {
 	pushable.push_back(s);
 }
 
-void ObstacleSprite::RemovePushable(GameSprite* s){
+void ObstacleSprite::RemovePushable(GameSprite *s){
 	pushable.remove(s);
 }
 
-void ObstacleSprite::WhenHit(Sprite* self, Sprite* actor, void* _0) {
+void ObstacleSprite::WhenHit(Sprite *self, Sprite *actor, void *_0) {
 	dynamic_cast<GameSprite*>(actor)->BackOff();
 }
 
 // Constructor
-ObstacleSprite::ObstacleSprite(int x, int y, AnimationFilm* f,
+ObstacleSprite::ObstacleSprite(int x, int y, AnimationFilm *f,
  spriteid_t id) : Sprite(x, y, f, id)
 {
 	SetCollisionCallback(&WhenHit);

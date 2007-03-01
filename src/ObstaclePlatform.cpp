@@ -1,16 +1,16 @@
 #include "ObstaclePlatform.hpp"
 
-void ObstaclePlatform::AddPushable (GameSprite* s) {
+void ObstaclePlatform::AddPushable (GameSprite *s) {
 	std::list<ObstacleSprite*>::iterator i;
 	for(i = sprites.begin(); i != sprites.end(); i++)
 		(*i)->AddPushable(s);
 }
-void ObstaclePlatform::RemovePushable (GameSprite* s) {
+void ObstaclePlatform::RemovePushable (GameSprite *s) {
 	std::list<ObstacleSprite*>::iterator i;
 		for(i = sprites.begin(); i != sprites.end(); i++)
 			(*i)->RemovePushable(s);
 }
-void ObstaclePlatform::SetCollisionCheck (GameSprite* actor, bool flag) {
+void ObstaclePlatform::SetCollisionCheck (GameSprite *actor, bool flag) {
 	std::list<ObstacleSprite*>::const_iterator i;
 	for(i = sprites.begin(); i != sprites.end(); i++) { 
 		if(flag) {
@@ -29,7 +29,7 @@ void ObstaclePlatform::Display(SDL_Surface *dest) {
 		 (*i)->Display(dest);
 }
 
-void ObstaclePlatform::Add (ObstacleSprite* s, unsigned rx, unsigned ry) {
+void ObstaclePlatform::Add (ObstacleSprite *s, unsigned rx, unsigned ry) {
 	sprites.push_back(s);
 	s->SetPosition(x+rx, y+ry); // Positioned relatively to platform.
 }

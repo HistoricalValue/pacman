@@ -1,6 +1,6 @@
 #include "FrameRangeAnimation.hpp"
 
-std::ostream& operator << (std::ostream& o, FrameRangeAnimation& a) {
+std::ostream &operator << (std::ostream &o, FrameRangeAnimation &a) {
 	static char const space = ' ', tab = '\t';
 	static char const startf[] 	= "Starting frame:";
 	static char const endf[]	= "Ending frame:";
@@ -14,7 +14,7 @@ void	FrameRangeAnimation::SetStartFrame (frame_t v) { start = v; }
 frame_t	FrameRangeAnimation::GetEndFrame (void) const { return end; }
 void	FrameRangeAnimation::SetEndFrame (frame_t v) { end = v; }
 
-Animation* FrameRangeAnimation::Clone (animid_t newId) const {
+Animation *FrameRangeAnimation::Clone (animid_t newId) const {
 	return new FrameRangeAnimation(
 	 start, end, GetDelay(), GetContinuous(),
 	 newId

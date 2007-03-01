@@ -22,8 +22,8 @@ static void parseConfigFile(const char*, std::list<MovingAnimation*>&,
 static bool shouldParse(std::string&);
 static void parseLine(Tokeniser**, std::string*, std::list<std::string>*,
  std::list<MovingAnimation*>&, std::list<FrameRangeAnimation*>&);
-static void parseMovingAnimationLine(Tokeniser*, mv_data& d);
-static void parseFrameRangeAnimationLine(Tokeniser*, fr_data& d);
+static void parseMovingAnimationLine(Tokeniser*, mv_data &d);
+static void parseFrameRangeAnimationLine(Tokeniser*, fr_data &d);
 
 // implementations
 MovingAnimationList const&
@@ -32,11 +32,11 @@ AnimationHolder::getMovingAnimations(void) const { return mv_anims; }
 FrameRangeAnimationList const&
 AnimationHolder::getFrameRangeAnimations(void) const { return fr_anims; }
 
-AnimationHolder::AnimationHolder(std::string const& config_f) {
+AnimationHolder::AnimationHolder(std::string const &config_f) {
 	parseConfigFile(config_f.c_str(), mv_anims, fr_anims);
 } // constructor
 
-static void parseConfigFile(const char* file,
+static void parseConfigFile(const char *file,
  std::list<MovingAnimation*>& mv_anims,
  std::list<FrameRangeAnimation*>& fr_anims)
 {
@@ -50,7 +50,7 @@ static void parseConfigFile(const char* file,
 	std::string buf(1<<10, space);
 	std::list<std::string> delims;
 	delims.push_back(" ");
-	Tokeniser* tok = NULL;
+	Tokeniser *tok = NULL;
 	
 	// while not at EOF
 	while (!fin.eof()) {
@@ -62,7 +62,7 @@ static void parseConfigFile(const char* file,
 
 AnimationHolder::~AnimationHolder(void) { } // destructor`
 
-static bool shouldParse(std::string& line) {
+static bool shouldParse(std::string &line) {
 	bool result = false;
 	if (!Tokeniser::isEmptyLine(line))
 		result = line.at(0) != '#';
@@ -70,7 +70,7 @@ static bool shouldParse(std::string& line) {
 
 } // shouldParse
 
-static void parseLine(Tokeniser** tokptr, std::string* line,
+static void parseLine(Tokeniser** tokptr, std::string *line,
  std::list<std::string>* delims, std::list<MovingAnimation*>& mv_anims,
  std::list<FrameRangeAnimation*>& fr_anims)
 {
@@ -81,13 +81,13 @@ static void parseLine(Tokeniser** tokptr, std::string* line,
 	// create the tokeniser with input line and delimiters
 	*tokptr = new Tokeniser(*line, *delims);
 	// local ptr copy for convenience
-	Tokeniser* tok = *tokptr;	
+	Tokeniser *tok = *tokptr;	
 
 	// find out type and create appropriate tmp data holder
 	if (**tok == MOVING_ANIMATION) {
 		mv_data d;
 		parseMovingAnimationLine(tok, d);
-		MovingAnimation* mv_anim;
+		MovingAnimation *mv_anim;
 		mv_anims.push_back( mv_anim = new MovingAnimation( d.dx,
 		 d.dy, d.delay, d.continuous, d.animid) );
 		db("Created moving animation:");
@@ -95,7 +95,7 @@ static void parseLine(Tokeniser** tokptr, std::string* line,
 	} else if (**tok == FRAME_RANGE_ANIMATION) {
 		fr_data d;
 		parseFrameRangeAnimationLine(tok, d);
-		FrameRangeAnimation* fr_anim;
+		FrameRangeAnimation *fr_anim;
 		fr_anims.push_back( fr_anim = new FrameRangeAnimation(
 		 d.start, d.end, d.delay, d.continuous,
 		 d.animid) );
@@ -105,7 +105,7 @@ static void parseLine(Tokeniser** tokptr, std::string* line,
 		nf(-1, "Illegal program state");
 } // parseLine
 
-static void parseMovingAnimationLine(Tokeniser* tok, mv_data& d) {
+static void parseMovingAnimationLine(Tokeniser *tok, mv_data &d) {
 	d.animid = cppstrtol(*++*tok, 10);
 	d.dx = cppstrtol(*++*tok, 10);
 	d.dy = cppstrtol(*++*tok, 10);
@@ -113,20 +113,20 @@ static void parseMovingAnimationLine(Tokeniser* tok, mv_data& d) {
 	d.continuous = cppstrtol(*++*tok, 10);
 } // parseMovingAnimationLine
 
-static void parseFrameRangeAnimationLine(Tokeniser* tok, fr_data& d) {
+static void parseFrameRangeAnimationLine(Tokeniser *tok, fr_data &d) {
 	parseMovingAnimationLine(tok, d);
 	d.start = cppstrtol(*++*tok, 10);
 	d.end = cppstrtol(*++*tok, 10);
 } // parseFrameRangeAnimationLine
 
-Animation* AnimationHolder::getAnimation(animid_t id) const {
-	Animation* result = getFrameRangeAnimation(id);
+Animation *AnimationHolder::getAnimation(animid_t id) const {
+	Animation *result = getFrameRangeAnimation(id);
 	if (!result)
 		result = getMovingAnimation(id);
 	return result;
 } // getAnimation
 
-MovingAnimation* AnimationHolder::getMovingAnimation(animid_t id) const {
+MovingAnimation *AnimationHolder::getMovingAnimation(animid_t id) const {
 	MovingAnimationList::const_iterator ite;
 	for (ite = mv_anims.begin(); ite != mv_anims.end(); ite++)
 		if ((*ite)->GetId() == id)
@@ -139,7 +139,7 @@ MovingAnimation* AnimationHolder::getMovingAnimation(animid_t id) const {
 	return *ite;
 } // getMovingAnimation
 
-FrameRangeAnimation* AnimationHolder::getFrameRangeAnimation(animid_t id)
+FrameRangeAnimation *AnimationHolder::getFrameRangeAnimation(animid_t id)
  const
 {
 	FrameRangeAnimationList::const_iterator ite;

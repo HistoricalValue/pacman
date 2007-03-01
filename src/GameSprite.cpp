@@ -1,6 +1,6 @@
 #include "GameSprite.hpp"
 
-void GameSprite::SetOnSmashed(SmashedCallback f, void* c)
+void GameSprite::SetOnSmashed(SmashedCallback f, void *c)
 {
 	onSmashed = f, smashedClosure = c;
 } // SetOnSmashed
@@ -21,7 +21,7 @@ void GameSprite::BackOff(void) {
 } // BackOff
 
 // Constructor
-GameSprite::GameSprite(int x, int y, AnimationFilm* f, spriteid_t id) :
+GameSprite::GameSprite(int x, int y, AnimationFilm *f, spriteid_t id) :
  Sprite(x, y, f, id), onSmashed(NULL)
  { }
 

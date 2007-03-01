@@ -20,8 +20,8 @@ public:
 	void    SetDelay(delay_t delay);
 	bool	GetContinuous(void) const;
 	void	SetContinuous(bool v);
-	Animation* Clone (animid_t newId) const;
-	friend std::ostream& operator << (std::ostream&,
+	Animation *Clone (animid_t newId) const;
+	friend std::ostream &operator << (std::ostream&,
 	 FrameRangeAnimation&);
 	FrameRangeAnimation (
 	 frame_t s, frame_t e, 

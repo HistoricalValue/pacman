@@ -49,7 +49,7 @@ bool Waypoint::canGoLeft (void) { return available_directions & LEFT;  }
 unsigned char Waypoint::getAvailableDirections(void)
 	{ return available_directions; }
 
-std::ostream& operator<<(std::ostream& o, Waypoint& w) {
+std::ostream &operator<<(std::ostream &o, Waypoint &w) {
 	static char const wayp[] = "Waypoint:",
 	 lines[] = "----------",
 	 xy[] = "{x,y} = {",
