@@ -185,3 +185,13 @@ void ActorMovement::DelaySetter::operator()(AnimatorPair *p) {
 	p->getMV()->getAnimation()->SetDelay(d);
 //	p->getFR()->GetAnimation()->SetDelay(d);
 } // ActorMovement::DelaySetter::()
+
+void ActorMovement::suspend(timestamp_t t) {
+	if (running)
+		running->Suspend(t);
+} // suspend
+
+void ActorMovement::resume(timestamp_t t) {
+	if (running)
+		running->Resume(t);
+} // resume

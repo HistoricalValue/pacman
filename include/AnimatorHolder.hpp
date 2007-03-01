@@ -29,6 +29,7 @@ class AnimatorHolder {
 		void operator()(Animator *a) const;
 		TimeshiftFunctor (timestamp_t _t);
 	};
+	public :
 	// Suspender/Resumer
 	class _susres : public std::unary_function<Animator*, void> {
 		public :
@@ -43,6 +44,7 @@ class AnimatorHolder {
 		enum mode m;
 		timestamp_t t;
 	};
+	private :
 	static _susres susres;
 	static amc_t const *amc;
 	public:

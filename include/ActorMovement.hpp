@@ -33,6 +33,9 @@ class ActorMovement {
 	FrameRangeAnimator *getFrameRangeAnimator(void);
 	enum move_t getLastMove(void) const;
 	void setDelay(delay_t);
+	// Suspends/resumes the currently running animator
+	void suspend(timestamp_t);
+	void resume(timestamp_t);
 	private :
 	struct AnimatorPair;
 	struct SuspendFunctor;
