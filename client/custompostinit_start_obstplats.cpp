@@ -3,7 +3,6 @@
 
 static void obstplat_anim_coca(Animator *_animator, void *c) {
 	int &repeats = *CAST(int*,c);
-	db("colbaaaakkk");
 	if (repeats++ > 20) {
 		ObstaclePlatformAnimator *animator =
 		 DYNCAST(ObstaclePlatformAnimator*, _animator);

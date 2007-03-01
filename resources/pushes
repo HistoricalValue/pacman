@@ -1,4 +1,4 @@
 #!/bin/sh
 
 bzr push ftp://isilando@71.18.111.205/isilando.com/var/csd/pluckman/pac-bazaar/
-bzr push bzr://147.52.19.11
+bzr push bzr://147.52.19.11:55000

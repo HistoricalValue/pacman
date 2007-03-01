@@ -4,6 +4,9 @@
 #define __inputControl_hpp__
 
 #include "client.hpp"
-
-extern void inputControl(GameData &, bool *);
+struct _bools {
+	bool &exit, &paused;
+	_bools(bool &exit, bool &paused);
+};
+extern void inputControl(GameData &, _bools &);
 #endif // __inputControl_hpp__
