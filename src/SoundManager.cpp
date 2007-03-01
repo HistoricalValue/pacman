@@ -32,7 +32,7 @@ SoundManager *SoundManager::Singleton(void){
 // -1 for infinite repeats
 void SoundManager::Play(int channel, char *file, int repeats){
   bgmusic = Mix_LoadWAV(file);
-  Mix_FadeInChannel(channel, bgmusic, repeats, 10000);
+  Mix_FadeInChannel(channel, bgmusic, repeats, 3000);
   Mix_VolumeChunk(bgmusic, 64);
 }
 
