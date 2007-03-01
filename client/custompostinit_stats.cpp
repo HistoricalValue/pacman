@@ -2,6 +2,6 @@
 #include "GameStats.hpp"
 
 CPI_DEFINE(custompostinit_stats){
-  d.stats = new GameStats(SurfaceLoader::getInstance());
-  d.stats->InitialDraw(d.screen);
+  gd.stats = new GameStats(SurfaceLoader::getInstance());
+  gd.stats->InitialDraw(gd.screen);
 }
