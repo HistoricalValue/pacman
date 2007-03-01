@@ -37,12 +37,7 @@ struct GameData &setup(struct InitData &d) {
 	teleportals_setup(d, r);
 	// Let game data have access to the collision checker instance
 	r.cc = d.cc;
-	// Sound set up
-	
-	SoundManager::Singleton()->Play(0, "resources/sounds/bobos.wav", -1);
-     	SoundManager::Singleton()->Play(1, "resources/sounds/mask.wav", -1);
-       	SoundManager::Singleton()->MuteChannel(1);
-	//	SoundManager::Singleton()->PlayEffect("resources/sounds/bobos.wav");
+
 	return r;
 } // setup
 

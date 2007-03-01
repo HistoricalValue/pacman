@@ -19,7 +19,7 @@ class SoundManager {
 	void Play(int channel, char *file, int repeats);
 	void Stop();
         void MuteChannel(int channelnum);
-        void lolChannel(int channelnum);
+        void lolChannel(int channelnum, int volume);
         void ChangeState();
 	void PlayEffect(char *file);
 	void StopEffect();

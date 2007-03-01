@@ -14,7 +14,7 @@ SoundManager *SoundManager::Singleton(void){
   //inits
   if(!s)
     s=new SoundManager();
-  s->audio_rate = 22050;
+  s->audio_rate = 44100;
   s->audio_format = MIX_DEFAULT_FORMAT;
   s->audio_channels = 2;
   Mix_AllocateChannels(3);
@@ -32,7 +32,7 @@ SoundManager *SoundManager::Singleton(void){
 // -1 for infinite repeats
 void SoundManager::Play(int channel, char *file, int repeats){
   bgmusic = Mix_LoadWAV(file);
-  Mix_PlayChannel(channel, bgmusic, repeats);
+  Mix_FadeInChannel(channel, bgmusic, repeats, 10000);
   Mix_VolumeChunk(bgmusic, 64);
 }
 
@@ -40,7 +40,7 @@ void SoundManager::MuteChannel(int channelnum){
   Mix_VolumeChunk(Mix_GetChunk(channelnum),0);
 }
 
-void SoundManager::lolChannel(int channelnum){
+void SoundManager::lolChannel(int channelnum, int volume){
   Mix_VolumeChunk(Mix_GetChunk(channelnum),64 );
 }
 
