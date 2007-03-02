@@ -17,6 +17,7 @@ struct GhostRevertTaskData : public TaskData {
 struct GhostRevertTask : public Task {
 	void operator()(TaskData *);
 	Task &operator++(void);
+	Task &operator+=(timestamp_t);
 	GhostRevertTask(timestamp_t time); ~GhostRevertTask(void);
 }; // struct GhostRevertTask
 
@@ -101,6 +102,10 @@ void GhostRevertTask::operator()(TaskData *d) {
 } // GhostRevertTask::()
 
 Task &GhostRevertTask::operator++(void) { return *this; }
+Task &GhostRevertTask::operator+=(timestamp_t _time) {
+	time += _time;
+	return *this;
+} // GhostRevertTask +=
 
 void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 	Ghost *gs = dynamic_cast<Ghost*>(ghost);
