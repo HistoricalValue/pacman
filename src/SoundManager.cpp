@@ -17,7 +17,7 @@ SoundManager *SoundManager::Singleton(void){
   s->audio_rate = 44100;
   s->audio_format = MIX_DEFAULT_FORMAT;
   s->audio_channels = 2;
-  Mix_AllocateChannels(3);
+  Mix_AllocateChannels(8);
   s->audio_buffers = 4096;
   s->bgmusic = NULL;
   s->effect = NULL;
@@ -60,10 +60,10 @@ void SoundManager::ChangeState(){
     Mix_PauseMusic();
 }
   
-void SoundManager::PlayEffect(char *file){
+void SoundManager::PlayEffect(int channel, char *file){
   //loading the effect file
   effect = Mix_LoadWAV(file);
-  Mix_PlayChannel(1, effect, 0);
+  Mix_PlayChannel(channel, effect, 0);
 }
 
 void SoundManager::StopEffect(){

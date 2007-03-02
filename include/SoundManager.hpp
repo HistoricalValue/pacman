@@ -21,7 +21,7 @@ class SoundManager {
         void MuteChannel(int channelnum);
         void lolChannel(int channelnum, int volume);
         void ChangeState();
-	void PlayEffect(char *file);
+	void PlayEffect(int channel, char *file);
 	void StopEffect();
 	~SoundManager(void);
 };

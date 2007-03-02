@@ -125,6 +125,8 @@ void Dot::collisionCallback(Sprite *dot, Sprite *stoocker, void *c) {
 		nf(!dot, "Wtf");
 		koka.cc->Cancel(dot, koka.pacman);
 		dot->SetVisibility(false);
+
+		SoundManager::Singleton()->PlayEffect(4, "./resources/sounds/bubble.wav");
 	} else
 		std::cerr<<"Pakitmi!"<<std::endl;
 } // collisionCallback
