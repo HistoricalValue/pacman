@@ -28,6 +28,9 @@ void cleanPause(GameData &d, bool &paused) {
 		// Resume all actor movement instances
 		std::for_each(d.akmovs.begin(), d.akmovs.end(),
 		 susres[susres.resume] = d.currTime);
+
+		// Resume the scheduler
+		d.sch->resume(d.currTime);
 	} else { // pause operations
 		db("Pausing");
 		// Suspend all running animators
@@ -36,6 +39,9 @@ void cleanPause(GameData &d, bool &paused) {
 		// Suspend all actor movement instances
 		std::for_each(d.akmovs.begin(), d.akmovs.end(),
 		 susres[susres.suspend] = d.currTime);
+
+		// Suspend scheduler
+		d.sch->suspend(d.currTime);
 	}
 	// Set paused state opposite than before
 	paused = !paused;
