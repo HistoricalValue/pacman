@@ -12,6 +12,7 @@
 #include "FrameRangeAnimation.hpp"
 #include "AI.hpp"
 #include "Scheduler.hpp"
+#include "SoundManager.hpp"
 
 struct _cocaclo {
 	std::map<GameSprite*, ActorMovement*> *akmovs;
