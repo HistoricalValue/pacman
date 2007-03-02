@@ -43,8 +43,12 @@ void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools &bools) {
 		// ------------------------------------------------------
 		default: return ; // nothing
 	}
-	d.akmovs[d.pacman]->pressed(pressed, d.currTime);
-//	d.akmovs[d.ghost.stalker]->pressed(pressed, d.currTime);
+
+	if (bools.paused) { // paused-mode input processing
+	} else { // running-mode input processing
+		d.akmovs[d.pacman]->pressed(pressed, d.currTime);
+//		d.akmovs[d.ghost.stalker]->pressed(pressed, d.currTime);
+	}
 }
 
 void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools &bools) {
@@ -58,8 +62,12 @@ void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools &bools) {
 		// ------------------------------------------------------
 		default: return ; // nothing
 	}
-	d.akmovs[d.pacman]->released(released, d.currTime);
-//	d.akmovs[d.ghost.stalker]->released(released, d.currTime);
+
+	if (bools.paused) { // paused-mode input processing
+	} else { // running-mode input processing
+		d.akmovs[d.pacman]->released(released, d.currTime);
+//		d.akmovs[d.ghost.stalker]->released(released, d.currTime);
+	}
 }
 
 // bools struct implementaion
