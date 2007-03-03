@@ -12,3 +12,4 @@ client/pacman
 resources/pacman.log
 test
 tags
+*semantic.cache
