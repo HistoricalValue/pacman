@@ -19,7 +19,7 @@ SoundManager::SoundManager(void){
 		   audio_channels, audio_buffers)){
     std::cerr<<"unable to initiate Sound"<<std::endl;
   }
-  LoadSound(DOT, "resources/sounds/bathos.wav");
+  LoadSound(DOT, "resources/sounds/bubble.wav");
   LoadSound(POWERUP, "resources/sounds/powerup.wav");
   LoadSound(GHOST, "resources/sounds/blibli.wav");
   LoadSound(GAMEOVER, "resources/sounds/gameover.wav");
