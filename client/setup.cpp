@@ -308,6 +308,8 @@ void post_setup(PostInitData &pd, InitData &d, GameData &gd) {
 	// Update sprite - actor movement map
 	d.callbacks->get_cocaclo().akmovs = &gd.akmovs;
 
+	// Allocate space for custompostinit_data
+	gd.custom = new custompostinit_data;
 	// Run custom user functions
 	std::for_each(pd.user.begin(), pd.user.end(), UserRunner(pd,d,gd));
 } // post_setup

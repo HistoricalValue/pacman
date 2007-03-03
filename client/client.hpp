@@ -16,6 +16,7 @@
 #include "config.h"
 #include "Scheduler.hpp"
 #include "GameStats.hpp"
+#include "CustomPostinit_Data.hpp"
 
 enum ss_t { // special sprite type
 	ss_pacman, ss_stalker, ss_kieken, ss_random, ss_retard
@@ -52,6 +53,8 @@ struct GameData {
 	Scheduler *sch;
 	// GameStats
 	GameStats *stats;
+	// Custom setup data
+	custompostinit_data *custom;
 
 	// Ignore
 	GameData(void); ~GameData(void);
