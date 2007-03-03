@@ -11,3 +11,4 @@ resources/sakutest.log
 client/pacman
 resources/pacman.log
 test
+tags
