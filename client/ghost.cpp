@@ -3,6 +3,7 @@
 // Implementation headers
 #include "Ghost.hpp"
 #include "client.hpp"
+#include "death_ghost.hpp"
 
 void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 	Ghost *gs = dynamic_cast<Ghost*>(ghost);
@@ -25,6 +26,9 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 		
 	} else
 		db("Warning: Useless pacman-ghost callback");
+	} else { // ghost is not scared -- it eats pacman instead
+		// redirect to death_ handlers
+		ghost_death_callback(ghost, pacman);
 	}
 } // collision_callback
 
