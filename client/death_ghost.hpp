@@ -6,10 +6,11 @@
 #ifndef __death_ghost_hpp__
 #define __death_ghost_hpp__
 
-#include "Sprite.hpp"
 #include "commons.hpp"
+#include "Ghost.hpp"
+#include "ghost.hpp"
 
 // The callback called in the case of Ghost - pacman collision
 extern 
-void ghost_death_callback(Sprite *, Sprite *, void *c = CAST(void*, 0));
+void ghost_death_callback(Ghost *, GameSprite *, _gcoca *);
 #endif // __death_ghost_hpp__

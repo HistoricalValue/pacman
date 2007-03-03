@@ -1,4 +1,5 @@
 #include "death_ghost.hpp"
 
-void ghost_death_callback(Sprite *_g, Sprite *_p, void *c) {
+void ghost_death_callback(Ghost *g, GameSprite *p, _gcoca *gkoka) {
+	
 }

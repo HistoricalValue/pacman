@@ -4,12 +4,19 @@
 #include "Ghost.hpp"
 #include "client.hpp"
 #include "death_ghost.hpp"
+#include "commons.hpp"
 
 void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
+	if (!c) {
+		db("Warning: Useless pacman-ghost callback");
+		return;
+	}
 	Ghost *gs = dynamic_cast<Ghost*>(ghost);
-	if(gs->GetState() == SCARED) { if (c) {
-		// It gets called : D
-		_gcoca *gkoka = CAST(_gcoca*, c);
+	nf(!gs, "Sprite supposed to be ghost is not a ghost sprite.");
+	GameSprite *pac = DYNCAST(GameSprite*, pacman);
+	nf(!pac, "Pacman is not a GameSprite.");
+	_gcoca *gkoka = CAST(_gcoca*, c);
+	if(gs->GetState() == SCARED) {
 		AnimationFilm *retreat_film = gkoka->filmhold->
 		 GetFilm("snailyate");
 		std::map<GameSprite*, ActorMovement*> &akmovs =
@@ -23,12 +30,12 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 
 		////testing TODO
 		CollisionChecker::Singleton()->Cancel(gkoka->lair, gs);
-		
-	} else
-		db("Warning: Useless pacman-ghost callback");
-	} else { // ghost is not scared -- it eats pacman instead
+	} else if (gs->GetState() == NORMAL) {
+		// ghost is not scared -- it eats pacman instead
 		// redirect to death_ handlers
-		ghost_death_callback(ghost, pacman);
+		ghost_death_callback(gs, pac, gkoka);
+	} else { // ghost is eatten
+		// do nothing
 	}
 } // collision_callback
 
