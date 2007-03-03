@@ -7,9 +7,12 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
 
+#define CHUNKS 4
+enum sound_t { DOT, POWERUP, GAMEOVER, GHOST };
+
 class SoundManager {
-	Mix_Chunk *bgmusic;
-	Mix_Chunk *effect;
+        Mix_Chunk *bgmusic;
+	Mix_Chunk *effect[4];
 	Uint16 audio_format;
 	int audio_channels, audio_rate, audio_buffers;
         static SoundManager *s;
@@ -17,11 +20,13 @@ class SoundManager {
 	public:
 	static SoundManager *Singleton(void);
 	void Play(int channel, char *file, int repeats);
-	void Stop();
+        void Init();
+        void Stop();
         void MuteChannel(int channelnum);
         void lolChannel(int channelnum, int volume);
         void ChangeState();
-	void PlayEffect(int channel, char *file);
+        void LoadSound(sound_t _sound, char* file);
+        void PlayEffect(int channel, sound_t);
 	void StopEffect();
 	~SoundManager(void);
 };

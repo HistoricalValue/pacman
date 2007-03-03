@@ -7,24 +7,31 @@
 //Uint16 SoundManager::audio_format;
 SoundManager *SoundManager::s = NULL;
 
-SoundManager::SoundManager(void){ }
+SoundManager::SoundManager(void){ 
+  audio_rate = 44100;
+  audio_format = MIX_DEFAULT_FORMAT;
+  audio_channels = 2;
+  Mix_AllocateChannels(8);
+  audio_buffers = 4096;
+  bgmusic = NULL;
+  //effect = NULL;
+  if(Mix_OpenAudio(audio_rate, audio_format, 
+		   audio_channels, audio_buffers)){
+    std::cerr<<"unable to initiate Sound"<<std::endl;
+  }
+  LoadSound(DOT, "resources/sounds/bubble.wav");
+  LoadSound(POWERUP, "resources/sounds/vac.wav");
+  LoadSound(GHOST, "resources/sounds/gameover.wav");
+  LoadSound(GAMEOVER, "resources/sounds/gameover.wav");
+  // one more ghost
+  
+}
 
 SoundManager *SoundManager::Singleton(void){
   //s.bgmusic = NULL;
   //inits
   if(!s)
     s=new SoundManager();
-  s->audio_rate = 44100;
-  s->audio_format = MIX_DEFAULT_FORMAT;
-  s->audio_channels = 2;
-  Mix_AllocateChannels(8);
-  s->audio_buffers = 4096;
-  s->bgmusic = NULL;
-  s->effect = NULL;
-  if(Mix_OpenAudio(s->audio_rate, s->audio_format, 
-		   s->audio_channels, s->audio_buffers)){
-    std::cerr<<"unable to initiate Sound"<<std::endl;
-  }
   return s;
 }
 
@@ -59,13 +66,16 @@ void SoundManager::ChangeState(){
   else
     Mix_PauseMusic();
 }
-  
-void SoundManager::PlayEffect(int channel, char *file){
-  //loading the effect file
-  effect = Mix_LoadWAV(file);
-  Mix_PlayChannel(channel, effect, 0);
+void SoundManager::LoadSound(sound_t _sound, char *file){
+  effect[_sound] = Mix_LoadWAV(file);
+}
+
+void SoundManager::PlayEffect(int channel, sound_t _sound){
+  if(effect[_sound])
+    Mix_PlayChannel(channel, effect[_sound], 0);
 }
 
 void SoundManager::StopEffect(){
-  Mix_FreeChunk(effect);
+  for(int i=0;i<CHUNKS;++i)
+    Mix_FreeChunk(effect[i]);
 }

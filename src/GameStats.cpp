@@ -4,7 +4,7 @@ GameStats::GameStats(SurfaceLoader *sl) {
 	score = 0; lives = 3; level = 1;
 	font_logo = TTF_OpenFont("resources/fonts/Crackman.ttf", 50);
 	font_text = TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF",25);
-	num_text = TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF", 35);
+	num_text = TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF", 25);
 	// colors init
 	SDL_Color logoColor = { 0, 128, 255};
 	SDL_Color textColor = { 255, 255, 255 };
