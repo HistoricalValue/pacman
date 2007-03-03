@@ -1,7 +1,7 @@
 #include "GameStats.hpp"
 
 GameStats::GameStats(SurfaceLoader *sl) {
-	score = 0; lives = 3; level = 1;
+  score = 0; lives = 3; level = 1; dots = 139;
 	font_logo = TTF_OpenFont("resources/fonts/Crackman.ttf", 50);
 	font_text = TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF",25);
 	num_text = TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF", 25);
@@ -30,7 +30,7 @@ GameStats::GameStats(SurfaceLoader *sl) {
 void GameStats::Draw(SDL_Surface *screen) {
 
 	SDL_Color numColor = {0, 255, 255 };	
-	SDL_Rect pscore = {710, 195}, plevel = {635, 145};
+	SDL_Rect plevel = {728, 150}, pscore = {670, 203};
 
 	SDL_BlitSurface(logo, NULL, screen, &plogo);
 	SDL_BlitSurface(title_level, NULL, screen, &ptitle_level);
@@ -41,11 +41,11 @@ void GameStats::Draw(SDL_Surface *screen) {
 	char buff[8];
 	sprintf(buff, "%03d", level);
 	num_level = TTF_RenderUTF8_Blended(num_text, buff, numColor);
-	SDL_BlitSurface(num_level, NULL, screen, &pscore);
+	SDL_BlitSurface(num_level, NULL, screen, &plevel);
 
 	sprintf(buff, "%06d", score);
 	num_score = TTF_RenderUTF8_Blended(num_text,buff, numColor);
-	SDL_BlitSurface(num_score, NULL, screen, &plevel);
+	SDL_BlitSurface(num_score, NULL, screen, &pscore);
 	
 }
 /*
@@ -89,6 +89,9 @@ void GameStats::AddLife(void) {
 }
 
 bool GameStats::LoseLife(void) {
-	if(!lives--) return true;
-	return false;
+	return (!lives--);
+}
+
+bool GameStats::EatDot(void){
+        return (!--dots);
 }

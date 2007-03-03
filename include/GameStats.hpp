@@ -11,7 +11,7 @@ class GameStats {
 			*fruit, *pacman, *title_level, *num_level, *num_score;
         SDL_Rect ptitle_level, ptitle_score, ptitle_lives, 
 	  ptitle_bonus, plogo, ptitle_fruits;
-	unsigned int 	score, lives, level;
+	unsigned int 	score, lives, level, dots;
 	TTF_Font *font_logo, *font_text, *num_text;
 	
 	public:
@@ -29,6 +29,7 @@ class GameStats {
 	void ResetScore(void);
 	void AddLife(void);
 	bool LoseLife(void); //returns true if pacman dies
+        bool EatDot(void); // returns true if there are no dots left
 };
 
 #endif
