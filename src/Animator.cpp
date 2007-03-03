@@ -65,3 +65,11 @@ void Animator::Resume(timestamp_t currTime) {
 	} else
 		db("Waning: resuming a non-suspended animator");
 } // Resume
+
+bool Animator::isSuspended(void) const {
+	return state == ANIMATOR_STOPPED;
+} // isSuspended
+
+bool Animator::isRunning(void) const {
+	return state == ANIMATOR_RUNNING;
+} // isRunning

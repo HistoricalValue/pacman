@@ -143,4 +143,6 @@ long cppstrtol(std::string &s, int b) { return strtol(s.c_str(), NULL, b); }
 int ensureTrue(int value) { return value ? 0 : -1; }
 
 amc_t::~amc_t(void) { }
+
+void delay(uint32_t delay) { SDL_Delay(delay); }
 } // namespace cs454_2006

@@ -25,6 +25,8 @@ public:
 	bool HasFinished (void) const ;
 	virtual void Suspend(timestamp_t currTime);
 	virtual void Resume(timestamp_t currTime);
+	virtual bool isSuspended(void) const;
+	virtual bool isRunning(void) const;
 	virtual void TimeShift (timestamp_t offset);
 	virtual void Progress (timestamp_t currTime) = 0;
 	virtual bool ShouldProgress(timestamp_t currTime) = 0;

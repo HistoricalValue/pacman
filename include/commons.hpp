@@ -104,6 +104,9 @@ struct amc_t {
 
 // Get current time
 extern timestamp_t getCurrentTime(void);
+
+// Delay - block waiting for "delay" number of miliseconds
+extern void delay(uint32_t delay);
 } // namespace cs454_2006
 
 #endif // __commons_hpp__

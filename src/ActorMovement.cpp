@@ -80,7 +80,9 @@ void ActorMovement::progress(timestamp_t currTime) {
 	// if no animator is running yet, try moving where user w2g
 	if (!running){running = w2g; w2g = static_cast<AnimatorPair*>(0);}
 	if (running) // if going somewhere
-	while (running->ShouldProgress(currTime)) {
+	while (running->ShouldProgress(currTime) &&
+	 CAST(Animator*, (*running))->isRunning())
+	{
 		if (w2g) { // if trying to go somewhere else
 			nf(w2g->EnsureProgressable(1,currTime)!=true, "");
 			nf(w2g->ShouldProgress(currTime)!=true, "");
