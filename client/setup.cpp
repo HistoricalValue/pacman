@@ -16,7 +16,7 @@ struct GameData &setup(struct InitData &d) {
 	// Set up screen
 	screen_setup(d, r);
 	// Create the Game Stats tracker
-	r.stats = SurfaceLoader::getInstance();
+	r.stats = new GameStats(SurfaceLoader::getInstance());
 	// Create the scheduler
 	r.sch = new Scheduler(d.startingTime);
 	// Create and get Animation Data
