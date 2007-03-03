@@ -13,7 +13,7 @@ struct ActorSuspender : public std::unary_function<
 
 void ghost_death_callback(Ghost *g, GameSprite *p, _gcoca *gkoka) {
 	// Super FX mode! Pause all ghosts and pacman
-        SoundManager::Singleton()->PlayEffect(6, GAMEOVER);
+	
 	timestamp_t currTime = cs454_2006::getCurrentTime();
 	// Pause all actor sprites --
 	// Suspend all actor animators.
@@ -28,12 +28,8 @@ void ghost_death_callback(Ghost *g, GameSprite *p, _gcoca *gkoka) {
 	gkoka->cc->Cancel(g, p);
 
 	// Play sound in the future
-	// TODO
+        SoundManager::Singleton()->PlayEffect(6, GAMEOVER);
 	
-	// Wait for sound
-	// TODO
-	cs454_2006::delay(5000);
-
 	// Reset/reposition/clean up
 	reset_stage(new reset_data());
 }
