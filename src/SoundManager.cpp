@@ -21,10 +21,9 @@ SoundManager::SoundManager(void){
   }
   LoadSound(DOT, "resources/sounds/bubble.wav");
   LoadSound(POWERUP, "resources/sounds/powerup.wav");
-  LoadSound(GHOST, "resources/sounds/blibli.wav");
+  LoadSound(GHOST, "resources/sounds/munch.wav");
   LoadSound(GAMEOVER, "resources/sounds/gameover.wav");
-  // one more ghost
-  
+  // one more ghost  
 }
 
 SoundManager *SoundManager::Singleton(void){

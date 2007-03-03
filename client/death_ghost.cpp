@@ -13,7 +13,7 @@ struct ActorSuspender : public std::unary_function<
 
 void ghost_death_callback(Ghost *g, GameSprite *p, _gcoca *gkoka) {
 	// Super FX mode! Pause all ghosts and pacman
-	
+        SoundManager::Singleton()->PlayEffect(6, GAMEOVER);
 	timestamp_t currTime = cs454_2006::getCurrentTime();
 	// Pause all actor sprites --
 	// Suspend all actor animators.
