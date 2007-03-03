@@ -13,6 +13,7 @@
 #include "AI.hpp"
 #include "Scheduler.hpp"
 #include "SoundManager.hpp"
+#include "GameStats.hpp"
 
 struct _cocaclo {
 	std::map<GameSprite*, ActorMovement*> *akmovs;

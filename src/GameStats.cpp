@@ -24,6 +24,9 @@ GameStats::GameStats(SurfaceLoader *sl) {
 	// fruits
 	ptitle_fruits.x = 520; ptitle_fruits.y = 300;
 	title_fruits= TTF_RenderUTF8_Blended(font_text, "Bonus", textColor);
+	
+	ppacman.x = 560; ppacman.y = 250;
+	//	SurfaceLoader::getInstance()->loadSurface("./resources/animation_films/livespaccy.png");
 }
 
 
@@ -37,7 +40,7 @@ void GameStats::Draw(SDL_Surface *screen) {
 	SDL_BlitSurface(title_score, NULL, screen, &ptitle_score);
 	SDL_BlitSurface(title_lives, NULL, screen, &ptitle_lives);
 	SDL_BlitSurface(title_fruits, NULL, screen, &ptitle_fruits);
-	       
+	SDL_BlitSurface(pacman, NULL, screen, &ppacman);
 	char buff[8];
 	sprintf(buff, "%03d", level);
 	num_level = TTF_RenderUTF8_Blended(num_text, buff, numColor);
