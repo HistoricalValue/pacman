@@ -10,7 +10,7 @@ class GameStats {
 			*title_fruits, *title_seperator,
 			*fruit, *pacman, *title_level, *num_level, *num_score;
         SDL_Rect ptitle_level, ptitle_score, ptitle_lives, 
-	  ptitle_bonus, plogo, ptitle_fruits;
+	  ptitle_bonus, plogo, ptitle_fruits, ppacman;
 	unsigned int 	score, lives, level, dots;
 	TTF_Font *font_logo, *font_text, *num_text;
 	
