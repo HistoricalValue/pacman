@@ -5,6 +5,7 @@
 #include "client.hpp"
 #include "death_ghost.hpp"
 #include "commons.hpp"
+#include "SoundManager.hpp"
 
 void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 	if (!c) {
@@ -27,7 +28,7 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 		akmovs[gs]->setDelay(12);
 		CollisionChecker::Singleton()->Cancel(gkoka->left_right, gs);	
 		CollisionChecker::Singleton()->Register(gkoka->down, gs);
-
+		SoundManager::Singleton()->PlayEffect(6, GHOST);
 		////testing TODO
 		CollisionChecker::Singleton()->Cancel(gkoka->lair, gs);
 	} else if (gs->GetState() == NORMAL) {
