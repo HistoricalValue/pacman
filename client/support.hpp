@@ -74,6 +74,7 @@ void DotAnimatorCallback(Animator*, void*);
 struct Dot::_coca {
 	CollisionChecker *cc;
 	Sprite *pacman;
+	GameStats *stat;
 }; // struct Dot::_coca
 
 #endif // __callbacks_hpp__

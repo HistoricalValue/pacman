@@ -15,6 +15,8 @@ struct GameData &setup(struct InitData &d) {
 	d.startingTime = getTimestamp();
 	// Set up screen
 	screen_setup(d, r);
+	// Create the Game Stats tracker
+	r.stats = SurfaceLoader::getInstance();
 	// Create the scheduler
 	r.sch = new Scheduler(d.startingTime);
 	// Create and get Animation Data
@@ -27,7 +29,7 @@ struct GameData &setup(struct InitData &d) {
 	ss_aliases_setup(d, r);
 	// Set up AI
 	ai_setup(d, r);
-	// Set up collision pairs
+	// Set up collision pairs and custom callbacks
 	collision_setup(d, r);
 	// Set up bg colour
 	r.bg = SDL_MapRGB(r.screen->format, d.bg.r, d.bg.g, d.bg.b);
@@ -390,6 +392,7 @@ PDCR::PDCR(InitData const &d, GameData &r) :
 {
 	koka->cc = pkoka->cc = d.cc;
 	koka->pacman = r.pacman;
+	koka->stat = r.stats;
 	pkoka->akmovs = &r.akmovs;
 	pkoka->ghost = &r.ghost;
 	pkoka->filmhold = r.animdata->filmhold;
