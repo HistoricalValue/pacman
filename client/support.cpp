@@ -3,6 +3,7 @@
 
 // Implementation headers
 #include "Dot.hpp"
+#include "config.h"
 
 
 int Callbacks::_amc::operator() (Animator *a) const {
@@ -119,7 +120,7 @@ void DotAnimatorCallback(Animator *a, void *c) {
 } // DotAnimatorCallback
 
 void Dot::collisionCallback(Sprite *dot, Sprite *stoocker, void *c) {
-	if (c) {
+	if (dot->IsVisible()) if (c) {
 		struct _coca &koka = *CAST(struct _coca*, c);
 		nf(!koka.cc, "No collision checker provided.");
 		nf(!koka.pacman, "No pacman provided.");
@@ -127,7 +128,9 @@ void Dot::collisionCallback(Sprite *dot, Sprite *stoocker, void *c) {
 		koka.cc->Cancel(dot, koka.pacman);
 		dot->SetVisibility(false);
 
+		// Give points to the player
+		koka.stat->AddScore(POINTS_WORTH_DOT);
+
 		SoundManager::Singleton()->PlayEffect(4,DOT);
-	} else
-		std::cerr<<"Pakitmi!"<<std::endl;
+	}
 } // collisionCallback

@@ -51,4 +51,7 @@
 
 /* Settings */
 #define EATABLE_DURATION		10000 // milisecond
+#define POINTS_WORTH_DOT		5
+#define POINTS_WORTH_PUP		20
+#define POINTS_WORTH_GHOST		100
 #endif /* __config_h__ */
