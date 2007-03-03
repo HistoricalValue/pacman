@@ -27,6 +27,7 @@ amc_t &Callbacks::get_amc(void) {
 	return amc;
 } // Callback::get_amc
 
+// Obstacle - Game sprite collision callback
 void collision_callback(Sprite *callbacker, Sprite *stoocker, void *c) {
 	// Retrive closure data
 	nf(!c, "Closure is NULL");

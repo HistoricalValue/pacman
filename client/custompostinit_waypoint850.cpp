@@ -1,5 +1,5 @@
 #include "custompostinit_waypoint850.hpp"
-#include "PowerUp.hpp"
+#include "ghost.hpp"
 CPI_DEFINE(custompostinit_waypoint850) {
 	struct _gcoca *pkoka = new _gcoca;
 	pkoka->cc = d.cc;
