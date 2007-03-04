@@ -8,12 +8,14 @@
 class GameStats {
 	SDL_Surface 	*logo, *title_score, *title_lives, 
 			*title_fruits, *title_seperator,
-			*fruit, *pacman, *title_level, *num_level, *num_score;
+			*fruit, *pacman, *title_level, *num_level, 
+	                *num_score, *num_lives, *choco;
         SDL_Rect ptitle_level, ptitle_score, ptitle_lives, 
-	  ptitle_bonus, plogo, ptitle_fruits;
+	  ptitle_bonus, plogo, ptitle_fruits, ppacman, plives, pbonus;
 	unsigned int 	score, lives, level, dots;
+        bool bonus;
 	TTF_Font *font_logo, *font_text, *num_text;
-	
+
 	public:
 	GameStats(SurfaceLoader*);
 	void Draw(SDL_Surface*);
@@ -30,6 +32,7 @@ class GameStats {
 	void AddLife(void);
 	bool LoseLife(void); //returns true if pacman dies
         bool EatDot(void); // returns true if there are no dots left
+        void DrunkChocodrink(void);
 };
 
 #endif
