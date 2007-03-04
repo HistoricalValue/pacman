@@ -2,7 +2,14 @@
 #include "Bonus.hpp"
 
 CPI_DEFINE(custompostinit_bonus) {
-  struct bcoca *bcocz = new bcoca;
-  bcocz->cc = d.cc;
-  bcocz->gs = gd.stats;
+	struct bcoca *bcocz = new bcoca;
+	bcocz->cc = d.cc;
+	bcocz->gs = gd.stats;
+
+	// Teh bonus chocodrink
+	Sprite *choco = gd.animdata->spritehold->getSprite(7000);
+	d.cc->Register(choco, gd.pacman);
+
+	// Set custom collision callback
+	choco->SetCollisionCallback(BonusCallback, bcocz);
 }
