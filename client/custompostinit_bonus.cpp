@@ -8,8 +8,8 @@ CPI_DEFINE(custompostinit_bonus) {
 
 	// Teh bonus chocodrink
 	Sprite *choco = gd.animdata->spritehold->getSprite(7000);
-	d.cc->Register(choco, gd.pacman);
 
 	// Set custom collision callback
 	choco->SetCollisionCallback(BonusCallback, bcocz);
+	choco->SetVisibility(false);
 }

@@ -15,8 +15,6 @@ struct GameData &setup(struct InitData &d) {
 	d.startingTime = getTimestamp();
 	// Set up screen
 	screen_setup(d, r);
-	// Create the Game Stats tracker
-	r.stats = new GameStats(SurfaceLoader::getInstance());
 	// Create the scheduler
 	r.sch = new Scheduler(d.startingTime);
 	// Create and get Animation Data
@@ -29,10 +27,12 @@ struct GameData &setup(struct InitData &d) {
 	ss_aliases_setup(d, r);
 	// Set up AI
 	ai_setup(d, r);
-	// Set up collision pairs and custom callbacks
-	collision_setup(d, r);
 	// Set up bg colour
 	r.bg = SDL_MapRGB(r.screen->format, d.bg.r, d.bg.g, d.bg.b);
+	// Create the Game Stats tracker
+	r.stats = new GameStats(SurfaceLoader::getInstance(), r.pacman, r.animdata->spritehold->getSprite(7000),r.bg);
+	// Set up collision pairs and custom callbacks
+	collision_setup(d, r);
 	// Set after move callback for animators
 	AnimatorHolder::setAfterMoveCall(&d.callbacks->get_amc());
 	// Set up teleportation waypoints

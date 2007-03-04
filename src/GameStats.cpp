@@ -1,7 +1,9 @@
 #include "GameStats.hpp"
 
-GameStats::GameStats(SurfaceLoader *sl) {
-  score = 0; lives = 3; level = 1; dots = 139, bonus = true;// to be changed
+
+GameStats::GameStats(SurfaceLoader *sl, Sprite *pac, Sprite *bon, Uint32 bg) {
+        score = 0; lives = 3; level = 1; dots = 139, bonus = false;
+        _bonus = bon; _pacman = pac; _bg = bg;
 	font_logo = TTF_OpenFont("resources/fonts/Crackman.ttf", 50);
 	font_text = TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF",25);
 	num_text = TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF", 25);
@@ -29,7 +31,6 @@ GameStats::GameStats(SurfaceLoader *sl) {
 	pacman=SurfaceLoader::getInstance()->loadSurface("./resources/animation_films/pacman.png");
 	pbonus.x = 730; pbonus.y = 295;
         choco=SurfaceLoader::getInstance()->loadSurface("./resources/animation_films/chocobonus.png");
-
 }
 
 
@@ -44,6 +45,10 @@ void GameStats::Draw(SDL_Surface *screen) {
 	SDL_BlitSurface(title_fruits, NULL, screen, &ptitle_fruits);
 	SDL_BlitSurface(pacman, NULL, screen, &ppacman);
 	char buff[8];
+
+	SDL_Rect tele = {496,232+LAYOUT_Y_OFFSET,32,32};
+	SDL_FillRect(screen, &tele, _bg);
+
 	sprintf(buff, "%03d", level);
 	num_level = TTF_RenderUTF8_Blended(num_text, buff, numColor);
 	SDL_BlitSurface(num_level, NULL, screen, &plevel);
@@ -100,9 +105,19 @@ bool GameStats::LoseLife(void) {
 }
 
 bool GameStats::EatDot(void){
+        ShowBonus();
         return (!--dots);
 }
 
 void GameStats::DrunkChocodrink(void){
         bonus = true;
+	score += level*200 +300;
+}
+
+void GameStats::ShowBonus(void){
+  if(dots == 70){
+    _bonus->SetVisibility(true);
+    CollisionChecker::Singleton()->Register(_bonus, _pacman);
+  }
+  
 }

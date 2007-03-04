@@ -4,6 +4,9 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
 #include "SurfaceLoader.hpp"
+#include "Sprite.hpp"
+#include "CollisionChecker.hpp"
+#include "config.h"
 
 class GameStats {
 	SDL_Surface 	*logo, *title_score, *title_lives, 
@@ -12,12 +15,13 @@ class GameStats {
 	                *num_score, *num_lives, *choco;
         SDL_Rect ptitle_level, ptitle_score, ptitle_lives, 
 	  ptitle_bonus, plogo, ptitle_fruits, ppacman, plives, pbonus;
+        Sprite *_bonus, *_pacman;
 	unsigned int 	score, lives, level, dots;
         bool bonus;
 	TTF_Font *font_logo, *font_text, *num_text;
-
+        Uint32 _bg;
 	public:
-	GameStats(SurfaceLoader*);
+	GameStats(SurfaceLoader*, Sprite*, Sprite*, Uint32);
 	void Draw(SDL_Surface*);
   //void LoopDraw(SDL_Surface*);
 	void SetScore(unsigned int);
@@ -33,6 +37,7 @@ class GameStats {
 	bool LoseLife(void); //returns true if pacman dies
         bool EatDot(void); // returns true if there are no dots left
         void DrunkChocodrink(void);
+        void ShowBonus(void); //shows the bonus
 };
 
 #endif
