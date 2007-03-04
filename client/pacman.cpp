@@ -87,7 +87,9 @@ static void setup_setup_data(InitData &d) {
 	d.weeds[d.LR] = WAYPOINT_GET_BACK;
 	//
 	// Set bg colour
-	d.bg.r = d.bg.g = d.bg.b = 0x20;
+	d.bg.r = 0x20;
+	d.bg.g = 0x20;
+	d.bg.b = 0x20;
 	//
 	// Set IDs of power ups
 	d.pids.push_back(5000);
