@@ -28,7 +28,7 @@ void AI::Think(Waypoint *waypoint, Ghost *ghost){
 				if(distanceFromPacman(waypoint)>100)
 					Stalker(waypoint, ghost, targets->pacman);	
 				else			
-					Chicken(waypoint, ghost, targets->pacman);	
+					Random(waypoint, ghost);	
 			}
 			else if(ghost->getID()==3005)
 				Random(waypoint, ghost);	
@@ -139,11 +139,6 @@ void AI::Random(Waypoint *waypoint, Ghost *ghost){
 
 void AI::SetMoves(std::map<GameSprite*, ActorMovement*> _moves){
 	moves = _moves;
-	//std::map<GameSprite*, ActorMovement*>::const_iterator ite = _moves.begin();
-	//ids[KIRA] = ite->first->getID();
-	//ids[NEAR] = (*++ite).first->getID();
-	//ids[MISA] = (*++ite).first->getID();
-	//ids[RYUK] = (*++ite).first->getID();
 }
 
 void AI::SetTargets(Targets *_targets){

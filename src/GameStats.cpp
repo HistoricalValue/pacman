@@ -1,7 +1,7 @@
 #include "GameStats.hpp"
 
 GameStats::GameStats(SurfaceLoader *sl) {
-  score = 0; lives = 3; level = 1; dots = 139;
+  score = 0; lives = 3; level = 1; dots = 139, bonus = true;// to be changed
 	font_logo = TTF_OpenFont("resources/fonts/Crackman.ttf", 50);
 	font_text = TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF",25);
 	num_text = TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF", 25);
@@ -25,16 +25,18 @@ GameStats::GameStats(SurfaceLoader *sl) {
 	ptitle_fruits.x = 520; ptitle_fruits.y = 300;
 	title_fruits= TTF_RenderUTF8_Blended(font_text, "Bonus", textColor);
 	
-	ppacman.x = 625; ppacman.y = 250;
+	ppacman.x = 705; ppacman.y = 245;
 	pacman=SurfaceLoader::getInstance()->loadSurface("./resources/animation_films/pacman.png");
+	pbonus.x = 730; pbonus.y = 295;
+        choco=SurfaceLoader::getInstance()->loadSurface("./resources/animation_films/chocobonus.png");
+
 }
 
 
 void GameStats::Draw(SDL_Surface *screen) {
 
 	SDL_Color numColor = {0, 255, 255 };	
-	SDL_Rect plevel = {728, 150}, pscore = {670, 203};
-
+	SDL_Rect plevel = {728, 150}, pscore = {670, 200}, plives = {740, 250};
 	SDL_BlitSurface(logo, NULL, screen, &plogo);
 	SDL_BlitSurface(title_level, NULL, screen, &ptitle_level);
 	SDL_BlitSurface(title_score, NULL, screen, &ptitle_score);
@@ -50,11 +52,13 @@ void GameStats::Draw(SDL_Surface *screen) {
 	num_score = TTF_RenderUTF8_Blended(num_text,buff, numColor);
 	SDL_BlitSurface(num_score, NULL, screen, &pscore);
 	
+	sprintf(buff, "x%d", lives);
+	num_lives = TTF_RenderUTF8_Blended(num_text,buff, numColor);
+	SDL_BlitSurface(num_lives, NULL, screen, &plives);
+
+	if(bonus)
+	       SDL_BlitSurface(choco, NULL, screen, &pbonus);
 }
-/*
-void GameStats::LoopDraw(SDL_Surface *screen) {
-	
-}*/
 
 void GameStats::SetScore(unsigned int _score) {
 	score = _score;
@@ -97,4 +101,8 @@ bool GameStats::LoseLife(void) {
 
 bool GameStats::EatDot(void){
         return (!--dots);
+}
+
+void GameStats::DrunkChocodrink(void){
+        bonus = true;
 }
