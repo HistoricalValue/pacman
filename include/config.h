@@ -51,7 +51,12 @@
 
 /* Settings */
 #define EATABLE_DURATION		10000 // milisecond
+#define MAP_RESET_DELAY			5000 // milisecond
 #define POINTS_WORTH_DOT		5
 #define POINTS_WORTH_PUP		20
 #define POINTS_WORTH_GHOST		100
+
+/* Layout offset */
+#define LAYOUT_X_OFFSET			(0)
+#define LAYOUT_Y_OFFSET			(40)
 #endif /* __config_h__ */

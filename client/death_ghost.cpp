@@ -2,6 +2,7 @@
 #include "SoundManager.hpp"
 #include "AnimatorHolder.hpp"
 #include "reset.hpp"
+#include "config.h"
 
 struct ActorSuspender : public std::unary_function<
  std::pair<GameSprite* const, ActorMovement*>, void> {
@@ -14,7 +15,7 @@ struct ActorSuspender : public std::unary_function<
 void ghost_death_callback(Ghost *g, GameSprite *p, _gcoca *gkoka) {
 	// Super FX mode! Pause all ghosts and pacman
 	
-	timestamp_t currTime = cs454_2006::getCurrentTime();
+	register timestamp_t currTime = cs454_2006::getCurrentTime();
 	// Pause all actor sprites --
 	// Suspend all actor animators.
 	std::for_each(gkoka->akmovs->begin(), gkoka->akmovs->end(),
@@ -27,11 +28,13 @@ void ghost_death_callback(Ghost *g, GameSprite *p, _gcoca *gkoka) {
 	// callback spamming ; )
 	gkoka->cc->Cancel(g, p);
 
-	// Play sound in the future
+	// Play sound 
         SoundManager::Singleton()->PlayEffect(6, GAMEOVER);
 	
 	// Reset/reposition/clean up
-	reset_stage(new reset_data());
+	gkoka->sch->_register(
+	 new ResetStageTask(currTime + MAP_RESET_DELAY),
+	 new reset_data(gkoka));
 }
 
 ActorSuspender::result_type
@@ -40,3 +43,6 @@ ActorSuspender::operator()(argument_type p) {
 } // ActorSuspender()
 
 ActorSuspender::ActorSuspender(timestamp_t _t) : t(_t) { }
+
+reset_data::reset_data(_gcoca *_gkoka) : gkoka(_gkoka) { }
+reset_data::~reset_data(void) { }

@@ -412,6 +412,7 @@ PGCR::PGCR(InitData const &d, GameData &r) :
 	pkoka->left_right = r.animdata->wayhold->getWaypoint(d.weeds[d.TM]);
 	pkoka->down = r.animdata->wayhold->getWaypoint(d.weeds[d.TI]);
 	pkoka->lair = r.animdata->wayhold->getWaypoint(WAYPOINT_LAIR);
+	pkoka->initpos = &r.custom->initpos;
 } // PGCR::PGCR
 UserRunner::UserRunner(PostInitData &_pd, InitData &_d, GameData &_gd) :
 	pd(_pd),

@@ -125,8 +125,8 @@ static bool isCommentLine(std::string &line) {
 	return line.at(0) == '#';
 } // isCommentLine
 
-#define CONVERTX(A) (A)
-#define CONVERTY(A) ((A) + 40)
+#define CONVERTX(A) ((A) + LAYOUT_X_OFFSET)
+#define CONVERTY(A) ((A) + LAYOUT_Y_OFFSET)
 static void parseLine(Tokeniser **tokptr, AnimationFilmHolder *afh,
  std::string &line, std::list<std::string>& delims,
  SpriteHolder::SpritesMap &sprites)
