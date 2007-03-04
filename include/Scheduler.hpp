@@ -47,7 +47,7 @@ class Scheduler {
 	TaskShifter taskShifter;
 }; // class Scheduler
 
-class Task {
+class Task : public std::unary_function<taskdata_t, void> {
 	public :
 	virtual void operator()(taskdata_t) = 0;
 	virtual Task &operator++(void) = 0;
