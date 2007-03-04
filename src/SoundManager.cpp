@@ -23,6 +23,7 @@ SoundManager::SoundManager(void){
   LoadSound(POWERUP, "resources/sounds/powerup.wav");
   LoadSound(GHOST, "resources/sounds/munch.wav");
   LoadSound(GAMEOVER, "resources/sounds/gameover.wav");
+  LoadSound(BONUS, "resources/sounds/blibli.wav");
   // one more ghost  
 }
 
