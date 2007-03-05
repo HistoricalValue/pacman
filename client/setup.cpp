@@ -353,6 +353,7 @@ void assign_special_collision_callbacks(PostInitData &pd, InitData &d,
 	 r.animdata->wayhold->getWaypoint(WAYPOINT_LAIR);
 	gkoka->initpos = // the initial positions of the special sprites
 	 &r.custom->initpos;
+	gkoka->gs = r.stats; // game status manager instance
 
 	// Create and init the Dot-collision-callback-data
 	Dot::_coca *dkoka = new Dot::_coca;
@@ -478,6 +479,7 @@ PGCR::PGCR(InitData const &d, GameData &r) :
 	pkoka->down = r.animdata->wayhold->getWaypoint(d.weeds[d.TI]);
 	pkoka->lair = r.animdata->wayhold->getWaypoint(WAYPOINT_LAIR);
 	pkoka->initpos = &r.custom->initpos;
+	pkoka->gs = r.stats;
 } // PGCR::PGCR
 UserRunner::UserRunner(PostInitData &_pd, InitData &_d, GameData &_gd) :
 	pd(_pd),

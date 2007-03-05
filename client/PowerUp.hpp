@@ -11,6 +11,7 @@
 #include "AnimationHolder.hpp"
 #include "Scheduler.hpp"
 #include "Waypoint.hpp"
+#include "GameStats.hpp"
 #include <map>
 
 struct _pcoca { // Power up collision callback data
@@ -20,6 +21,7 @@ struct _pcoca { // Power up collision callback data
 	AnimationFilmHolder *filmhold;
 	AnimationHolder *animhold;
 	Scheduler *sch;
+        GameStats *gs;
 }; // struct _pcoca
 extern void powerup_coca(Sprite*, Sprite*, void *c = CAST(void*, 0));
 #endif // __PowerUp_hpp__

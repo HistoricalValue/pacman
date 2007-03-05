@@ -37,7 +37,9 @@ GameStats::GameStats(SurfaceLoader *sl, Sprite *pac, Sprite *bon, Uint32 bg) {
 void GameStats::Draw(SDL_Surface *screen) {
 
 	SDL_Color numColor = {0, 255, 255 };	
+	SDL_Rect tele = {496,232+LAYOUT_Y_OFFSET,32,32};
 	SDL_Rect plevel = {728, 150}, pscore = {670, 200}, plives = {740, 250};
+	SDL_FillRect(screen, &tele, _bg);
 	SDL_BlitSurface(logo, NULL, screen, &plogo);
 	SDL_BlitSurface(title_level, NULL, screen, &ptitle_level);
 	SDL_BlitSurface(title_score, NULL, screen, &ptitle_score);
@@ -46,8 +48,6 @@ void GameStats::Draw(SDL_Surface *screen) {
 	SDL_BlitSurface(pacman, NULL, screen, &ppacman);
 	char buff[8];
 
-	SDL_Rect tele = {496,232+LAYOUT_Y_OFFSET,32,32};
-	SDL_FillRect(screen, &tele, _bg);
 
 	sprintf(buff, "%03d", level);
 	num_level = TTF_RenderUTF8_Blended(num_text, buff, numColor);

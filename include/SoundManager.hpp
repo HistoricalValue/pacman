@@ -7,8 +7,8 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
 
-#define CHUNKS 4
-enum sound_t { DOT, POWERUP, GAMEOVER, GHOST, GHOSTEAT };
+#define CHUNKS 6
+enum sound_t { DOT, POWERUP, GAMEOVER, GHOST, GHOSTEAT, BONUS };
 
 class SoundManager {
         Mix_Chunk *bgmusic;
