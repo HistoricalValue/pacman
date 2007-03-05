@@ -17,6 +17,8 @@ struct GameData &setup(struct InitData &d) {
 	screen_setup(d, r);
 	// Create the scheduler
 	r.sch = new Scheduler(d.startingTime);
+	// Set up the background colour
+	r.bg = SDL_MapRGB(r.screen->format, d.bg.r, d.bg.g, d.bg.b);
 	// Create and get Animation Data
 	r.animdata = setup_animations(d.animsetup);
 	// Fetch special sprites -- no aliases at this point!
@@ -27,11 +29,10 @@ struct GameData &setup(struct InitData &d) {
 	ss_aliases_setup(d, r);
 	// Set up AI
 	ai_setup(d, r);
-	// Set up bg colour
-	r.bg = SDL_MapRGB(r.screen->format, d.bg.r, d.bg.g, d.bg.b);
 	// Create the Game Stats tracker
-	r.stats = new GameStats(SurfaceLoader::getInstance(), r.pacman, r.animdata->spritehold->getSprite(7000),r.bg);
-	// Set up collision pairs and custom callbacks
+	r.stats = new GameStats(SurfaceLoader::getInstance(), r.pacman,
+	 r.animdata->spritehold->getSprite(7000),r.bg);
+	// Set up collision pairs and NOT custom callbacks
 	collision_setup(d, r);
 	// Set after move callback for animators
 	AnimatorHolder::setAfterMoveCall(&d.callbacks->get_amc());
@@ -218,11 +219,6 @@ static void collision_setup(InitData const &d, GameData &r) {
 	// Set up collision checking of ghosts with pacman
 	std::for_each(r.sss.begin() + 1, r.sss.end(), PGCR(d, r));
 
-	// Set up custom callback 
-	std::list<ObstacleSprite*> const &obsts = r.animdata->spritehold->
-	 getObstacleSprites();
-	std::for_each(obsts.begin(), obsts.end(),
-	 CocaSetter(d.callbacks->get_coca(), d.callbacks->get_cocaclo()));
 } // collision_setup
 
 // Special SpriteS Collision Registerer
@@ -261,16 +257,10 @@ void PDCR::operator() (Sprite *s) {
 		// register it with pacman for collision checking
 		// (sprite aliases in GameData have been set at this point)
 		d.cc->Register(s, r.pacman);
-
-		// Also, give callback feedback to dot
-		s->SetCollisionCallback(Dot::collisionCallback, koka);
 	} else if ((power_result != d.pids.end())) { // sprite is a powerup
 		// register for collision with pacman
 		// (sprite aliases are set)
 		d.cc->Register(s, r.pacman);
-
-		// Set special power up callbacl
-		s->SetCollisionCallback(powerup_coca, pkoka);
 	}
 } // PDCR::()
 
@@ -279,14 +269,35 @@ void PGCR::operator()(GameSprite *ghost) {
 	// Register ghost collision with pacman
 	// (sprites aliases have been set)
 	d.cc->Register(ghost, r.pacman);
-	// Set up custom callback to ghost sprites
-	ghost->SetCollisionCallback (Ghost_collision_callback, pkoka);
 } // PGCR::()
 
-// CocaSetter : CollisionCallback setter
-void CocaSetter::operator() (ObstacleSprite *o) {
-	o->SetCollisionCallback(coca, &cocaclo);
-} // CocaSetter::()
+// GeneralCocaSetter : CollisionCallback setter for all types of sprites
+void GeneralCocaSetter::operator() (Sprite *s) {
+	register spriteid_t spid = s->getID();
+	
+	// check if sprite is a power up
+	std::list<spriteid_t>::const_iterator power_result =
+	 std::find_if(pids.begin(), pids.end(),
+	 std::bind1st(std::equal_to<spriteid_t>(), spid));
+
+	// or whether is it a ghost sprite
+	std::vector<spriteid_t>::const_iterator ghost_result =
+	 std::find_if(speeds.begin() + 1, speeds.end(),
+	 std::bind1st(std::equal_to<spriteid_t>(), spid));
+
+	if (power_result != pids.end()) { // Is a power-up sprite
+		// Set special power up callback
+		s->SetCollisionCallback(powerup_coca, pkoka);
+	} else if (ghost_result != speeds.end()) { // a ghost sprite
+		// Set up custom callback to ghost sprites
+		s->SetCollisionCallback (Ghost_collision_callback, pkoka);
+	} else if ( IS_OBSTACLE_SPRITE(spid) ) { 
+		s->SetCollisionCallback(coca, &cocaclo);
+	} else if ( IS_DOT_SPRITE(spid) ) {
+		// give callback feedback to dot
+		s->SetCollisionCallback(Dot::collisionCallback, dkoka);
+	}
+} // GeneralCocaSetter::()
 
 static void teleportals_setup(struct InitData const &d, struct GameData &r){
 	Waypoint *portals[] = {
@@ -314,9 +325,54 @@ void post_setup(PostInitData &pd, InitData &d, GameData &gd) {
 	gd.custom = new custompostinit_data;
 	// Run custom user functions
 	std::for_each(pd.user.begin(), pd.user.end(), UserRunner(pd,d,gd));
+
+	// Some default things have to happen after custom setuping...
+	//
+	// Assign special callbacks to some sprites
+	assign_special_collision_callbacks(pd, d, gd);
 } // post_setup
+
 void UserRunner::operator()(argument_type f) { f(pd, d, gd); }
 
+void assign_special_collision_callbacks(PostInitData &pd, InitData &d,
+ GameData &r)
+{
+	// Create and init Powerup-CollisionCallback-data *and* Ghost-CoCa-data
+	_gcoca *gkoka = new _gcoca;
+	gkoka->cc = d.cc; // the collision checker
+	gkoka->akmovs = &r.akmovs; // the ActorMovement instances
+	gkoka->ghost = &r.ghost; // pointers to the ghosts GameSprite instances
+	gkoka->filmhold = r.animdata->filmhold; // the film holder
+	gkoka->animhold = r.animdata->animhold; // the animation holder
+	gkoka->sch = r.sch; // the scheduler
+	gkoka->left_right = // a waypoint which sends snails away from the lair
+	 r.animdata->wayhold->getWaypoint(d.weeds[d.TM]);
+	gkoka->down = // a waypoint that sends snails in the lair
+	 r.animdata->wayhold->getWaypoint(d.weeds[d.TI]);
+	gkoka->lair = // a waypoint that is inside the lair
+	 r.animdata->wayhold->getWaypoint(WAYPOINT_LAIR);
+	gkoka->initpos = // the initial positions of the special sprites
+	 &r.custom->initpos;
+
+	// Create and init the Dot-collision-callback-data
+	Dot::_coca *dkoka = new Dot::_coca;
+	dkoka->cc = d.cc; // the collision checker
+	dkoka->pacman = r.pacman; // pointer to the pacman GameSprite
+	dkoka->stat = r.stats; // the GameStats
+
+	// Set custom callbacks and closure data to all sprites (according
+	// to type)
+	std::list<Sprite*> const &sprites = r.animdata->spritehold->getSprites();
+	std::for_each(sprites.begin(), sprites.end(), GeneralCocaSetter(
+	   r.animdata->spritehold
+	 , d.callbacks->get_coca()
+	 , d.callbacks->get_cocaclo()
+	 , gkoka
+	 , d.pids
+	 , d.speeds
+	 , dkoka
+	));
+} // assign_special_collision_callbacks
 // ----------------- Trivial constructors ------------------
 GameData::GameData(void) :
 	screen(static_cast<SDL_Surface*>(0)),
@@ -382,9 +438,18 @@ SOPCR::SOPCR(ObstaclePlatform *_o) :
 GWCR::GWCR(InitData const &d, GameData &r) :
 	for_each_functor<GameSprite*>(d, r),
 	waypoints(r.animdata->wayhold->getWaypoints()) { }
-CocaSetter::CocaSetter(Sprite::CollisionCallback _coca, _cocaclo &cocaclo_):
-	coca(_coca),
-	cocaclo(cocaclo_) { }
+GeneralCocaSetter::GeneralCocaSetter(SpriteHolder *_spritehold,
+ Sprite::CollisionCallback _coca, _cocaclo &cocaclo_, _pcoca *_pkoka,
+ std::list<spriteid_t> &_pids, std::vector<spriteid_t> &_speeds,
+ Dot::_coca *_dkoka) :
+ 	  spritehold(_spritehold)
+	, coca(_coca)
+	, cocaclo(cocaclo_)
+	, pkoka(_pkoka)
+	, pids(_pids)
+	, speeds(_speeds)
+	, dkoka(_dkoka)
+	{ }
 PDCR::PDCR(InitData const &d, GameData &r) :
 	for_each_functor<Sprite*>(d, r),
 	koka(new Dot::_coca()),

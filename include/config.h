@@ -35,6 +35,9 @@
 #define RETARD
 
 /* Special sprite types */
+/* Obstacles */
+#define OBSTACLE_SPRITE_ID_FIRST	0
+#define OBSTACLE_SPRITE_ID_LAST		999
 /* Dots */
 #define DOT_SPRITE_ID_FIRST	2000
 #define DOT_SPRITE_ID_LAST	3000
@@ -59,4 +62,15 @@
 /* Layout offset */
 #define LAYOUT_X_OFFSET			(0)
 #define LAYOUT_Y_OFFSET			(40)
+
+/* Macros */
+#define IS_OBSTACLE_SPRITE(A)	(\
+		(A) >= OBSTACLE_SPRITE_ID_FIRST		&& \
+		(A) <= OBSTACLE_SPRITE_ID_LAST			)
+#define IS_DOT_SPRITE(A) 	(\
+		(A) >= DOT_SPRITE_ID_FIRST		&& \
+		(A) <= DOT_SPRITE_ID_LAST			)
+
+
+
 #endif /* __config_h__ */

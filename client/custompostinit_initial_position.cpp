@@ -19,6 +19,8 @@ PositionSave::PositionSave(std::map<GameSprite*, SDL_Rect> &_p) :
 PositionSave::result_type
 PositionSave::operator()(argument_type ss) {
 	// ss = special sprite (actor)
+	p.insert(
+	 *new std::pair<GameSprite *const, SDL_Rect>(ss, *new SDL_Rect));
 	p[ss].x = ss->GetX();
 	p[ss].y = ss->GetY();
 } // PositionSave()

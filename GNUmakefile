@@ -1,6 +1,6 @@
 SHELL = /bin/sh
 
-.PHONY : all clean purge touch win32 runs
+.PHONY : all clean purge touch win32 runs pac tags
 
 all : 
 	$(MAKE) pac
@@ -24,3 +24,6 @@ run :
 pac :
 	$(MAKE) -C src default
 	$(MAKE) ADD_CPPFLAGS='-Dmain_pac\(A,B\)=main\(A,B\)' ADD_bins=pacman -C client default
+
+tags :
+	ctags -R

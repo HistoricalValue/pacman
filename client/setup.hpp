@@ -23,6 +23,10 @@ static void ai_setup(struct InitData const&, struct GameData&);
 static void collision_setup(struct InitData const&, struct GameData&);
 static void teleportals_setup(struct InitData const&, struct GameData&);
 
+// Post setup functions ----------------------------------------------------
+static void assign_special_collision_callbacks(PostInitData&, InitData&, GameData&);
+
+
 // Foreach - functors ------------------------------------------------------
 //
 // for_each_functor :: base struct for all for_each_functors. Provides
@@ -90,14 +94,28 @@ struct GWCR : public for_each_functor<GameSprite*> {
 	private :
 	std::list<Waypoint*> waypoints;
 }; // struct GWCR
-// Sets given collision callback to the sprites
-struct CocaSetter {
-	void operator() (ObstacleSprite*);
-	CocaSetter(Sprite::CollisionCallback, _cocaclo&);
+// Sets custom callbacks to all sprites if appropriate and according to
+// the sprite type and special role.
+struct GeneralCocaSetter  {
+	void operator() (Sprite*);
+	GeneralCocaSetter(
+	  SpriteHolder *spritehold
+	, Sprite::CollisionCallback coca
+	, _cocaclo &cocaclo
+	, _pcoca *pkoka
+	, std::list<spriteid_t> &pids
+	, std::vector<spriteid_t> &speeds
+	, Dot::_coca *dkoka
+	);
 	private :
+	SpriteHolder *spritehold;
 	Sprite::CollisionCallback coca;
 	_cocaclo &cocaclo;
-}; // struct CocaSetter
+	_pcoca *pkoka;
+	std::list<spriteid_t> &pids;
+	std::vector<spriteid_t> &speeds;
+	Dot::_coca *dkoka;
+}; // struct GeneralCocaSetter
 // Sets up collision checking between pacman and the eatable dots
 struct PDCR : public for_each_functor<Sprite*> {
 // Pacman-Dot Collision Registerer

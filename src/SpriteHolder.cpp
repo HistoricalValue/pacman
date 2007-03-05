@@ -203,12 +203,12 @@ std::list<ObstacleSprite*> const &SpriteHolder::getObstacleSprites(void) const
 	{ return obstaclesprites; }
 
 void ListInit::operator() (Sprite *s) {
-	if (s->getID() < 1000) { // obstacle
+	if ( IS_OBSTACLE_SPRITE(s->getID()) ) { // obstacle sprite
 		ObstacleSprite *os = dynamic_cast<ObstacleSprite*>(s);
 		nf(!os, "Sprite with ID less than 1000 is not an "
 		 "ObstacleSprite");
 		obst.push_back(os);
-	} else { // game
+	} else { // game sprite
 		GameSprite *gm = dynamic_cast<GameSprite*>(s);
 		nf(!gm, "Sprite with ID more than 1000 is not a "
 		 "GameSprite");
