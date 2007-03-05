@@ -5,7 +5,7 @@
 #include "config.h"
 
 struct ActorSuspender : public std::unary_function<
- std::pair<GameSprite* const, ActorMovement*>, void> {
+ std::pair<GameSprite *const, ActorMovement*>, void> {
 	 result_type operator()(argument_type);
 	 ActorSuspender(timestamp_t);
 	 private :
