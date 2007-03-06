@@ -15,6 +15,8 @@ struct GameData &setup(struct InitData &d) {
 	d.startingTime = getTimestamp();
 	// Set up screen
 	screen_setup(d, r);
+	// Crete input control flags structure
+	r.bools = new GameData::io_bools;
 	// Create the scheduler
 	r.sch = new Scheduler(d.startingTime);
 	// Set up the background colour
@@ -341,11 +343,12 @@ void assign_special_collision_callbacks(PostInitData &pd, InitData &d,
 	_gcoca *gkoka = new _gcoca;
 	gkoka->cc = d.cc; // the collision checker
 	gkoka->akmovs = &r.akmovs; // the ActorMovement instances
-	gkoka->ghost = &r.ghost; // pointers to the ghosts GameSprite instances
+	gkoka->ghost = // pointers to the ghosts GameSprite instances
+	 &r.ghost; 
 	gkoka->filmhold = r.animdata->filmhold; // the film holder
 	gkoka->animhold = r.animdata->animhold; // the animation holder
 	gkoka->sch = r.sch; // the scheduler
-	gkoka->left_right = // a waypoint which sends snails away from the lair
+	gkoka->left_right = // waypoint that sends snails away from the lair
 	 r.animdata->wayhold->getWaypoint(d.weeds[d.TM]);
 	gkoka->down = // a waypoint that sends snails in the lair
 	 r.animdata->wayhold->getWaypoint(d.weeds[d.TI]);
@@ -354,6 +357,8 @@ void assign_special_collision_callbacks(PostInitData &pd, InitData &d,
 	gkoka->initpos = // the initial positions of the special sprites
 	 &r.custom->initpos;
 	gkoka->gs = r.stats; // game status manager instance
+	gkoka->movie_mode = &r.bools->movie_mode; // IO status flag
+	
 
 	// Create and init the Dot-collision-callback-data
 	Dot::_coca *dkoka = new Dot::_coca;
@@ -382,6 +387,11 @@ GameData::GameData(void) :
 	pacman(static_cast<GameSprite*>(0)),
 	ghost(),
 	akmovs() { }
+GameData::io_bools::io_bools(bool _exit, bool _paused, bool _movie_mode) :
+	  exit(_exit)
+	, paused(_paused)
+	, movie_mode(_movie_mode)
+	{ }
 AnimationIDs::AnimationIDs(void) :
 	mv(4),
 	fr(4) { }

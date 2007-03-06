@@ -30,6 +30,9 @@ void ghost_death_callback(Ghost *g, GameSprite *p, _gcoca *gkoka) {
 
 	// Play sound 
         SoundManager::Singleton()->PlayEffect(6, GAMEOVER);
+
+	// Tell input control to ignore some things
+	*gkoka->movie_mode = true;
 	
 	// Reset/reposition/clean up
 	gkoka->sch->_register(

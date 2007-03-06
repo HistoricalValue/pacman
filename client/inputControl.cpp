@@ -3,10 +3,12 @@
 // Implementation headers
 #include "pause.hpp"
 
-void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools&);
-void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools&);
+typedef GameData::io_bools _bools;
+static void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools&);
+static void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools&);
+static void inputControl(GameData &, _bools &);
 
-void inputControl(GameData &d, _bools &bools) {
+static void inputControl(GameData &d, _bools &bools) {
 	SDL_Event event;
 	if (!SDL_PollEvent(&event))
 		return; // no new event
@@ -70,5 +72,10 @@ void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools &bools) {
 	}
 }
 
-// bools struct implementaion
-_bools::_bools(bool &_exit, bool &_paused) : exit(_exit), paused(_paused){ }
+InputControl::InputControl(GameData &_d) :
+	  d(_d)
+	{ }
+InputControl::~InputControl(void) { }
+
+InputControl::result_type
+InputControl::operator () (argument_type) { inputControl(d, *d.bools); }

@@ -113,18 +113,17 @@ static timestamp_t currTime;
 static void gaim_loop(GameData &d) {
 	register const timestamp_t loop_cap = 1000/60 + 1;
 	register timestamp_t timesand;
-	bool exit = false, paused = false;
 	register uint64_t total_sand = 0;
 	register uint16_t numloops = 0;
-	_bools bools(exit, paused);
-	while (!exit) {
+	InputControl inputControl(d);
+	while (!d.bools->exit) {
 		// get gaim loop starting time
 		d.currTime = timesand = currTime = getTimestamp();
 
 		// Handle input events
-		inputControl(d, bools);
+		inputControl();
 
-		if (!paused) {
+		if (!d.bools->paused) {
 			// Progress everything
 			AnimatorHolder::Progress(timesand);
 			std::for_each(d.akmovs.begin(), d.akmovs.end(),
