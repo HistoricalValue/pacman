@@ -41,12 +41,17 @@ void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools &bools) {
 		case SDLK_ESCAPE : bools.exit = true; return;
 		// ------------------------------------------------------
 		// Pause -- notify and return
-		case SDLK_p : cleanPause(d, bools.paused); return;
+		case SDLK_p : 
+			// do stuff only if not in theatre mode
+			if (!bools.theatre_mode) 
+				cleanPause(d, bools.paused);
+			return;
 		// ------------------------------------------------------
 		default: return ; // nothing
 	}
 
 	if (bools.paused) { // paused-mode input processing
+	} else if (bools.theatre_mode) { // theatre mode - no movement still
 	} else { // running-mode input processing
 		d.akmovs[d.pacman]->pressed(pressed, d.currTime);
 //		d.akmovs[d.ghost.stalker]->pressed(pressed, d.currTime);
@@ -66,6 +71,7 @@ void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools &bools) {
 	}
 
 	if (bools.paused) { // paused-mode input processing
+	} else if (bools.theatre_mode) { // theatre mode - no movement issue
 	} else { // running-mode input processing
 		d.akmovs[d.pacman]->released(released, d.currTime);
 //		d.akmovs[d.ghost.stalker]->released(released, d.currTime);
