@@ -9,7 +9,7 @@ static void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools&);
 static void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools&);
 static void inputControl(GameData &, _bools &);
 static void enableGhostInput(GameData &, Ghost*, _bools &);
-static void disableGhostInput(GameData &, Ghost*, _bools &);
+static void disableGhostInput(GameData &, _bools &);
 
 static void inputControl(GameData &d, _bools &bools) {
 	SDL_Event event;
@@ -37,8 +37,8 @@ static void enableGhostInput(GameData &d, Ghost *g, _bools &bools) {
 	bools.second_player = true;
 }// enableGhostInput
 
-static void disableGhostInput(GameData &d, Ghost *g, _bools &bools) {
-	g->setControlled(false);
+static void disableGhostInput(GameData &d, _bools &bools) {
+	d.ghost.player2->setControlled(false);
 	bools.second_player = false;
 }// disableGhostInput
 
