@@ -48,6 +48,8 @@ void AI::Think(Waypoint *waypoint, Ghost *ghost){
 		case RETREAT:
 			Stalker(waypoint, ghost, targets->lair);
 			break;
+		case CONTROLLED:
+			break;
 		default:
 			assert(0);
 	}

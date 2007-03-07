@@ -4,9 +4,10 @@
 #include "GameSprite.hpp"
 
 enum ghoststate_t {
-	NORMAL 	= 0,
-	SCARED 	= 1, 
-	RETREAT = 2
+	NORMAL 		= 0,
+	SCARED 		= 1, 
+	RETREAT 	= 2,
+	CONTROLLED 	= 3
 };
 
 class Ghost : public GameSprite {
