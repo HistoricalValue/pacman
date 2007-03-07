@@ -30,7 +30,8 @@ bool Waypoint::CollisionCheck(Sprite *s) {
 }
 
 void Waypoint::AICallback(Sprite *self, Sprite *actor, void *closure) {
-	AI::Think(dynamic_cast<Waypoint*>(self), dynamic_cast<Ghost*>(actor));
+	if(!dynamic_cast<Ghost*>(actor)->isControlled())
+		AI::Think(dynamic_cast<Waypoint*>(self), dynamic_cast<Ghost*>(actor));
 }
 
 void Waypoint::TeleportCallback(Sprite *self, Sprite *actor, void *closure) {

@@ -12,9 +12,18 @@ ghoststate_t Ghost::GetState(void) {
 	return state;
 }
 
+bool Ghost::isControlled(void) {
+	return controlled;
+}
+
+void Ghost::setControlled(bool _controlled) {
+	controlled = _controlled;
+}
+
 Ghost::Ghost(int x, int y, AnimationFilm *f, spriteid_t id) :
 GameSprite(x, y, f, id) {
 	state = NORMAL;
+	controlled = false;
 }
 
 bool Ghost::CollisionCheck(Sprite *o) {

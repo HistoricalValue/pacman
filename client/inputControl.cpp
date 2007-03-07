@@ -32,13 +32,13 @@ static void inputControl(GameData &d, _bools &bools) {
 } // inputControl
 
 static void enableGhostInput(GameData &d, Ghost *g, _bools &bools) {
-	g->SetState(CONTROLLED);	
+	g->setControlled(true);	
 	d.ghost.player2 = g;
 	bools.second_player = true;
 }// enableGhostInput
 
 static void disableGhostInput(GameData &d, Ghost *g, _bools &bools) {
-	g->SetState(NORMAL);
+	g->setControlled(false);
 	bools.second_player = false;
 }// disableGhostInput
 
