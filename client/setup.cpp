@@ -145,8 +145,8 @@ void AnimatorSetup::operator() (Animation *anim) {
 } // AnimatorSetup::()
 
 #define CAST_GHOST(A) (dynamic_cast<Ghost*>((A)))
-#define GHOST_CHECK(A) (nf(!A, "Special sprite that is supposed to be "\
-	"a Ghost sprite is not."))
+#define GHOST_CHECK(A) nf(!A, "Special sprite that is supposed to be "\
+	"a Ghost sprite is not.")
 
 static void ss_aliases_setup(struct InitData const &d, struct GameData &r) {
 	register size_t i = 0;

@@ -19,7 +19,7 @@ ResetStageTask::ResetStageTask(timestamp_t t) :
 ResetStageTask::result_type
 ResetStageTask::operator()(argument_type taskdata) {
 	reset_data *rd = DYNCAST(reset_data*, taskdata);
-	cs454_2006::nf(!rd, "Task data for stage reset task are "
+	nf(!rd, "Task data for stage reset task are "
 	 "not reset_data");
 	
 	switch (mode) {
@@ -29,8 +29,8 @@ ResetStageTask::operator()(argument_type taskdata) {
 			 rd->gkoka->initpos->begin(),
 			 rd->gkoka->initpos->end(),
 			 PositionSetter());
-			// we should be dirty at this point
-			nf(dirty, "Should be dirty");
+			// we should be recurring at this point
+			nf(!recurring, "Should be dirty");
 			break;
 		case restart : // restart animators and such
 			// Leave theatre mode
@@ -39,6 +39,8 @@ ResetStageTask::operator()(argument_type taskdata) {
 			rd->gkoka->cc->Register(
 			 rd->callbacker,
 			 rd->stoocker);
+			// Make us no more recurring
+			recurring = false;
 			break;
 		default :
 			nf(-1, "Wrong program state");
