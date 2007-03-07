@@ -12,7 +12,7 @@ PORT_CPPFLAGS += -I$(firiki_root)/sdl/include/
 PORT_CXXFLAGS += 
 
 # Normal flags
-CXX = g++
+CXX = c++
 CXXFLAGS += -pedantic -Wall -ansi -g -O0 $(ADD_CXXFLAGS) $(PORT_CXXFLAGS)
 CPPFLAGS += -I../include $(ADD_CPPFLAGS) $(PORT_CPPFLAGS)
 CC = $(CXX)
