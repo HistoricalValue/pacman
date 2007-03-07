@@ -40,7 +40,12 @@ void pacman_death_by_ghost_callback(Ghost *g, GameSprite *p, _gcoca *gkoka){
 	 new reset_data(gkoka, g, p));
 }
 
-void pacman_death_by_smash_callback(GameSprite *pac, void *closure) {
+void pacman_death_by_smash_callback(GameSprite *pac, Sprite *smasher,
+ void *closure)
+{
+	_shca *ska = CAST(_shca*, closure);
+
+	ska->cc->Cancel(smasher, pac);
 	db("Krap!");
 } // pacman_death_by_smash_callback
 
@@ -89,3 +94,11 @@ void leave_theatre_mode(_gcoca *gkoka) {
 	// Tell input control we are off theatre mode
 	*gkoka->theatre_mode = false;
 } // leave_theatre_mode
+
+
+// _shca -- Shmash Callback closure data -- Implementation -----------------
+_shca::_shca(
+	CollisionChecker *_cc
+) :
+	cc(_cc)
+	{ }

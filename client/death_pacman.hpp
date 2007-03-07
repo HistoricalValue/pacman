@@ -15,8 +15,16 @@ extern
 void pacman_death_by_ghost_callback(Ghost *, GameSprite *, _gcoca *);
 
 // The callback called when pacman is smashed by a moving obstacle
+struct _shca { // Shmash Callback (closure data)
+	CollisionChecker *cc;
+	_shca(
+	   CollisionChecker *cc
+	);
+	~_shca(void);
+}; // struct _shca
 extern
-void pacman_death_by_smash_callback(GameSprite *pacman, void *closure);
+void pacman_death_by_smash_callback(GameSprite *pacman, Sprite *smasher,
+ void *closure);
 
 // Functions to set things in theatre mode and back.
 extern void switch_to_theatre_mode(_gcoca *gkoka);

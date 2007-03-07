@@ -5,9 +5,9 @@ void GameSprite::SetOnSmashed(SmashedCallback f, void *c)
 	onSmashed = f, smashedClosure = c;
 } // SetOnSmashed
 
-void GameSprite::NotifySmashed(void) {
+void GameSprite::NotifySmashed(Sprite *who) {
 	if (onSmashed)
-		(*onSmashed)(this, smashedClosure);
+		(*onSmashed)(this, who, smashedClosure);
 } // NotifySmashed
 
 void GameSprite::Move(int dx, int dy) {

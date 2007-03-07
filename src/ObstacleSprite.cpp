@@ -18,7 +18,7 @@ void ObstacleSprite::Move (int dx, int dy) {
 				(*i)->Move(dx, 0);
 				CollisionChecker::Singleton()->Check();
 				if((*i)->CollisionCheck(this)){
-					(*i)->NotifySmashed();
+					(*i)->NotifySmashed(this);
 					continue;
 				}
 			}
@@ -34,7 +34,7 @@ void ObstacleSprite::Move (int dx, int dy) {
 				(*i)->Move(0, dy);
 				CollisionChecker::Singleton()->Check();
 				if((*i)->CollisionCheck(this)){
-					(*i)->NotifySmashed();
+					(*i)->NotifySmashed(this);
 					continue;
 				}
 			}

@@ -5,7 +5,8 @@
 
 class GameSprite : public Sprite {
 public:
-	typedef void (*SmashedCallback)(GameSprite *s, void *closure);
+	typedef void (*SmashedCallback)(GameSprite *s, 
+	 Sprite *smasher, void *closure);
 protected:
 	int oldX, oldY;
 	SmashedCallback onSmashed;
@@ -13,7 +14,7 @@ protected:
 public:
 	void SetOnSmashed (SmashedCallback f,
 	 void *c = static_cast<void*>(0));
-	void NotifySmashed (void);
+	void NotifySmashed (Sprite *who);
 	void Move (int dx, int dy);
 	void BackOff (void);
 	GameSprite(int x, int y, AnimationFilm *f, spriteid_t id);
