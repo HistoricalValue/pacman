@@ -7,10 +7,13 @@
 
 #include "Scheduler.hpp"
 #include "ghost.hpp"
+#include "death_pacman.hpp"
 
 struct reset_data : public TaskData {
 	_gcoca *gkoka;
-	reset_data(_gcoca*); ~reset_data(void);
+	// sprites to re-register for collision checking
+	Sprite *callbacker, *stoocker; 
+	reset_data(_gcoca*, Sprite *ca, Sprite *stoo); ~reset_data(void);
 };
 
 

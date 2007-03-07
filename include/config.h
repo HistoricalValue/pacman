@@ -53,8 +53,9 @@
 #define WAYPOINT_UNEATER		850
 
 /* Settings */
-#define EATABLE_DURATION		10000 // milisecond
-#define MAP_RESET_DELAY			5000 // milisecond
+#define EATABLE_DURATION		10000 // miliseconds
+#define MAP_RESET_DELAY			5000 // miliseconds
+#define RESTARTING_DELAY		2700 // miliseconds
 #define POINTS_WORTH_DOT		5
 #define POINTS_WORTH_PUP		20
 #define POINTS_WORTH_GHOST		100

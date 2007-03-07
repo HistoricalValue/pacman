@@ -12,7 +12,7 @@ struct PositionSetter : public std::unary_function<std::pair<GameSprite * const,
 // ResetStageTask Implementation ---------------------------------------
 // Constructor
 ResetStageTask::ResetStageTask(timestamp_t t) :
-	  Task(t, false)
+	  Task(t, true)
 	, mode(repos)
 	{ }
 
@@ -29,15 +29,32 @@ ResetStageTask::operator()(argument_type taskdata) {
 			 rd->gkoka->initpos->begin(),
 			 rd->gkoka->initpos->end(),
 			 PositionSetter());
+			// we should be dirty at this point
+			nf(dirty, "Should be dirty");
 			break;
 		case restart : // restart animators and such
+			// Leave theatre mode
+			leave_theatre_mode(rd->gkoka);
+			// Clean up any other change the death callback did
+			rd->gkoka->cc->Register(
+			 rd->callbacker,
+			 rd->stoocker);
 			break;
 		default :
 			nf(-1, "Wrong program state");
 	}
 } // ResetStageTask()
 
-Task &ResetStageTask::operator ++(void) { return *this; }
+// Switch to restarter mode
+Task &ResetStageTask::operator ++(void) {
+	// Set the next execution time to be when things should get
+	// moving again
+	time += RESTARTING_DELAY;
+	// Change execution mode
+	mode = restart;
+	
+	return *this;
+} // ResetStageTask++
 
 // Destructor
 ResetStageTask::~ResetStageTask(void) { }
