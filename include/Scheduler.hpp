@@ -51,7 +51,7 @@ class Task : public std::unary_function<taskdata_t, void> {
 	public :
 	virtual void operator()(taskdata_t) = 0;
 	virtual Task &operator++(void) = 0;
-	virtual Task &operator+=(timestamp_t) = 0;
+	Task &operator+=(timestamp_t);
 	Task(timestamp_t time, bool recurring); virtual ~Task(void);
 	timestamp_t getTime(void) const;
 	bool isDirty(void) const;

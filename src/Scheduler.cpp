@@ -70,8 +70,8 @@ void Scheduler::resume(timestamp_t t) {
 // Task Executor Implementation --------------------------------------------
 void Scheduler::TaskExecutor::operator()(task_t t) const {
 	if (currTime >= t->getTime()) { // should run task
-		(*t)(sch->tasks[t]);
-		// if task is no reoccuring, mark task for removal
+		(*t)(sch->tasks[t]); // run it
+		// if task is not recurring, mark task for removal
 		if (!t->isRecurring())
 			t->makeDirty();
 		else
@@ -90,6 +90,7 @@ timestamp_t Task::getTime(void) const { return time; }
 bool Task::isRecurring(void) const { return recurring; }
 void Task::makeDirty(void) { dirty = true; }
 bool Task::isDirty(void) const { return dirty; }
+Task &operator +=(timestamp_t off) { time += off; return *this; }
 
 // IsDirtyPredicate Implementation -----------------------------------------
 bool Scheduler::IsDirtyPredicate::operator()(Task *t) {
