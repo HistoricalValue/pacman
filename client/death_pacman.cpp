@@ -1,4 +1,4 @@
-#include "death_ghost.hpp"
+#include "death_pacman.hpp"
 #include "SoundManager.hpp"
 #include "AnimatorHolder.hpp"
 #include "reset.hpp"
@@ -12,7 +12,7 @@ struct ActorSuspender : public std::unary_function<
 	 timestamp_t t;
 }; // struct ActorSuspender
 
-void ghost_death_callback(Ghost *g, GameSprite *p, _gcoca *gkoka) {
+void pacman_death_by_ghost_callback(Ghost *g, GameSprite *p, _gcoca *gkoka){
 	// Super FX mode! Pause all ghosts and pacman
 	
 	register timestamp_t currTime = cs454_2006::getCurrentTime();

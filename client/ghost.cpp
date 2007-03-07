@@ -3,7 +3,7 @@
 // Implementation headers
 #include "Ghost.hpp"
 #include "client.hpp"
-#include "death_ghost.hpp"
+#include "death_pacman.hpp"
 #include "commons.hpp"
 #include "SoundManager.hpp"
 
@@ -34,7 +34,7 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 	} else if (gs->GetState() == NORMAL) {
 		// ghost is not scared -- it eats pacman instead
 		// redirect to death_ handlers
-		ghost_death_callback(gs, pac, gkoka);
+		pacman_death_by_ghost_callback(gs, pac, gkoka);
 	} else { // ghost is eatten
 		// do nothing
 	}

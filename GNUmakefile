@@ -1,19 +1,20 @@
 SHELL = /bin/sh
+MAKEFLAGS += -S
 
 .PHONY : all clean purge touch win32 runs pac tags
 
 all : 
-	$(MAKE) pac
+	$(MAKE) -S pac
 
 win32 :
 	$(MAKE) all __WIN32=yes_n00b
 clean :
-	$(MAKE) -C src clean
+	$(MAKE) -S -C src clean
 #	$(MAKE) -C test clean
-	$(MAKE) -C client clean
+	$(MAKE) -S -C client clean
 
 touch :
-	$(MAKE) --touch all
+	$(MAKE) -S --touch all
 
 purge :
 	find . -iregex '.*\.[od]' -exec rm '{}' \;

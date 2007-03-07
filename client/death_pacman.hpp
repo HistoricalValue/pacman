@@ -12,5 +12,5 @@
 
 // The callback called in the case of Ghost - pacman collision
 extern 
-void ghost_death_callback(Ghost *, GameSprite *, _gcoca *);
+void pacman_death_by_ghost_callback(Ghost *, GameSprite *, _gcoca *);
 #endif // __death_ghost_hpp__
