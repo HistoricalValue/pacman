@@ -82,6 +82,7 @@ void AnimationStartFunctor::start_mv(Sprite *s, Animation *a) {
 	nf(!mva, "Not a moving animation");
 	MovingAnimator *mvator = new MovingAnimator;
 	mvator->Start(s, mva, currTime);
+	// FIXME : disgusting code point
 	// if it is a dot animator, set dot-callback
 	if (s->getID() >= DOT_SPRITE_ID_FIRST && s->getID() <
 	 DOT_SPRITE_ID_LAST

@@ -8,6 +8,8 @@
 
 * Fix setup : add custom setup function option and make special sprite aliasing a special custom setup function
 
+* Make ActorMovement::pressed ignore NOWHERE direction
+
 == SEMI-DONE ==
 * Add configurable (upon build? defined? // dynamic configurable) limits for types of sprites (game, obstacle, ghost, more to come??)
 
