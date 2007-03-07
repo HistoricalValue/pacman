@@ -90,7 +90,7 @@ timestamp_t Task::getTime(void) const { return time; }
 bool Task::isRecurring(void) const { return recurring; }
 void Task::makeDirty(void) { dirty = true; }
 bool Task::isDirty(void) const { return dirty; }
-Task &operator +=(timestamp_t off) { time += off; return *this; }
+Task &Task::operator +=(timestamp_t off) { time += off; return *this; }
 
 // IsDirtyPredicate Implementation -----------------------------------------
 bool Scheduler::IsDirtyPredicate::operator()(Task *t) {

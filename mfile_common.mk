@@ -47,7 +47,11 @@ ifdef b
 $(b) :
 endif
 
-include $(dependencies)
+-include $(dependencies)
 
+# Silence!
+%.o : %.cpp
+	@printf ' * Object: $@\n'
+	@$(CXX) $(CXCFLAGS) $(CPPFLAGS) -c -o $@ $<
 
 # .SILENT : $(bins)

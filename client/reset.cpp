@@ -12,7 +12,9 @@ struct PositionSetter : public std::unary_function<std::pair<GameSprite * const,
 // ResetStageTask Implementation ---------------------------------------
 // Constructor
 ResetStageTask::ResetStageTask(timestamp_t t) :
-	Task(t, false) { }
+	  Task(t, false)
+	, mode(repos)
+	{ }
 
 ResetStageTask::result_type
 ResetStageTask::operator()(argument_type taskdata) {
@@ -20,18 +22,22 @@ ResetStageTask::operator()(argument_type taskdata) {
 	cs454_2006::nf(!rd, "Task data for stage reset task are "
 	 "not reset_data");
 	
-	// Move all special sprites to initial positions
-	std::for_each(
-	 rd->gkoka->initpos->begin(),
-	 rd->gkoka->initpos->end(),
-	 PositionSetter());
+	switch (mode) {
+		case repos : // reposition sprites
+			// Move all special sprites to initial positions
+			std::for_each(
+			 rd->gkoka->initpos->begin(),
+			 rd->gkoka->initpos->end(),
+			 PositionSetter());
+			break;
+		case restart : // restart animators and such
+			break;
+		default :
+			nf(-1, "Wrong program state");
+	}
 } // ResetStageTask()
 
 Task &ResetStageTask::operator ++(void) { return *this; }
-Task &ResetStageTask::operator +=(timestamp_t _t) {
-	time += _t;
-	return *this;
-} // ResetStageTask +=
 
 // Destructor
 ResetStageTask::~ResetStageTask(void) { }

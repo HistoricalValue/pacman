@@ -30,6 +30,8 @@ class ResetStageTask : public Task {
 	void operator()(taskdata_t);
 	Task &operator++(void);
 	ResetStageTask(timestamp_t); virtual ~ResetStageTask(void);
+	private :
+	enum mode_t {repos, restart} mode;
 }; // class ResetStageTask
 extern void reset_stage(reset_data*);
 #endif // __rest_hpp__
