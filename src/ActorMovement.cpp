@@ -63,14 +63,14 @@ ActorMovement::ActorMovement(GameSprite *_actor,
 } // constructor
 
 void ActorMovement::pressed(enum move_t direction, timestamp_t currTime) {
-	if (running != animators.at(direction)) {
+	if (direction != NOWHERE && running != animators.at(direction)) {
 		if (w2g) w2g->Suspend(currTime);
 		(w2g = animators.at(direction))->Resume(currTime);
 	}
 } // pressed
 
 void ActorMovement::released(enum move_t direction, timestamp_t currTime) {
-	if (w2g == animators.at(direction) ) {
+	if (direction != NOWHERE && w2g == animators.at(direction) ) {
 		w2g->Suspend(currTime);
 		w2g = static_cast<AnimatorPair*>(0);
 	}

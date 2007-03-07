@@ -22,7 +22,7 @@ enum ss_t { // special sprite type
 	ss_pacman, ss_stalker, ss_kieken, ss_random, ss_retard
 }; // enum ss_t
 struct Ghosts {
-	Ghost *stalker, *kieken, *random, *retard;
+	Ghost *stalker, *kieken, *random, *retard, *player2;
 
 	// Ignore
 	Ghosts(Ghost *d = static_cast<Ghost*>(0)); ~Ghosts(void);
@@ -57,11 +57,12 @@ struct GameData {
 	custompostinit_data *custom;
 	// Values for input control to check
 	struct io_bools {
-		bool exit, paused, theatre_mode;
+		bool exit, paused, theatre_mode, second_player;
 		io_bools(
 			  bool exit = false
 			, bool paused = false
 			, bool theatre_mode = false
+			, bool second_player = false
 		);
 	} *bools;
 

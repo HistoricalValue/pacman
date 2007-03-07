@@ -2,11 +2,14 @@
 
 // Implementation headers
 #include "pause.hpp"
+#include "Ghost.hpp"
 
 typedef GameData::io_bools _bools;
 static void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools&);
 static void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools&);
 static void inputControl(GameData &, _bools &);
+static void enableGhostInput(GameData &, Ghost*, _bools &);
+static void disableGhostInput(GameData &, _bools &);
 
 static void inputControl(GameData &d, _bools &bools) {
 	SDL_Event event;
@@ -28,14 +31,31 @@ static void inputControl(GameData &d, _bools &bools) {
 	}
 } // inputControl
 
+static void enableGhostInput(GameData &d, Ghost *g, _bools &bools) {
+	g->setControlled(true);	
+	d.ghost.player2 = g;
+	bools.second_player = true;
+}// enableGhostInput
+
+static void disableGhostInput(GameData &d, _bools &bools) {
+	d.ghost.player2->setControlled(false);
+	bools.second_player = false;
+}// disableGhostInput
+
 void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools &bools) {
-	enum ActorMovement::move_t pressed;
+	enum ActorMovement::move_t pressed = ActorMovement::NOWHERE, pressed2 = ActorMovement::NOWHERE;
 	switch (event.key.keysym.sym) {
 		// Pacman actor directive buttons -- notify ActorMovement
 		case SDLK_UP : pressed = ActorMovement::UP; break;
 		case SDLK_DOWN : pressed = ActorMovement::DOWN; break;
 		case SDLK_LEFT : pressed = ActorMovement::LEFT; break;
 		case SDLK_RIGHT : pressed = ActorMovement::RIGHT; break;
+		// ------------------------------------------------------
+		// Ghost actor directive buttons -- notify ActorMovement
+		case SDLK_w : pressed2 = ActorMovement::UP; break;
+		case SDLK_s : pressed2 = ActorMovement::DOWN; break;
+		case SDLK_a : pressed2 = ActorMovement::LEFT; break;
+		case SDLK_d : pressed2 = ActorMovement::RIGHT; break;
 		// ------------------------------------------------------
 		// Exit -- notify and return
 		case SDLK_ESCAPE : bools.exit = true; return;
@@ -47,6 +67,10 @@ void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools &bools) {
 				cleanPause(d, bools.paused);
 			return;
 		// ------------------------------------------------------
+		// Enabling second player -- probably temporary
+		case SDLK_2 :
+			enableGhostInput(d, d.ghost.stalker, bools);
+		// ------------------------------------------------------
 		default: return ; // nothing
 	}
 
@@ -54,18 +78,25 @@ void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools &bools) {
 	} else if (bools.theatre_mode) { // theatre mode - no movement still
 	} else { // running-mode input processing
 		d.akmovs[d.pacman]->pressed(pressed, d.currTime);
-//		d.akmovs[d.ghost.stalker]->pressed(pressed, d.currTime);
+		if(bools.second_player)
+			d.akmovs[d.ghost.player2]->pressed(pressed2, d.currTime);
 	}
 }
 
 void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools &bools) {
-	enum ActorMovement::move_t released;
+	enum ActorMovement::move_t released = ActorMovement::NOWHERE, released2 = ActorMovement::NOWHERE;
 	switch (event.key.keysym.sym) {
 		// Pacman actor directive buttons -- notify ActorMovement
 		case SDLK_UP : released = ActorMovement::UP; break;
 		case SDLK_DOWN : released = ActorMovement::DOWN; break;
 		case SDLK_LEFT : released = ActorMovement::LEFT; break;
 		case SDLK_RIGHT : released = ActorMovement::RIGHT; break;
+		// ------------------------------------------------------
+		// Ghost actor directive buttons -- notify ActorMovement
+		case SDLK_w : released2 = ActorMovement::UP; break;
+		case SDLK_s : released2 = ActorMovement::DOWN; break;
+		case SDLK_a : released2 = ActorMovement::LEFT; break;
+		case SDLK_d : released2 = ActorMovement::RIGHT; break;
 		// ------------------------------------------------------
 		default: return ; // nothing
 	}
@@ -74,7 +105,8 @@ void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools &bools) {
 	} else if (bools.theatre_mode) { // theatre mode - no movement issue
 	} else { // running-mode input processing
 		d.akmovs[d.pacman]->released(released, d.currTime);
-//		d.akmovs[d.ghost.stalker]->released(released, d.currTime);
+		if(bools.second_player)
+			d.akmovs[d.ghost.player2]->released(released2, d.currTime);
 	}
 }
 
