@@ -9,7 +9,7 @@
 struct _gcoca : public _pcoca {
 	Waypoint *left_right, *down, *lair;
 	std::map<GameSprite*, SDL_Rect> *initpos;
-	bool *movie_mode;
+	bool *theatre_mode;
 }; // struct _gcoca
 
 // Pacman-Ghost collision callback

@@ -357,7 +357,7 @@ void assign_special_collision_callbacks(PostInitData &pd, InitData &d,
 	gkoka->initpos = // the initial positions of the special sprites
 	 &r.custom->initpos;
 	gkoka->gs = r.stats; // game status manager instance
-	gkoka->movie_mode = &r.bools->movie_mode; // IO status flag
+	gkoka->theatre_mode = &r.bools->theatre_mode; // IO status flag
 	
 
 	// Create and init the Dot-collision-callback-data
@@ -387,10 +387,10 @@ GameData::GameData(void) :
 	pacman(static_cast<GameSprite*>(0)),
 	ghost(),
 	akmovs() { }
-GameData::io_bools::io_bools(bool _exit, bool _paused, bool _movie_mode) :
+GameData::io_bools::io_bools(bool _exit, bool _paused, bool _theatre_mode) :
 	  exit(_exit)
 	, paused(_paused)
-	, movie_mode(_movie_mode)
+	, theatre_mode(_theatre_mode)
 	{ }
 AnimationIDs::AnimationIDs(void) :
 	mv(4),

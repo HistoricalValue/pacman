@@ -13,3 +13,4 @@ resources/pacman.log
 test
 tags
 *semantic.cache
+*.sedbak
