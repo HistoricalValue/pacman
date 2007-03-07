@@ -228,8 +228,8 @@ void SSS_CollisionRegisterer::operator() (std::pair<obstplatid_t const,
  ObstaclePlatform*>& p)
 {
 	std::for_each(r.sss.begin(),
-	 //r.sss.end(),
-	 r.sss.begin() + 1,
+	 r.sss.end(),
+	 //r.sss.begin() + 1,
 	 SOPCR(p.second)
 	);
 } // SSS_CollisionRegisterer::()
