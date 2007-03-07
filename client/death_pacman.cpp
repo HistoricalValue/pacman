@@ -40,6 +40,10 @@ void pacman_death_by_ghost_callback(Ghost *g, GameSprite *p, _gcoca *gkoka){
 	 new reset_data(gkoka, g, p));
 }
 
+void pacman_death_by_smash_callback(GameSprite *pac, void *closure) {
+	db("Krap!");
+} // pacman_death_by_smash_callback
+
 // ActorSuspender / ActorResumer implementations ------------------------
 ActorSuspender::result_type
 ActorSuspender::operator()(argument_type p) { p.second->suspend(t); }

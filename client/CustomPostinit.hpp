@@ -8,6 +8,7 @@
 #include "custompostinit_sound.hpp"
 #include "custompostinit_initial_position.hpp"
 #include "custompostinit_bonus.hpp"
+#include "custompostinit_assign_smash_callbacks.hpp"
 template <typename _container>
 void registerCustomPostinit(_container &c) {
 	c.push_back(custompostinit_unregister_waypoint_888);
@@ -16,5 +17,6 @@ void registerCustomPostinit(_container &c) {
 	c.push_back(custompostinit_sound);
 	c.push_back(custompostinit_initial_position);
 	c.push_back(custompostinit_bonus);
+	c.push_back(custompostinit_assign_smash_callbacks);
 } // registerCustomPostinit
 #endif // __CustomPostinit_hpp__
