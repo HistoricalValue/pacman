@@ -19,6 +19,17 @@ struct ActorResumer : public std::unary_function<
 	 private :
 	 timestamp_t t;
 }; // struct ActorSuspender
+struct switch_to_theatre_mode_task : public Task {
+	void operator ()(taskdata_t);
+	switch_to_theatre_mode_task &operator++(void);
+	switch_to_theatre_mode_task(timestamp_t);
+	~switch_to_theatre_mode_task(void);
+}; // struct switch_to_theatre_mode_task
+struct switch_to_theatre_mode_task_data : public TaskData {
+	_gcoca *gkoka;
+	switch_to_theatre_mode_task_data(_gcoca *gkoka);
+	~switch_to_theatre_mode_task_data(void);
+};
 
 void pacman_death_by_ghost_callback(Ghost *g, GameSprite *p, _gcoca *gkoka){
 	// Super FX mode! Pause all ghosts and pacman
@@ -49,9 +60,51 @@ void pacman_death_by_smash_callback(GameSprite *pac, Sprite *smasher,
 		nf(!smasha, "Smasher is not an obstacle!");
 		_shca *ska = CAST(_shca*, closure);
 		
+		// Same as in death_by_ghost
+		register timestamp_t timesand =
+		 cs454_2006::getCurrentTime();
+		
+		// Go into theatre mode.
+		// ---
+		// It is actually safer to register a task for the same
+		// time as now (so it will be run in the same gaim loop
+		// iteration) so that all structure modifications happen
+		// after iterations over them are finished.
+		ska->gkoka->sch->_register(
+		 new switch_to_theatre_mode_task(timesand),
+		 new switch_to_theatre_mode_task_data(ska->gkoka)
+		);
+		//switch_to_theatre_mode(ska->gkoka);
+		
+		// collision callback spamming will be prevented
+		// with the IsSmashed state
+		// --- But ---
+		// whether we like it or not those two sprites must be
+		// canceled from the collision checker because the 
+		// map-restore task will reregister them
+		ska->gkoka->cc->Cancel(smasher, pac);
+
+		// Play sound
+		// TODO add sound
+	
+		// reset/reposition/clean up
+		ska->gkoka->sch->_register(
+		 new ResetStageTask(timesand + MAP_RESET_DELAY),
+		 new reset_data(ska->gkoka, smasher, pac));
 		
 	}
 } // pacman_death_by_smash_callback
+void switch_to_theatre_mode_task::operator ()(taskdata_t _data) {
+	switch_to_theatre_mode_task_data* data = DYNCAST(
+	 switch_to_theatre_mode_task_data*, _data);
+	nf(!data, "Data passed to switch to theatre mode task is not "
+	 "switch_to_theatre_mode_task_data");
+	switch_to_theatre_mode(data->gkoka);
+} // switch_to_theatre_mode_task()
+
+switch_to_theatre_mode_task &switch_to_theatre_mode_task::operator ++(void){
+	return *this;
+} // switch_to_theatre_mode_task++
 
 // ActorSuspender / ActorResumer implementations ------------------------
 ActorSuspender::result_type
@@ -69,6 +122,18 @@ reset_data::reset_data(_gcoca *_gkoka, Sprite *ca, Sprite *stoo) :
 	, stoocker(stoo)
 	{ }
 reset_data::~reset_data(void) { }
+
+// To theater mode - task -----------------
+switch_to_theatre_mode_task_data::switch_to_theatre_mode_task_data(
+ _gcoca *_gkoka) :
+ 	  gkoka(_gkoka)
+	{ }
+switch_to_theatre_mode_task_data::~switch_to_theatre_mode_task_data(void){}
+
+switch_to_theatre_mode_task::switch_to_theatre_mode_task(timestamp_t _t) :
+	  Task(_t, false)
+	{ }
+switch_to_theatre_mode_task::~switch_to_theatre_mode_task(void) { }
 
 // Theatre mode switcer -------------------------------------------------
 void switch_to_theatre_mode(_gcoca *gkoka) {
@@ -101,8 +166,4 @@ void leave_theatre_mode(_gcoca *gkoka) {
 
 
 // _shca -- Shmash Callback closure data -- Implementation -----------------
-_shca::_shca(
-	CollisionChecker *_cc
-) :
-	cc(_cc)
-	{ }
+_shca::_shca( _gcoca *_gkoka) : gkoka(_gkoka) { }

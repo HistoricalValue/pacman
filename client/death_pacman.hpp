@@ -16,10 +16,8 @@ void pacman_death_by_ghost_callback(Ghost *, GameSprite *, _gcoca *);
 
 // The callback called when pacman is smashed by a moving obstacle
 struct _shca { // Shmash Callback (closure data)
-	CollisionChecker *cc;
-	_shca(
-	   CollisionChecker *cc
-	);
+	_gcoca *gkoka; // can't escape this.. it's drugs
+	_shca( _gcoca *gkoka );
 	~_shca(void);
 }; // struct _shca
 extern
