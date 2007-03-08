@@ -3,6 +3,7 @@
 #include "AnimatorHolder.hpp"
 #include "reset.hpp"
 #include "config.h"
+#include "ObstacleSprite.hpp"
 
 struct ActorSuspender : public std::unary_function<
  std::pair<GameSprite *const, ActorMovement*>&, void> {
@@ -43,10 +44,13 @@ void pacman_death_by_ghost_callback(Ghost *g, GameSprite *p, _gcoca *gkoka){
 void pacman_death_by_smash_callback(GameSprite *pac, Sprite *smasher,
  void *closure)
 {
-	_shca *ska = CAST(_shca*, closure);
-
-	ska->cc->Cancel(smasher, pac);
-	db("Krap!");
+	if (!pac->IsSmashed()) {
+		ObstacleSprite *smasha = DYNCAST(ObstacleSprite*, smasher);
+		nf(!smasha, "Smasher is not an obstacle!");
+		_shca *ska = CAST(_shca*, closure);
+		
+		
+	}
 } // pacman_death_by_smash_callback
 
 // ActorSuspender / ActorResumer implementations ------------------------

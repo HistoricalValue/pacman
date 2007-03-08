@@ -9,12 +9,6 @@ void ObstacleSprite::Move (int dx, int dy) {
 	for(i = pushable.begin(); i != pushable.end(); i++) {
 		if(dx) {
 			if((*i)->CollisionCheck(this)){
-		/*		int touchdx;
-				if(dx > 0)
-					touchdx = (this->x + this->GetW()) - (*i)->GetX();
-				else
-					touchdx = this->x - ((*i)->GetX() + (*i)->GetW());
-		*/	
 				(*i)->Move(dx, 0);
 				CollisionChecker::Singleton()->Check();
 				if((*i)->CollisionCheck(this)){
@@ -25,12 +19,6 @@ void ObstacleSprite::Move (int dx, int dy) {
 		}
 		if(dy) {
 			if((*i)->CollisionCheck(this)){
-			/*	int touchdy;
-				if(dy > 0)
-					touchdy = (this->y + this->GetH()) - (*i)->GetY();
-				else
-					touchdy = this->y - ((*i)->GetY() + (*i)->GetH());
-			*/
 				(*i)->Move(0, dy);
 				CollisionChecker::Singleton()->Check();
 				if((*i)->CollisionCheck(this)){
