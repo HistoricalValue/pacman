@@ -189,6 +189,7 @@ void ActorMovement::DelaySetter::operator()(AnimatorPair *p) {
 } // ActorMovement::DelaySetter::()
 
 void ActorMovement::suspend(timestamp_t t) {
+	if (w2g) if (CAST(Animator*, *w2g)->isRunning()) w2g->Suspend(t);
 	if (running)
 		running->Suspend(t);
 } // suspend
