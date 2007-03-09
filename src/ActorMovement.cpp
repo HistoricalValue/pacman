@@ -197,3 +197,9 @@ void ActorMovement::resume(timestamp_t t) {
 	if (running)
 		running->Resume(t);
 } // resume
+
+void ActorMovement::reset(void) {
+	  w2g = static_cast<AnimatorPair*>(0)
+ 	, running = w2g
+	, w2g_collided = false;
+} // reset

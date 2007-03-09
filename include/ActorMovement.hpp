@@ -36,6 +36,8 @@ class ActorMovement {
 	// Suspends/resumes the currently running animator
 	void suspend(timestamp_t);
 	void resume(timestamp_t);
+	// Reset to initial state
+	void reset(void);
 	private :
 	struct AnimatorPair;
 	struct SuspendFunctor;

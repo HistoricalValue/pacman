@@ -7,7 +7,12 @@
 struct PositionSetter : public std::unary_function<std::pair<GameSprite * const,
  SDL_Rect>&, void> {
 	 result_type operator()(argument_type);
- }; // struct InitPosSetter
+}; // struct InitPosSetter
+
+typedef std::pair<GameSprite *const, ActorMovement*> &GAM;
+struct ActorMovementReseter : public std::unary_function<GAM, void> {
+	result_type operator ()(argument_type);
+};
 
 // ResetStageTask Implementation ---------------------------------------
 // Constructor
@@ -29,6 +34,11 @@ ResetStageTask::operator()(argument_type taskdata) {
 			 rd->gkoka->initpos->begin(),
 			 rd->gkoka->initpos->end(),
 			 PositionSetter());
+			// Reset all actor movements and special sprites
+			std::for_each(
+			 rd->gkoka->akmovs->begin(),
+			 (*(*(*rd).gkoka).akmovs).end(), // why '->' exists
+			 ActorMovementReseter());
 			// we should be recurring at this point
 			nf(!recurring, "Should be dirty");
 			break;
@@ -66,3 +76,10 @@ PositionSetter::result_type
 PositionSetter::operator()(argument_type p) {
 	p.first->SetPosition(p.second.x, p.second.y);
 } // PositionSetter()
+
+// ActorMovementReseter ------------------------------------------------
+ActorMovementReseter::result_type
+ActorMovementReseter::operator ()(argument_type p) {
+	p.first->reset();
+	p.second->reset();
+} // ActorMovementReseter()

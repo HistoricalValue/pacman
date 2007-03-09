@@ -24,6 +24,10 @@ void GameSprite::BackOff(void) {
 
 bool GameSprite::IsSmashed(void) const { return isSmashed; }
 
+void GameSprite::reset(void) {
+	isSmashed = false;
+} // reset
+
 // Constructor
 GameSprite::GameSprite(int x, int y, AnimationFilm *f, spriteid_t id) :
  Sprite(x, y, f, id), onSmashed(NULL), isSmashed(false)

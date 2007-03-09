@@ -82,7 +82,10 @@ void pacman_death_by_smash_callback(GameSprite *pac, Sprite *smasher,
 		// whether we like it or not those two sprites must be
 		// canceled from the collision checker because the 
 		// map-restore task will reregister them
-		ska->gkoka->cc->Cancel(smasher, pac);
+		//ska->gkoka->cc->Cancel(smasher, pac);
+		// --- But ---
+		// It is not necessary after all since the CC checks
+		// to make sure not the same pair is inserted evah ; )
 
 		// Play sound
 		// TODO add sound
@@ -154,8 +157,8 @@ void leave_theatre_mode(_gcoca *gkoka) {
 	register timestamp_t currTime = cs454_2006::getCurrentTime();
 	// Unpause all actor sprites --
 	// Resumer all actor animators.
-	std::for_each(gkoka->akmovs->begin(), gkoka->akmovs->end(),
-	 ActorResumer(currTime));
+	//std::for_each(gkoka->akmovs->begin(), gkoka->akmovs->end(),
+	// ActorResumer(currTime));
 
 	// Resume all animators
 	AnimatorHolder::resumeAllExRunning(currTime);

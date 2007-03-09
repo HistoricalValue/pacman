@@ -19,6 +19,7 @@ public:
 	void Move (int dx, int dy);
 	void BackOff (void);
 	bool IsSmashed(void) const;
+	virtual void reset(void);
 	GameSprite(int x, int y, AnimationFilm *f, spriteid_t id);
 };
 
