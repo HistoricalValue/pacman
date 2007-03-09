@@ -339,25 +339,9 @@ void UserRunner::operator()(argument_type f) { f(pd, d, gd); }
 void assign_special_collision_callbacks(PostInitData &pd, InitData &d,
  GameData &r)
 {
-	// Create and init Powerup-CollisionCallback-data *and* Ghost-CoCa-data
-	_gcoca *gkoka = new _gcoca;
-	gkoka->cc = d.cc; // the collision checker
-	gkoka->akmovs = &r.akmovs; // the ActorMovement instances
-	gkoka->ghost = // pointers to the ghosts GameSprite instances
-	 &r.ghost; 
-	gkoka->filmhold = r.animdata->filmhold; // the film holder
-	gkoka->animhold = r.animdata->animhold; // the animation holder
-	gkoka->sch = r.sch; // the scheduler
-	gkoka->left_right = // waypoint that sends snails away from the lair
-	 r.animdata->wayhold->getWaypoint(d.weeds[d.TM]);
-	gkoka->down = // a waypoint that sends snails in the lair
-	 r.animdata->wayhold->getWaypoint(d.weeds[d.TI]);
-	gkoka->lair = // a waypoint that is inside the lair
-	 r.animdata->wayhold->getWaypoint(WAYPOINT_LAIR);
-	gkoka->initpos = // the initial positions of the special sprites
-	 &r.custom->initpos;
-	gkoka->gs = r.stats; // game status manager instance
-	gkoka->theatre_mode = &r.bools->theatre_mode; // IO status flag
+	// Create and init Powerup-CollisionCallback-data _and_
+	//Ghost-CoCa-data
+	_gcoca *gkoka = getacoca(d, r);
 	
 
 	// Create and init the Dot-collision-callback-data
@@ -379,6 +363,30 @@ void assign_special_collision_callbacks(PostInitData &pd, InitData &d,
 	 , dkoka
 	));
 } // assign_special_collision_callbacks
+
+_gcoca *getacoca(InitData &d, GameData &r) {
+	_gcoca *gkoka = new _gcoca;
+	gkoka->cc = r.cc; // the collision checker
+	gkoka->akmovs = &r.akmovs; // the ActorMovement instances
+	gkoka->ghost = // pointers to the ghosts GameSprite instances
+	 &r.ghost; 
+	gkoka->filmhold = r.animdata->filmhold; // the film holder
+	gkoka->animhold = r.animdata->animhold; // the animation holder
+	gkoka->sch = r.sch; // the scheduler
+	gkoka->left_right = // waypoint that sends snails away from the lair
+	 r.animdata->wayhold->getWaypoint(d.weeds[d.TM]);
+	gkoka->down = // a waypoint that sends snails in the lair
+	 r.animdata->wayhold->getWaypoint(d.weeds[d.TI]);
+	gkoka->lair = // a waypoint that is inside the lair
+	 r.animdata->wayhold->getWaypoint(WAYPOINT_LAIR);
+	gkoka->initpos = // the initial positions of the special sprites
+	 &r.custom->initpos;
+	gkoka->gs = r.stats; // game status manager instance
+	gkoka->theatre_mode = &r.bools->theatre_mode; // IO status flag
+
+	return gkoka;
+}
+
 // ----------------- Trivial constructors ------------------
 GameData::GameData(void) :
 	screen(static_cast<SDL_Surface*>(0)),

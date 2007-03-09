@@ -77,8 +77,8 @@ static void setup_setup_data(InitData &d) {
 	d.callbacks = new Callbacks(d.cc, collision_callback);
 	//
 	// Special waypoint IDs
-	d.weeds[d.LT] = 666; // Left Teleport
-	d.weeds[d.RT] = 667; // Right Teleport
+	d.weeds[d.LT] = WAYPOINT_LEFT_TELEPORTER; // Left Teleport
+	d.weeds[d.RT] = WAYPOINT_RIGHT_TELEPORTER; // Right Teleport
 	// Traffic Man / Send snails away
 	d.weeds[d.TM] = WAYPOINT_TRAFICMAN_AWAY;
 	// traffic man / send snails inside lair
