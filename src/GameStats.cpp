@@ -1,44 +1,76 @@
 #include "GameStats.hpp"
 
 
-GameStats::GameStats(SurfaceLoader *sl, Sprite *pac, Sprite *bon, Uint32 bg) {
-        score = 0; lives = 3; level = 1; dots = 139, bonus = false;
-        _bonus = bon; _pacman = pac; _bg = bg;
-	font_logo = TTF_OpenFont("resources/fonts/Crackman.ttf", 50);
-	font_text = TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF",25);
-	num_text = TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF", 25);
-	// colors init
-	SDL_Color logoColor = { 0, 128, 255};
-	SDL_Color textColor = { 255, 255, 255 };
-	// rendering surfaces
-	// the 'pacman' logo
-	plogo.x = 520; plogo.y = 40;
-	logo = TTF_RenderUTF8_Blended(font_logo, "Pac-Man", logoColor);
-	// lvlz
-	ptitle_level.x = 520; ptitle_level.y = 150;
-	title_level = TTF_RenderUTF8_Blended(font_text, "Level", textColor);
-	// score
-	ptitle_score.x = 520; ptitle_score.y = 200;
-	title_score = TTF_RenderUTF8_Blended(font_text, "Score", textColor);
-	// lives
-	ptitle_lives.x = 520; ptitle_lives.y = 250;
-	title_lives = TTF_RenderUTF8_Blended(font_text, "Lives", textColor);
-	// fruits
-	ptitle_fruits.x = 520; ptitle_fruits.y = 300;
-	title_fruits= TTF_RenderUTF8_Blended(font_text, "Bonus", textColor);
+GameStats::GameStats(
+	SurfaceLoader * const sl,
+	Sprite * const pac,
+	Sprite * const bon,
+	Uint32 const bg,
+	CollisionChecker * const _cc)
+:
+	// SDL_Colors
+	  logoColor(0x00, 0x80, 0xff)
+	, textColor(0xff, 0xff, 0xff)
+	, numColor(0x00, 0xff, 0xff)
+
+	// TTF_Fonts
+	, font_logo(TTF_OpenFont("resources/fonts/Crackman.ttf", 50))
+	, font_text(TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF",25))
+	, num_text(TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF", 25))
 	
-	ppacman.x = 705; ppacman.y = 245;
-	pacman=SurfaceLoader::getInstance()->loadSurface("./resources/animation_films/pacman.png");
-	pbonus.x = 730; pbonus.y = 295;
-        choco=SurfaceLoader::getInstance()->loadSurface("./resources/animation_films/chocobonus.png");
-}
+	// Rectangles
+	, ptitle_level(520, 150, 0, 0) // Levelz
+	, ptitle_score(520, 200, 0, 0) // score
+	, ptitle_lives(520, 250, 0, 0) // lives
+	, ptitle_bonus(0, 0, 0, 0) // TODO
+	, plogo(520, 40, 0, 0)
+	, ptitle_fruits(520, 300, 0, 0) // fruits
+	, ppacman(705, 245, 0, 0) // 
+	, plives(740, 250, 0, 0)
+	, pbonus(730, 295, 0, 0)
+	, tele(496, 232 + LAYOUT_Y_OFFSET, 0, 0)
+	, plevel(728, 150, 0, 0)
+	, pscore(670, 200, 0, 0)
+	
+	// Surfaces
+	, logo(TTF_RenderUTF8_Blended(font_logo, "Pac-Man", logoColor))
+	, title_score(TTF_RenderUTF8_Blended(font_text,"Score", textColor))
+	, title_lives(TTF_RenderUTF8_Blended(font_text,"Lives", textColor))
+	, title_fruits(TTF_RenderUTF8_Blended(font_text,"Bonus",textColor))
+	, title_seperator(NULL) // TODO
+	, fruit(NULL) // TODO
+	, pacman ( SurfaceLoader::getInstance()->
+	   loadSurface("./resources/animation_films/pacman.png"))
+	, title_level(TTF_RenderUTF8_Blended(font_text,"Level", textColor))
+	, num_level(NULL) // TODO
+	, num_score(NULL) // TODO
+	, num_lives(NULL) // TODO
+	, choco ( SurfaceLoader::getInstance()->
+	   loadSurface("./resources/animation_films/chocobonus.png"))
+	
+	// Sprites
+	, _bonus(bon) // bonus sprite
+	, _pacman(pac) // pacman sprite
+	
+	// unsigned ints
+	, score(0)
+	, lives(PACMAN_LIVES)
+	, level(1)
+	, dots(139) //TODO get the real dots
+	
+	// bool
+	, bonus(false)
+	
+	// Uint32
+	, _bg(bg) // background colour
+
+	// Collision Checker
+	, cc(_cc)
+{ }
 
 
 void GameStats::Draw(SDL_Surface *screen) {
 
-	SDL_Color numColor = {0, 255, 255 };	
-	SDL_Rect tele = {496,232+LAYOUT_Y_OFFSET,32,32};
-	SDL_Rect plevel = {728, 150}, pscore = {670, 200}, plives = {740, 250};
 	SDL_FillRect(screen, &tele, _bg);
 	SDL_BlitSurface(logo, NULL, screen, &plogo);
 	SDL_BlitSurface(title_level, NULL, screen, &ptitle_level);
@@ -62,18 +94,7 @@ void GameStats::Draw(SDL_Surface *screen) {
 	SDL_BlitSurface(num_lives, NULL, screen, &plives);
 
 	if(bonus)
-	       SDL_BlitSurface(choco, NULL, screen, &pbonus);
-}
-
-void GameStats::SetScore(unsigned int _score) {
-	score = _score;
-}
-void GameStats::SetLives(unsigned int _lives) {
-	lives = _lives;
-}
-
-void GameStats::SetLevel(unsigned int _level) {
-	level = _level;
+		SDL_BlitSurface(choco, NULL, screen, &pbonus);
 }
 
 unsigned int GameStats::GetScore(void) const {
@@ -105,19 +126,23 @@ bool GameStats::LoseLife(void) {
 }
 
 bool GameStats::EatDot(void){
-        ShowBonus();
-        return (!--dots);
+	ShowBonus();
+	return (!--dots);
 }
 
 void GameStats::DrunkChocodrink(void){
-        bonus = true;
+	bonus = true;
 	score += level*200 +300;
 }
 
 void GameStats::ShowBonus(void){
-  if(dots == 70){
-    _bonus->SetVisibility(true);
-    CollisionChecker::Singleton()->Register(_bonus, _pacman);
-  }
-  
+	if(dots == 70){
+		_bonus->SetVisibility(true);
+		cc->Register(_bonus, _pacman);
+	}
 }
+
+GameStats::_SDL_Color::_SDL_Color(int _r, int _g, int _b) {
+	r = _r, g = _g, b = _b; }
+GameStats::_SDL_Rect::_SDL_Rect(int _x, int _y, int _w, int _h) {
+	x = _x, y = _y, w = _w, h = _h; }

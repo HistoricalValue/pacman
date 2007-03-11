@@ -33,7 +33,7 @@ struct GameData &setup(struct InitData &d) {
 	ai_setup(d, r);
 	// Create the Game Stats tracker
 	r.stats = new GameStats(SurfaceLoader::getInstance(), r.pacman,
-	 r.animdata->spritehold->getSprite(7000),r.bg);
+	 r.animdata->spritehold->getSprite(7000), r.bg, d.cc);
 	// Set up collision pairs and NOT custom callbacks
 	collision_setup(d, r);
 	// Set after move callback for animators
