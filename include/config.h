@@ -61,6 +61,8 @@
 #define POINTS_WORTH_DOT		5
 #define POINTS_WORTH_PUP		20
 #define POINTS_WORTH_GHOST		100
+#define PACMAN_LIVES			3
+
 
 /* Layout offset */
 #define LAYOUT_X_OFFSET			(0)

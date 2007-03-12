@@ -9,24 +9,33 @@
 #include "config.h"
 
 class GameStats {
-	SDL_Surface 	*logo, *title_score, *title_lives, 
-			*title_fruits, *title_seperator,
-			*fruit, *pacman, *title_level, *num_level, 
-	                *num_score, *num_lives, *choco;
-        SDL_Rect ptitle_level, ptitle_score, ptitle_lives, 
-	  ptitle_bonus, plogo, ptitle_fruits, ppacman, plives, pbonus;
-        Sprite *_bonus, *_pacman;
-	unsigned int 	score, lives, level, dots;
-        bool bonus;
-	TTF_Font *font_logo, *font_text, *num_text;
-        Uint32 _bg;
+	struct _SDL_Color :
+	 public SDL_Color { _SDL_Color(int r, int g, int b); };
+	struct _SDL_Rect :
+	 public SDL_Rect {_SDL_Rect(int x, int y, int w, int h); };
+	const _SDL_Color 	logoColor, textColor, numColor;
+	TTF_Font		*font_logo, *font_text, *num_text;
+	_SDL_Rect 		ptitle_level, ptitle_score, ptitle_lives, 
+				ptitle_bonus, plogo, ptitle_fruits,
+				ppacman, plives, pbonus, tele, plevel,
+				pscore;
+	SDL_Surface 		* const logo, * const title_score,
+				* const title_lives, 
+				* const title_fruits,
+				* const title_seperator,
+				* const fruit, * const pacman,
+				* const title_level, * num_level, 
+				* num_score, * num_lives,
+				* const choco;
+	Sprite			* const _bonus, * const _pacman;
+	unsigned int 		score, lives, level, dots;
+	bool 			bonus;
+	Uint32 const		_bg;
+	CollisionChecker	* const cc;
 	public:
-	GameStats(SurfaceLoader*, Sprite*, Sprite*, Uint32);
+	GameStats(SurfaceLoader* const, Sprite* const, Sprite* const,
+	 Uint32 const, CollisionChecker* const);
 	void Draw(SDL_Surface*);
-  //void LoopDraw(SDL_Surface*);
-	void SetScore(unsigned int);
-	void SetLives(unsigned int);
-	void SetLevel(unsigned int);
 	unsigned int GetScore(void) const;
 	unsigned int GetLives(void) const;
 	unsigned int GetLevel(void) const;
@@ -35,9 +44,9 @@ class GameStats {
 	void ResetScore(void);
 	void AddLife(void);
 	bool LoseLife(void); //returns true if pacman dies
-        bool EatDot(void); // returns true if there are no dots left
-        void DrunkChocodrink(void);
-        void ShowBonus(void); //shows the bonus
+	bool EatDot(void); // returns true if there are no dots left
+	void DrunkChocodrink(void);
+	void ShowBonus(void); //shows the bonus
 };
 
 #endif
