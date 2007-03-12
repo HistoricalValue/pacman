@@ -22,7 +22,7 @@ GameStats::GameStats(
 	, ptitle_level(520, 150, 0, 0) // Levelz
 	, ptitle_score(520, 200, 0, 0) // score
 	, ptitle_lives(520, 250, 0, 0) // lives
-	, ptitle_bonus(0, 0, 0, 0) // TODO
+	, ptitle_bonus(0, 0, 0, 0) // TODO is this needed?
 	, plogo(520, 40, 0, 0)
 	, ptitle_fruits(520, 300, 0, 0) // fruits
 	, ppacman(705, 245, 0, 0) // 
@@ -37,14 +37,14 @@ GameStats::GameStats(
 	, title_score(TTF_RenderUTF8_Blended(font_text,"Score", textColor))
 	, title_lives(TTF_RenderUTF8_Blended(font_text,"Lives", textColor))
 	, title_fruits(TTF_RenderUTF8_Blended(font_text,"Bonus",textColor))
-	, title_seperator(NULL) // TODO
-	, fruit(NULL) // TODO
+	, title_seperator(NULL) // TODO is this needed?
+	, fruit(NULL) // TODO is this needed?
 	, pacman ( SurfaceLoader::getInstance()->
 	   loadSurface("./resources/animation_films/pacman.png"))
 	, title_level(TTF_RenderUTF8_Blended(font_text,"Level", textColor))
-	, num_level(NULL) // TODO
-	, num_score(NULL) // TODO
-	, num_lives(NULL) // TODO
+	, num_level(NULL) // TODO is this needed?
+	, num_score(NULL) // TODO is this needed?
+	, num_lives(NULL) // TODO is this needed?
 	, choco ( SurfaceLoader::getInstance()->
 	   loadSurface("./resources/animation_films/chocobonus.png"))
 	
