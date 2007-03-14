@@ -6,6 +6,7 @@
 #include "death_pacman.hpp"
 #include "commons.hpp"
 #include "SoundManager.hpp"
+#include "inputControl.hpp"
 
 void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 	if (!c) {
@@ -33,6 +34,7 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 		gkoka->cc->Cancel(gkoka->left_right, gs);	
 		gkoka->cc->Register(gkoka->down, gs);
 		SoundManager::Singleton()->PlayEffect(6, GHOST);
+		// Disabling possible second player input
 	} else if (gs->GetState() == NORMAL) {
 		// ghost is not scared -- it eats pacman instead
 		// redirect to death_ handlers

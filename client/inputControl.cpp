@@ -8,8 +8,6 @@ typedef GameData::io_bools _bools;
 static void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools&);
 static void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools&);
 static void inputControl(GameData &, _bools &);
-static void enableGhostInput(GameData &, Ghost*, _bools &);
-static void disableGhostInput(GameData &, _bools &);
 
 static void inputControl(GameData &d, _bools &bools) {
 	SDL_Event event;
@@ -31,15 +29,15 @@ static void inputControl(GameData &d, _bools &bools) {
 	}
 } // inputControl
 
-static void enableGhostInput(GameData &d, Ghost *g, _bools &bools) {
+void InputControl::enableGhostInput(Ghost *g) {
 	g->setControlled(true);	
 	d.ghost.player2 = g;
-	bools.second_player = true;
+	d.bools->second_player = true;
 }// enableGhostInput
 
-static void disableGhostInput(GameData &d, _bools &bools) {
+void InputControl::disableGhostInput(void) {
 	d.ghost.player2->setControlled(false);
-	bools.second_player = false;
+	d.bools->second_player = false;
 }// disableGhostInput
 
 void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools &bools) {
@@ -69,7 +67,7 @@ void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools &bools) {
 		// ------------------------------------------------------
 		// Enabling second player -- probably temporary
 		case SDLK_2 :
-			enableGhostInput(d, d.ghost.stalker, bools);
+	//		enableGhostInput(d.ghost.stalker);
 		// ------------------------------------------------------
 		default: return ; // nothing
 	}

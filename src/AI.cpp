@@ -132,8 +132,8 @@ void AI::Random(Waypoint *waypoint, Ghost *ghost){
 	if(waypoint->canGoRight() && lastmove != ActorMovement::LEFT)
 		directions[counter++] = ActorMovement::RIGHT;
 
-	nf(!counter, "Waypoint must be disabled.\n");
-//	if(!counter) return;//DEBUG LINE
+//	nf(!counter, "Waypoint must be disabled.\n");
+	if(!counter) return;//DEBUG LINE
 	am->pressed(directions[rand() % counter], getCurrentTime());
 }
 

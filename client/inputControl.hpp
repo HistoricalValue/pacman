@@ -9,6 +9,9 @@ class InputControl : public std::unary_function<void, void> {
 	GameData &d;
 
 	public:
+	void enableGhostInput(Ghost*);
+	void disableGhostInput(void);
+	
 	InputControl(GameData &d);
 	~InputControl(void);
 	result_type operator()(argument_type);
