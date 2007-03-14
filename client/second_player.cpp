@@ -2,6 +2,7 @@
 
 void enableGhostInput(Ghosts &ghost, GameData::io_bools &iob) {
 	static uint8_t ghost_select = 0;
+	disableGhostInput(ghost, iob);
 	switch (ghost_select) {
 		case 0: ghost.player2 = ghost.stalker; break;
 		case 1: ghost.player2 = ghost.kieken; break;
@@ -15,7 +16,8 @@ void enableGhostInput(Ghosts &ghost, GameData::io_bools &iob) {
 }// enableGhostInput
 
 void disableGhostInput(Ghosts &ghost, GameData::io_bools &iob) {
-	ghost.player2->setControlled(false);
+	if(ghost.player2)
+		ghost.player2->setControlled(false);
 	iob.second_player = false;
 }// disableGhostInput
 
