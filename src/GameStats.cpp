@@ -28,7 +28,7 @@ GameStats::GameStats(
 	, ppacman(705, 245, 0, 0) // 
 	, plives(740, 250, 0, 0)
 	, pbonus(730, 295, 0, 0)
-	, tele(496, 232 + LAYOUT_Y_OFFSET, 0, 0)
+	, tele(496, 232 + LAYOUT_Y_OFFSET, 32, 32)
 	, plevel(728, 150, 0, 0)
 	, pscore(670, 200, 0, 0)
 	
