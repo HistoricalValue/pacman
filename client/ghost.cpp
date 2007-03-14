@@ -26,11 +26,13 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 		gs->SetState(RETREAT);
 		gs->setFilm(retreat_film);
 		akmovs[gs]->setDelay(12);
-		CollisionChecker::Singleton()->Cancel(gkoka->left_right, gs);	
-		CollisionChecker::Singleton()->Register(gkoka->down, gs);
+
+		// Cancel the left-right waypoint and enable the
+		// downward one so that the snails get back in the
+		// lair.
+		gkoka->cc->Cancel(gkoka->left_right, gs);	
+		gkoka->cc->Register(gkoka->down, gs);
 		SoundManager::Singleton()->PlayEffect(6, GHOST);
-		////testing TODO
-		CollisionChecker::Singleton()->Cancel(gkoka->lair, gs);
 	} else if (gs->GetState() == NORMAL) {
 		// ghost is not scared -- it eats pacman instead
 		// redirect to death_ handlers
@@ -57,10 +59,10 @@ void ghost_uneating_callback(Sprite *waypoint, Sprite *_ghost, void *c) {
 		gs->SetState(NORMAL);
 		gs->setFilm(film);
 		(*gkoka->akmovs)[gs]->setDelay(15);
-		(*gkoka->akmovs)[gs]->pressed(ActorMovement::UP, getCurrentTime());
-		CollisionChecker::Singleton()->Cancel(gkoka->down, gs);	
-		CollisionChecker::Singleton()->Register(gkoka->left_right, gs);
-
+		(*gkoka->akmovs)[gs]->
+		 pressed(ActorMovement::UP, getCurrentTime());
+		gkoka->cc->Cancel(gkoka->down, gs);	
+		gkoka->cc->Register(gkoka->left_right, gs);
       	}
 	
 } // ghost_uneating_callback
