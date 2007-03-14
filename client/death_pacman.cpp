@@ -50,6 +50,7 @@ void pacman_death_by_ghost_callback(Ghost *g, GameSprite *p, _gcoca *gkoka){
 	gkoka->sch->_register(
 	 new ResetStageTask(currTime + MAP_RESET_DELAY),
 	 new reset_data(gkoka, g, p));
+	gkoka->gs->LoseLife();
 }
 
 void pacman_death_by_smash_callback(GameSprite *pac, Sprite *smasher,
@@ -94,7 +95,7 @@ void pacman_death_by_smash_callback(GameSprite *pac, Sprite *smasher,
 		ska->gkoka->sch->_register(
 		 new ResetStageTask(timesand + MAP_RESET_DELAY),
 		 new reset_data(ska->gkoka, smasher, pac));
-		
+		ska->gkoka->gs->LoseLife();
 	}
 } // pacman_death_by_smash_callback
 void switch_to_theatre_mode_task::operator ()(taskdata_t _data) {

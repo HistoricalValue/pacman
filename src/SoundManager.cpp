@@ -40,7 +40,7 @@ SoundManager *SoundManager::Singleton(void){
 void SoundManager::Play(int channel, char *file, int repeats){
   bgmusic = Mix_LoadWAV(file);
   Mix_FadeInChannel(channel, bgmusic, repeats, 3000);
-  Mix_VolumeChunk(bgmusic, 0);
+  Mix_VolumeChunk(bgmusic, 64);
 }
 
 void SoundManager::MuteChannel(int channelnum){
@@ -48,7 +48,7 @@ void SoundManager::MuteChannel(int channelnum){
 }
 
 void SoundManager::lolChannel(int channelnum, int volume){
-  Mix_VolumeChunk(Mix_GetChunk(channelnum),0 );
+  Mix_VolumeChunk(Mix_GetChunk(channelnum),64 );
 }
 
 void SoundManager::Stop(){
