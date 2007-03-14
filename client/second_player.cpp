@@ -9,7 +9,7 @@ void enableGhostInput(Ghosts &ghost, GameData::io_bools &iob) {
 		case 3: ghost.player2 = ghost.retard; break;
 		default : nf(-1, "Illegal program state"); break;
 	}
-	ghost_select = ghost_select > 3 ? 0 : ghost_select + 1;
+	ghost_select = ghost_select > 2 ? 0 : ghost_select + 1;
 	ghost.player2->setControlled(true);
 	iob.second_player = true;
 }// enableGhostInput
