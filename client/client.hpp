@@ -17,7 +17,6 @@
 #include "Scheduler.hpp"
 #include "GameStats.hpp"
 #include "CustomPostinit_Data.hpp"
-#include "ghost.hpp"
 
 enum ss_t { // special sprite type
 	ss_pacman, ss_stalker, ss_kieken, ss_random, ss_retard
@@ -146,7 +145,5 @@ struct PostInitData {
 }; // struct PostInitData
 
 void post_setup(PostInitData &, InitData &, GameData &);
-
-_gcoca *getacoca(InitData &, GameData &);
 
 #endif // __client_hpp__

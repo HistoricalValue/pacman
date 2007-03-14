@@ -3,6 +3,7 @@
 // Implementation headers
 #include "pause.hpp"
 #include "Ghost.hpp"
+#include "second_player.hpp"
 
 typedef GameData::io_bools _bools;
 static void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools&);
@@ -28,17 +29,6 @@ static void inputControl(GameData &d, _bools &bools) {
 			;
 	}
 } // inputControl
-
-void InputControl::enableGhostInput(Ghost *g) {
-	g->setControlled(true);	
-	d.ghost.player2 = g;
-	d.bools->second_player = true;
-}// enableGhostInput
-
-void InputControl::disableGhostInput(void) {
-	d.ghost.player2->setControlled(false);
-	d.bools->second_player = false;
-}// disableGhostInput
 
 void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools &bools) {
 	enum ActorMovement::move_t pressed = ActorMovement::NOWHERE, pressed2 = ActorMovement::NOWHERE;
@@ -67,7 +57,7 @@ void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools &bools) {
 		// ------------------------------------------------------
 		// Enabling second player -- probably temporary
 		case SDLK_2 :
-	//		enableGhostInput(d.ghost.stalker);
+			enableGhostInput(d.ghost, *d.bools);
 		// ------------------------------------------------------
 		default: return ; // nothing
 	}
@@ -77,12 +67,15 @@ void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools &bools) {
 	} else { // running-mode input processing
 		d.akmovs[d.pacman]->pressed(pressed, d.currTime);
 		if(bools.second_player)
-			d.akmovs[d.ghost.player2]->pressed(pressed2, d.currTime);
+			d.akmovs[d.ghost.player2]->
+			 pressed(pressed2, d.currTime);
 	}
 }
 
 void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools &bools) {
-	enum ActorMovement::move_t released = ActorMovement::NOWHERE, released2 = ActorMovement::NOWHERE;
+	enum ActorMovement::move_t 
+	 released = ActorMovement::NOWHERE,
+	 released2 = ActorMovement::NOWHERE;
 	switch (event.key.keysym.sym) {
 		// Pacman actor directive buttons -- notify ActorMovement
 		case SDLK_UP : released = ActorMovement::UP; break;
@@ -104,7 +97,8 @@ void handleEvent_keyUp(GameData &d, SDL_Event &event, _bools &bools) {
 	} else { // running-mode input processing
 		d.akmovs[d.pacman]->released(released, d.currTime);
 		if(bools.second_player)
-			d.akmovs[d.ghost.player2]->released(released2, d.currTime);
+			d.akmovs[d.ghost.player2]->
+			 released(released2, d.currTime);
 	}
 }
 
