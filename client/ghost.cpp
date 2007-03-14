@@ -88,7 +88,7 @@ _gcoca *getacoca(InitData &d, GameData &r) {
 	 &r.custom->initpos;
 	gkoka->gs = r.stats; // game status manager instance
 	gkoka->theatre_mode = &r.bools->theatre_mode; // IO status flag
+	gkoka->bools = r.bools; // IO booleans
 
 	return gkoka;
 }
-
