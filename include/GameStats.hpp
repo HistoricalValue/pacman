@@ -14,22 +14,23 @@ class GameStats {
 	struct _SDL_Rect :
 	 public SDL_Rect {_SDL_Rect(int x, int y, int w, int h); };
 	const _SDL_Color 	logoColor, textColor, numColor;
-	TTF_Font		*font_logo, *font_text, *num_text;
+	TTF_Font		*font_logo, *font_text, *num_text,
+				*font_game_over;
 	_SDL_Rect 		ptitle_level, ptitle_score, ptitle_lives, 
 				ptitle_bonus, plogo, ptitle_fruits,
 				ppacman, plives, pbonus, tele, plevel,
-				pscore;
+				pscore, pgameover;
 	SDL_Surface 		* const logo, * const title_score,
 				* const title_lives, 
 				* const title_fruits,
 				* const title_seperator,
 				* const fruit, * const pacman,
 				* const title_level, * num_level, 
-				* num_score, * num_lives,
+				*num_score, * num_lives, * game_over,
 				* const choco;
 	Sprite			* const _bonus, * const _pacman;
 	unsigned int 		score, lives, level, dots;
-	bool 			bonus;
+	bool 			bonus, dead_game;
 	Uint32 const		_bg;
 	CollisionChecker	* const cc;
 	public:
@@ -47,6 +48,7 @@ class GameStats {
 	bool EatDot(void); // returns true if there are no dots left
 	void DrunkChocodrink(void);
 	void ShowBonus(void); //shows the bonus
+	void ShowGameOver(void);
 };
 
 #endif

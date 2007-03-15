@@ -17,7 +17,7 @@ GameStats::GameStats(
 	, font_logo(TTF_OpenFont("resources/fonts/Crackman.ttf", 50))
 	, font_text(TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF",25))
 	, num_text(TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF", 25))
-	
+	, font_game_over(TTF_OpenFont("resources/fonts/Alias.ttf", 76))
 	// Rectangles
 	, ptitle_level(520, 150, 0, 0) // Levelz
 	, ptitle_score(520, 200, 0, 0) // score
@@ -26,6 +26,7 @@ GameStats::GameStats(
 	, plogo(520, 40, 0, 0)
 	, ptitle_fruits(520, 300, 0, 0) // fruits
 	, ppacman(705, 245, 0, 0) // 
+	, pgameover(120, 250, 0, 0)
 	, plives(740, 250, 0, 0)
 	, pbonus(730, 295, 0, 0)
 	, tele(496, 232 + LAYOUT_Y_OFFSET, 32, 32)
@@ -45,6 +46,7 @@ GameStats::GameStats(
 	, num_level(NULL) // TODO is this needed?
 	, num_score(NULL) // TODO is this needed?
 	, num_lives(NULL) // TODO is this needed?
+	, game_over(NULL)
 	, choco ( SurfaceLoader::getInstance()->
 	   loadSurface("./resources/animation_films/chocobonus.png"))
 	
@@ -60,7 +62,8 @@ GameStats::GameStats(
 	
 	// bool
 	, bonus(false)
-	
+	, dead_game(false)
+
 	// Uint32
 	, _bg(bg) // background colour
 
@@ -95,6 +98,12 @@ void GameStats::Draw(SDL_Surface *screen) {
 
 	if(bonus)
 		SDL_BlitSurface(choco, NULL, screen, &pbonus);
+
+	if(dead_game){
+		game_over = TTF_RenderUTF8_Blended(font_game_over,
+		  "Game Over, N00B", textColor);
+		SDL_BlitSurface(game_over, NULL, screen, &pgameover);
+	}
 }
 
 unsigned int GameStats::GetScore(void) const {
@@ -140,6 +149,11 @@ void GameStats::ShowBonus(void){
 		_bonus->SetVisibility(true);
 		cc->Register(_bonus, _pacman);
 	}
+}
+
+void GameStats::ShowGameOver(void){
+	dead_game=true;
+	lives++;
 }
 
 GameStats::_SDL_Color::_SDL_Color(int _r, int _g, int _b) {
