@@ -8,6 +8,15 @@
 #include "SoundManager.hpp"
 #include "second_player.hpp"
 
+void ghost_death_by_smash(GameSprite *ghost, Sprite *smasher, void *c) {
+	if (!c) {
+		db("Warning: Useless ghost smash callback.");
+		return;
+	}
+	_gcoca *gkoka = CAST(_gcoca*, c);
+	db("BOO");
+} // ghost_death_by_smash
+
 void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 	if (!c) {
 		db("Warning: Useless pacman-ghost callback");
@@ -31,7 +40,7 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 		// Cancel the left-right waypoint and enable the
 		// downward one so that the snails get back in the
 		// lair.
-		gkoka->cc->Cancel(gkoka->left_right, gs);	
+		gkoka->cc->Cancel(gkoka->left_right, gs);
 		gkoka->cc->Register(gkoka->down, gs);
 		SoundManager::Singleton()->PlayEffect(6, GHOST);
 		// Disabling possible second player input

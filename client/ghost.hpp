@@ -23,6 +23,9 @@ extern void Ghost_collision_callback(Sprite *, Sprite *,
 extern void ghost_uneating_callback(Sprite*, Sprite*,
  void *c = CAST(void*, 0));
 
+// Ghost-smashed call-back
+extern void ghost_death_by_smash(GameSprite*, Sprite*,
+ void *c = CAST(void*, 0));
 _gcoca *getacoca(InitData &, GameData &);
 
 #endif // __ghost_hpp__
