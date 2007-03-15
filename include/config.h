@@ -56,8 +56,8 @@
 
 /* Settings */
 #define EATABLE_DURATION		10000 // miliseconds
-#define MAP_RESET_DELAY			3000 // miliseconds
-#define RESTARTING_DELAY		2700 // miliseconds
+#define MAP_RESET_DELAY			1700 // miliseconds
+#define RESTARTING_DELAY		1000 // miliseconds
 #define POINTS_WORTH_DOT		5
 #define POINTS_WORTH_PUP		20
 #define POINTS_WORTH_GHOST		100

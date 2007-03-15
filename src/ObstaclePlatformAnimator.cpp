@@ -44,8 +44,8 @@ MovingAnimation *ObstaclePlatformAnimator::getAnimation(void) const {
 } // getAnimation
 
 ObstaclePlatformAnimator::ObstaclePlatformAnimator(bool _register) :
-	Animator(_register),
-	platform(CAST(ObstaclePlatform*, 0)),
-	animation(CAST(MovingAnimation*, 0)),
-	lastTime(CAST(timestamp_t, 0)) { }
+	  Animator(_register)
+	, platform(CAST(ObstaclePlatform*, 0))
+	, animation(CAST(MovingAnimation*, 0))
+{ }
 ObstaclePlatformAnimator::~ObstaclePlatformAnimator(void) { }

@@ -24,6 +24,5 @@ class ObstaclePlatformAnimator : public Animator {
 	private :
 	ObstaclePlatform *platform;
 	MovingAnimation *animation;
-	timestamp_t lastTime;
 }; // class ObstaclePlatformAnimator
 #endif // __ObstaclePlatformAnimator_hpp__
