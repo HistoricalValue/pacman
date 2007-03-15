@@ -15,7 +15,8 @@ void enableGhostInput(Ghosts &ghost, GameData::io_bools &iob) {
 }// enableGhostInput
 
 void disableGhostInput(Ghosts &ghost, GameData::io_bools &iob) {
-	ghost.player2->setControlled(false);
+	if (ghost.player2)
+		ghost.player2->setControlled(false);
 	iob.second_player = false;
 }// disableGhostInput
 
