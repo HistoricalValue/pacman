@@ -25,6 +25,7 @@ SoundManager::SoundManager(void){
   LoadSound(GAMEOVER, "resources/sounds/gameover.wav");
   LoadSound(BONUS, "resources/sounds/blibli.wav");
   LoadSound(WALL, "resources/sounds/crack.wav");
+  LoadSound(GHOSTEAT, "resources/sounds/crush.wav");
   // one more ghost  
 }
 

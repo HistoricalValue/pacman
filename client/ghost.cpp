@@ -14,7 +14,29 @@ void ghost_death_by_smash(GameSprite *ghost, Sprite *smasher, void *c) {
 		return;
 	}
 	_gcoca *gkoka = CAST(_gcoca*, c);
-	db("BOO");
+	Ghost *gs = dynamic_cast<Ghost*>(ghost);
+	nf(!gs, "Sprite supposed to be ghost is not a ghost sprite.");
+	if(gs->GetState() == NORMAL || gs->GetState() == SCARED) {
+		AnimationFilm *retreat_film = gkoka->filmhold->
+		 GetFilm("snailyate");
+		std::map<GameSprite*, ActorMovement*> &akmovs =
+		 *gkoka->akmovs;
+
+		gs->SetState(RETREAT);
+		gs->setFilm(retreat_film);
+		akmovs[gs]->setDelay(12);
+
+		// Cancel the left-right waypoint and enable the
+		// downward one so that the snails get back in the
+		// lair.
+		gkoka->cc->Cancel(gkoka->left_right, gs);
+		gkoka->cc->Register(gkoka->down, gs);
+		SoundManager::Singleton()->PlayEffect(6, GHOSTEAT);
+		// Disabling possible second player input
+		disableGhostInput(*gkoka->ghost, *gkoka->bools);
+	} else { // ghost is eatten
+		// do nothing
+	}
 } // ghost_death_by_smash
 
 void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
