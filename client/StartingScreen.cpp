@@ -1,10 +1,12 @@
 #include "StartingScreen.hpp"
 
-
-void ShowStartingScreen(SDL_Surface *surf, SDL_Surface *screen, _bools bools){
-  SDL_Event ev;
+typedef GameData::io_bools _bools;
+void ShowStartingScreen(SDL_Surface *surf, SDL_Surface *screen,
+ _bools &bools)
+{
+  SDL_Event event;
   blit(surf, screen,0,0);
-  if(!SDL_PollEvent(&ev))
+  if(!SDL_PollEvent(&event))
     return;
   switch(event.type){
     case SDL_KEYUP:

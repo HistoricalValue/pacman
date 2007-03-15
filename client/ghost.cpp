@@ -32,6 +32,7 @@ void ghost_death_by_smash(GameSprite *ghost, Sprite *smasher, void *c) {
 		gkoka->cc->Cancel(gkoka->left_right, gs);
 		gkoka->cc->Register(gkoka->down, gs);
 		SoundManager::Singleton()->PlayEffect(6, GHOSTEAT);
+
 		// Disabling possible second player input
 		disableGhostInput(*gkoka->ghost, *gkoka->bools);
 	} else { // ghost is eatten
