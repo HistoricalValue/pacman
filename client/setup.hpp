@@ -15,7 +15,6 @@
 
 // Setup functions ---------------------------------------------------------
 static void libs_setup(struct InitData const&, struct GameData &);
-static void screen_setup(struct InitData const&, struct GameData &);
 static void fetch_special_sprites(struct InitData const&, struct GameData&);
 static void aktor_movements_setup(struct InitData const&, struct GameData&);
 static void ss_aliases_setup(struct InitData const&, struct GameData&);

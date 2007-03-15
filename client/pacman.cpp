@@ -4,24 +4,39 @@
 #include "inputControl.hpp"
 #include "AnimatorHolder.hpp"
 #include "CustomPostinit.hpp"
+#include "StartingScreen.hpp"
 
 static void setup_setup_data(InitData &);
 static void setup_post_setup_data(PostInitData &, GameData &);
 static void gaim_loop(GameData&);
+static void screen_setup(InitData const&, GameData &);
 
 int main_pac(int argc, char *argv[]) {
 	// Clean exit first
 	atexit(cleanup);
 	
-	// Initialisation data and initial setup
 	InitData d;
-	setup_setup_data(d);
-	GameData &gd = setup(d);
-	// Post-setup data and post-setup
 	PostInitData pd;
+	GameData gd;
+	screen_setup(d, gd);
+
+	// Show splash/loading screen
+	SDL_Surface *splash = 
+	 SurfaceLoader::getInstance()->loadSurface(SPLASH_SCREEN);
+	nf(!splash, "Unable to load splash screen");
+	blit(splash, gd.screen, 0, 0);
+	SDL_Flip(gd.screen);
+
+	// Initialisation data and initial setup
+	setup_setup_data(d);
+	setup(d, gd);
+	// Post-setup data and post-setup
 	setup_post_setup_data(pd, gd);
 	post_setup(pd, d, gd);
 
+	// Manage splash screen
+	ShowStartingScreen(splash, gd.screen, *gd.bools);
+	// Start game loop
 	gaim_loop(gd);
 	return 0;
 }
@@ -159,3 +174,11 @@ static void gaim_loop(GameData &d) {
 } // gaim_loop
 
 timestamp_t cs454_2006::getCurrentTime(void) { return currTime; }
+static void screen_setup(InitData const &d, struct GameData &r) {
+	r.screen = SDL_SetVideoMode(
+	 d.screen.width,
+	 d.screen.height,
+	 d.screen.bpp,
+	 d.screen.flags
+	);
+} // screen_setup

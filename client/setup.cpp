@@ -6,15 +6,12 @@
 #include "PowerUp.hpp"
 #include "SoundManager.hpp"
 
-struct GameData *setup(struct InitData *d) { return &setup(*d); }
-struct GameData &setup(struct InitData &d) {
-	GameData &r = *new GameData;
+void setup(struct InitData *d, GameData *r) { setup(*d, *r); }
+void setup(struct InitData &d, GameData &r) {
 	// Libraries setup
 	libs_setup(d, r);
 	// Set starting time
 	d.startingTime = getTimestamp();
-	// Set up screen
-	screen_setup(d, r);
 	// Crete input control flags structure
 	r.bools = new GameData::io_bools;
 	// Create the scheduler
@@ -43,7 +40,6 @@ struct GameData &setup(struct InitData &d) {
 	// Let game data have access to the collision checker instance
 	r.cc = d.cc;
 
-	return r;
 } // setup
 
 static void libs_setup(struct InitData const&d, struct GameData &r) {
@@ -52,15 +48,6 @@ static void libs_setup(struct InitData const&d, struct GameData &r) {
 	db("Initialise TTF");
 	nf(TTF_Init(), "TTF Init");
 } // independent_setup
-
-static void screen_setup(struct InitData const&d, struct GameData &r) {
-	r.screen = SDL_SetVideoMode(
-	 d.screen.width,
-	 d.screen.height,
-	 d.screen.bpp,
-	 d.screen.flags
-	);
-} // screen_setup
 
 static void fetch_special_sprites(struct InitData const&d,
  struct GameData &r)
@@ -492,3 +479,4 @@ AnimationIDs::~AnimationIDs(void) { }
 InitData::~InitData(void) { }
 Screen::~Screen(void) { }
 PGCR::~PGCR(void) { }
+GameData::~GameData(void) { }

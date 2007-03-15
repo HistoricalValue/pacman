@@ -5,4 +5,8 @@
 #include "SurfaceLoader.hpp"
 #include "client.hpp"
 
+typedef GameData::io_bools _bools;
+extern void ShowStartingScreen(SDL_Surface *splash, SDL_Surface *screen,
+ _bools &bools);
+
 #endif

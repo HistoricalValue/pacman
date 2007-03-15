@@ -22,6 +22,8 @@
 	"./resources/config/obstacle_platforms.config"
 #define WAYPOINTS_CONFIG_FILE \
 	"./resources/config/junctions.config"
+#define SPLASH_SCREEN \
+	"./resources/starting_page.png"
 
 #define SCREEN_WIDTH 	(800)
 #define SCREEN_HEIGHT 	(600)

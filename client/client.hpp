@@ -135,8 +135,8 @@ struct InitData {
 	InitData(void); ~InitData(void);
 }; // class InitData
 
-struct GameData *setup(struct InitData *);
-struct GameData &setup(struct InitData &);
+extern void setup(struct InitData *, struct GameData *);
+extern void setup(struct InitData &, struct GameData &);
 
 struct PostInitData {
 	// Animation to Sprite matcher
