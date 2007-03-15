@@ -77,7 +77,7 @@
 #define IS_DOT_SPRITE(A) 	(\
 		(A) >= DOT_SPRITE_ID_FIRST		&& \
 		(A) <= DOT_SPRITE_ID_LAST			)
-
+#define IS_SNAIL(A)		(3003 <= (A) && (A) <= 3006)
 
 
 #endif /* __config_h__ */

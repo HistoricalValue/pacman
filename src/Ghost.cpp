@@ -28,21 +28,24 @@ GameSprite(x, y, f, id) {
 
 bool Ghost::CollisionCheck(Sprite *o) {
 	bool result;
-	if (o->getID() == PACMAN) {
-		register SDL_Rect original = frameBox;
-		register int oldx = x;
-		register int oldy = y;
-		register const int offset = 10;
-		x += offset;
-		y += offset;
-		frameBox.w -= offset<<1;
-		frameBox.h -= offset<<1;
-		result = Sprite::CollisionCheck(o);
-		frameBox = original;
-		x = oldx;
-		y = oldy;
-	} else
-		result = Sprite::CollisionCheck(o);
+	if (state != RETREAT) {
+		if (o->getID() == PACMAN) {
+			register SDL_Rect original = frameBox;
+			register int oldx = x;
+			register int oldy = y;
+			register const int offset = 10;
+			x += offset;
+			y += offset;
+			frameBox.w -= offset<<1;
+			frameBox.h -= offset<<1;
+			result = Sprite::CollisionCheck(o);
+			frameBox = original;
+			x = oldx;
+			y = oldy;
+		} else
+			result = Sprite::CollisionCheck(o);
+	} else 
+		result = false;
 	return result;
 }
 

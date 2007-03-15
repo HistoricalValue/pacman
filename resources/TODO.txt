@@ -10,6 +10,8 @@
 
 * Refactoring: about map reset : make a class Resetable{reset(); restart()} and a resetable list to be reset on every occasion needed.
 
+* Deactivate collision between smashed snails and smasher.
+
 == SEMI-DONE ==
 * Add configurable (upon build? defined? // dynamic configurable) limits for types of sprites (game, obstacle, ghost, more to come??)
 

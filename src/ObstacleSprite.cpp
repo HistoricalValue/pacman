@@ -1,6 +1,8 @@
 #include "ObstacleSprite.hpp"
 #include "CollisionChecker.hpp"
 #include <iostream>
+#include "Ghost.hpp"
+#include "commons.hpp"
 
 void ObstacleSprite::Move (int dx, int dy) {
 	Sprite::Move(dx, dy);
@@ -41,6 +43,16 @@ void ObstacleSprite::RemovePushable(GameSprite *s){
 void ObstacleSprite::WhenHit(Sprite *self, Sprite *actor, void *_0) {
 	dynamic_cast<GameSprite*>(actor)->BackOff();
 }
+
+bool ObstacleSprite::CollisionCheck(Sprite *s) {
+	Ghost *ghost = DYNCAST(Ghost*, s);
+	if (ghost) { // it is a ghost sprite
+		// make sure it is not dead
+		if (ghost->GetState() == RETREAT)
+			return false;
+	}
+	return Sprite::CollisionCheck(s);
+} // CollisionCheck
 
 // Constructor
 ObstacleSprite::ObstacleSprite(int x, int y, AnimationFilm *f,

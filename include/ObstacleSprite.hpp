@@ -12,6 +12,7 @@ public:
    void AddPushable (GameSprite *s);
    void RemovePushable (GameSprite *s);
    void Move (int dx, int dy);
+   bool CollisionCheck(Sprite *s);
    static void WhenHit (Sprite *self, Sprite *actor, void *unused);
    ObstacleSprite(int x, int y, AnimationFilm *f, spriteid_t id);
 };
