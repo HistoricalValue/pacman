@@ -1,17 +1,5 @@
 #include "second_player.hpp"
 
-struct GhostPlayerTaskData : public TaskData {
-  Ghosts &ghost;
-  GameData::io_bools &iob;
-}; // struct GhostRevertTaskData
-
-struct GhostPlayerTask : public Task {
-	void operator()(TaskData *);
-	Task &operator++(void);
-	Task &operator+=(timestamp_t);
-	GhostPlayerTask(timestamp_t time); ~GhostPlayerTask(void);
-}; // struct GhostPlayertTask
-
 void enableGhostInput(Ghosts &ghost, GameData::io_bools &iob) {
 	static uint8_t ghost_select = 0;
 	disableGhostInput(ghost, iob);
@@ -33,32 +21,28 @@ void disableGhostInput(Ghosts &ghost, GameData::io_bools &iob) {
 	iob.second_player = false;
 }// disableGhostInput
 
-/*
-Task &GhostPlayerTask:: public Task {
-	void operator()(TaskData *);
-	Task &operator++(void);
-	Task &operator+=(timestamp_t);
-	GhostRevertTask(timestamp_t time); ~GhostRevertTask(void);
-}; // struct GhostRevertTask
-
-*/
-
 void GhostPlayerTask::operator()(TaskData *tsk){
-  enableGhostInput(
-		   dynamic_cast<GhostPlayerTaskData*>(tsk)->ghost, 
-		   dynamic_cast<GhostPlayerTaskData*>(tsk)->iob
-		   );
+	enableGhostInput(
+		dynamic_cast<GhostPlayerTaskData*>(tsk)->ghost, 
+		dynamic_cast<GhostPlayerTaskData*>(tsk)->iob
+	);
 }
 
 Task &GhostPlayerTask::operator++(void){
-  time+=10000;
+	time += 10000;
 }
 
 Task &GhostPlayerTask::operator+=(timestamp_t _t){
-  time+=_t;
+	time += _t;
 }
 
 GhostPlayerTask::GhostPlayerTask(timestamp_t time) :
-  Task(time, false) { }
+	Task(time, true) { }
 
 GhostPlayerTask::~GhostPlayerTask(){ }
+GhostPlayerTaskData::GhostPlayerTaskData(
+ Ghosts &_ghost, GameData::io_bools &_iob) :
+	  ghost(_ghost)
+	, iob(_iob)
+	{ }
+GhostPlayerTaskData::~GhostPlayerTaskData(void) { }
