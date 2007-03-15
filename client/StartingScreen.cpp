@@ -17,21 +17,23 @@ void ShowStartingScreen(SDL_Surface *surf, SDL_Surface *screen,
 	while (!bools.start) {
 		if(!SDL_PollEvent(&event))
 			;
-		switch(event.type){
-			case SDL_KEYUP:
-				switch(event.key.keysym.sym) {
-					case SDLK_ESCAPE :
-						bools.exit = true;
-						return;
-					default :
-						bools.start = true; 
-				}
-				break;
-			case SDL_QUIT:
-				bools.exit = true;
-				break;
-		}
+		else {
+			switch(event.type) {
+				case SDL_KEYUP:
+					switch(event.key.keysym.sym) {
+						case SDLK_ESCAPE :
+							bools.exit = true;
+							return;
+						default :
+							bools.start = true; 
+					}
+					break;
+				case SDL_QUIT:
+					bools.exit = true;
+					break;
+			}
 
+		}
 		// capping
 		SDL_Delay(500);
 		if(daflag){
