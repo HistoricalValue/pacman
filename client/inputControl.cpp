@@ -57,6 +57,8 @@ void handleEvent_keyDown(GameData &d, SDL_Event &event, _bools &bools) {
 		// ------------------------------------------------------
 		// Enabling second player -- probably temporary
 		case SDLK_2 :
+			//GhostPlayerTaskData *d = new GhostPlayerTaskData(
+			 
 			enableGhostInput(d.ghost, *d.bools);
 		// ------------------------------------------------------
 		default: return ; // nothing

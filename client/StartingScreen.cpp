@@ -1,9 +1,17 @@
 #include "StartingScreen.hpp"
 #include "SDL/SDL_ttf.h"
+#include "AnimatorHolder.hpp"
 
 void ShowStartingScreen(SDL_Surface *surf, SDL_Surface *screen,
- _bools &bools)
+ _bools &bools, std::map<GameSprite*, ActorMovement*> &akmovs,
+ timestamp_t currTime)
 {
+	// suspend animators
+	AnimatorHolder::suspendAllRunning(currTime);
+	std::map<GameSprite*, ActorMovement*>::iterator ite;
+	for (ite = akmovs.begin(); ite != akmovs.end(); ite++)
+		ite->second->suspend(currTime);
+	
         bool daflag = true;
 	TTF_Font *ttf_msg(TTF_OpenFont("resources/fonts/Alias.ttf", 32));
 	SDL_Rect pmessage;
@@ -47,4 +55,11 @@ void ShowStartingScreen(SDL_Surface *surf, SDL_Surface *screen,
 		  daflag = true;  
 		}
 	}
+
+	// Resume all animators
+	timestamp_t restime = timestamp_diff(getTimestamp(), currTime);
+	AnimatorHolder::resumeAllExRunning(restime);
+	std::map<GameSprite*, ActorMovement*>::iterator rite;
+	for (rite = akmovs.begin(); rite != akmovs.end(); rite++)
+		rite->second->resume(restime);
 }

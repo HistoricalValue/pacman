@@ -7,6 +7,6 @@
 
 typedef GameData::io_bools _bools;
 extern void ShowStartingScreen(SDL_Surface *splash, SDL_Surface *screen,
- _bools &bools);
+ _bools &bools, std::map<GameSprite*, ActorMovement*> &, timestamp_t currT);
 
 #endif
