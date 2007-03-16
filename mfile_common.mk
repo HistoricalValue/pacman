@@ -6,10 +6,10 @@ LDFLAGS += -L/c/WINDOWS/ -L. -L/mingw/lib/ -lmingw32 -lSDLmain
 CPPFLAGS += -I/mingw/include/
 endif
 # For CSD.UOC.gr machines
-firiki_root = /net/firiki/spare/sipuli/usr/local/
-PORT_LDFLAGS += -L$(firiki_root)/sdl/lib/ -Wl,--rpath -Wl,$(firiki_root)/sdl/lib/
-PORT_CPPFLAGS += -I$(firiki_root)/sdl/include/
-PORT_CXXFLAGS += 
+#firiki_root = /net/firiki/spare/sipuli/usr/local/
+#PORT_LDFLAGS += -L$(firiki_root)/sdl/lib/ -Wl,--rpath -Wl,$(firiki_root)/sdl/lib/
+#PORT_CPPFLAGS += -I$(firiki_root)/sdl/include/
+#PORT_CXXFLAGS += 
 
 # Normal flags
 CXX = c++
@@ -18,7 +18,7 @@ CPPFLAGS += -I../include $(ADD_CPPFLAGS) $(PORT_CPPFLAGS)
 CC = $(CXX)
 CFLAGS = $(CXXFLAGS)
 LD = ld
-LDFLAGS += -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer $(ADD_LDFLAGS) $(PORT_LDFLAGS)
+LDFLAGS += -L../lib/ -Wl,--rpath -Wl,./lib/ -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer $(ADD_LDFLAGS) $(PORT_LDFLAGS)
 
 bins += $(ADD_bins)
 
