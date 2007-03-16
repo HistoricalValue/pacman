@@ -59,9 +59,7 @@ Sprite *Matcher::operator() (Animation *a) const {
 	bool noRun = false;
 	spriteid_t spid;
 	animid_t anid = a->GetId();
-	if (anid == 1) { // evil box
-		spid = 1002;
-	} else if (anid >= 3 && anid <= 50) { // static walls - no anim
+	if (anid >= 3 && anid <= 50) { // static walls - no anim
 		noRun = true;
 	} else if (anid >= 2002 && anid <= 2005 ) { // cartman frame range
 		noRun = true;
