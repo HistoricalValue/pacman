@@ -11,6 +11,7 @@ void ShowStartingScreen(SDL_Surface *surf, SDL_Surface *screen,
 	std::map<GameSprite*, ActorMovement*>::iterator ite;
 	for (ite = akmovs.begin(); ite != akmovs.end(); ite++)
 		ite->second->suspend(currTime);
+	std::cerr<<currTime<<std::endl;
 	
         bool daflag = true;
 	TTF_Font *ttf_msg(TTF_OpenFont("resources/fonts/Alias.ttf", 32));
@@ -57,9 +58,11 @@ void ShowStartingScreen(SDL_Surface *surf, SDL_Surface *screen,
 	}
 
 	// Resume all animators
-	timestamp_t restime = timestamp_diff(getTimestamp(), currTime);
+	timestamp_t restime = getTimestamp();
 	AnimatorHolder::resumeAllExRunning(restime);
 	std::map<GameSprite*, ActorMovement*>::iterator rite;
 	for (rite = akmovs.begin(); rite != akmovs.end(); rite++)
 		rite->second->resume(restime);
+
+	std::cerr<<restime<<std::endl;
 }

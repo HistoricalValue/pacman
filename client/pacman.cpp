@@ -36,7 +36,7 @@ int main_pac(int argc, char *argv[]) {
 
 	// Manage splash screen
 	ShowStartingScreen(splash, gd.screen, *gd.bools, gd.akmovs,
-	 gd.currTime);
+	 d.startingTime);
 	// Start game loop
 	gaim_loop(gd);
 	return 0;
