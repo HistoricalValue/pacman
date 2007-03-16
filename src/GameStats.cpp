@@ -59,7 +59,7 @@ GameStats::GameStats(
 	, score(0)
 	, lives(PACMAN_LIVES)
 	, level(1)
-	, dots(10)//135) //TODO get the real dots
+	, dots(3)//135) //TODO get the real dots
 	
 	// bool
 	, bonus(false)

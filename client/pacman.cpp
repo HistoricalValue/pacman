@@ -46,7 +46,6 @@ int main_pac(int argc, char *argv[]) {
 	// conclusion 
 	if (gd.bools->won)
 		showWiener(gd);
-	SDL_Delay(5000);
 
 	credits(gd);
 
@@ -196,24 +195,37 @@ static void screen_setup(InitData const &d, struct GameData &r) {
 } // screen_setup
 
 static void showWiener(GameData &gd) {
-	TTF_Font *font = TTF_OpenFont("./resources/fonts/ARCADE.TTF", 32);
+	TTF_Font *font = TTF_OpenFont("./resources/fonts/Ayuma2yk.ttf", 32);
 	nf(!font, "Could not load font ./resources/fonts/ARCADE.TTF");
-	const SDL_Color color = {0x60, 0xa0, 0xc0};
+	const SDL_Color color = {0xe0, 0xe0, 0xc0};
 	SDL_Surface *text[] = {
-		  TTF_RenderUTF8_Blended(font, "Baby,", color)
-		, TTF_RenderUTF8_Blended(font, "you are the Wiener!", color)
-		, TTF_RenderUTF8_Blended(font, "gradz lol ^_^", color)
+		  TTF_RenderUTF8_Blended(font, "Congratulations!",
+		   color)
+//		, TTF_RenderUTF8_Blended(font, "you have managed to", color)
+//		, TTF_RenderUTF8_Blended(font, "escape this dark", color)
+//		, TTF_RenderUTF8_Blended(font, "labyrinth of death.", color)
+//		, TTF_RenderUTF8_Blended(font, " ", color)
+//		, TTF_RenderUTF8_Blended(font, "A passage awaits to", color)
+//		, TTF_RenderUTF8_Blended(font, "lead you to the light.",
+//		   color)
+		, TTF_RenderUTF8_Blended(font, " ", color)
+		, TTF_RenderUTF8_Blended(font, "You are the", color)
+		, TTF_RenderUTF8_Blended(font, "Wiener!", color)
 	};
 
 	register SDL_Rect destr;
-	for (register size_t i = 0;i<sizeof(text)/sizeof(SDL_Surface*);i++){
+	const size_t size = sizeof(text) / sizeof(SDL_Surface*);
+	for (register size_t i = 0; i < size ; i++){
 		nf(!text[i], "Could not render text");
-		destr.x = 520, destr.y = 370 + (i<<5);
+		destr.x = 520, destr.y = 340 + (i<<5);
 		SDL_BlitSurface(text[i], NULL, gd.screen, &destr);
 	}
 
-	SDL_Flip(gd.screen);
-
+	register uint8_t waitin = 5000/20;
+	while (--waitin) {
+		SDL_Flip(gd.screen);
+		SDL_Delay(20);
+	}
 } // showWiener
 
 static void credits(GameData &) {
