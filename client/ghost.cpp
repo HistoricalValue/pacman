@@ -60,6 +60,9 @@ void Ghost_collision_callback(Sprite *ghost, Sprite *pacman, void *c) {
 		gs->setFilm(retreat_film);
 		akmovs[gs]->setDelay(12);
 
+		// Give points to the player for eating the ghost
+		gkoka->gs->AddScore(POINTS_WORTH_GHOST);
+
 		// Cancel the left-right waypoint and enable the
 		// downward one so that the snails get back in the
 		// lair.
