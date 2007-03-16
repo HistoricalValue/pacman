@@ -336,10 +336,13 @@ void assign_special_collision_callbacks(PostInitData &pd, InitData &d,
 	dkoka->cc = d.cc; // the collision checker
 	dkoka->pacman = r.pacman; // pointer to the pacman GameSprite
 	dkoka->stat = r.stats; // the GameStats
+	dkoka->won = &r.bools->won; // victory boolean
 
 	// Set custom callbacks and closure data to all sprites (according
 	// to type)
-	std::list<Sprite*> const &sprites = r.animdata->spritehold->getSprites();
+	std::list<Sprite*> const &sprites =
+	 r.animdata->spritehold->getSprites();
+	
 	std::for_each(sprites.begin(), sprites.end(), GeneralCocaSetter(
 	   r.animdata->spritehold
 	 , d.callbacks->get_coca()
@@ -360,12 +363,13 @@ GameData::GameData(void) :
 	ghost(),
 	akmovs() { }
 GameData::io_bools::io_bools(bool _exit, bool _paused, bool _theatre_mode,
- bool _second_player, bool _start) :
+ bool _second_player, bool _start, bool _won) :
 	  exit(_exit)
 	, paused(_paused)
 	, theatre_mode(_theatre_mode)
 	, second_player(_second_player)
 	, start(_start)
+	, won(_won)
 	{ }
 AnimationIDs::AnimationIDs(void) :
 	mv(4),

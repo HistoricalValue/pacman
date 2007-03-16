@@ -57,13 +57,15 @@ struct GameData {
 	custompostinit_data *custom;
 	// Values for input control to check
 	struct io_bools {
-		bool exit, paused, theatre_mode, second_player, start;
+		bool exit, paused, theatre_mode, second_player, start,
+		 won;
 		io_bools(
 			  bool exit = false
 			, bool paused = false
 			, bool theatre_mode = false
 			, bool second_player = false
 			, bool start = false
+			, bool won = false
 		);
 	} *bools;
 

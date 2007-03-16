@@ -126,7 +126,7 @@ void Dot::collisionCallback(Sprite *dot, Sprite *stoocker, void *c) {
 
 		// Give points to the player
 		koka.stat->AddScore(POINTS_WORTH_DOT);
-		koka.stat->EatDot();
+		*koka.won = koka.stat->EatDot();
 		SoundManager::Singleton()->PlayEffect(4,DOT);
 	}
 } // collisionCallback

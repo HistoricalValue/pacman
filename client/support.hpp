@@ -76,6 +76,7 @@ struct Dot::_coca {
 	CollisionChecker *cc;
 	Sprite *pacman;
 	GameStats *stat;
+	bool *won;
 }; // struct Dot::_coca
 
 #endif // __callbacks_hpp__

@@ -18,6 +18,7 @@ GameStats::GameStats(
 	, font_text(TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF",25))
 	, num_text(TTF_OpenFont("resources/fonts/ATOMICCLOCKRADIO.TTF", 25))
 	, font_game_over(TTF_OpenFont("resources/fonts/Alias.ttf", 76))
+
 	// Rectangles
 	, ptitle_level(520, 150, 0, 0) // Levelz
 	, ptitle_score(520, 200, 0, 0) // score
@@ -58,7 +59,7 @@ GameStats::GameStats(
 	, score(0)
 	, lives(PACMAN_LIVES)
 	, level(1)
-	, dots(139) //TODO get the real dots
+	, dots(10)//135) //TODO get the real dots
 	
 	// bool
 	, bonus(false)
@@ -136,7 +137,8 @@ bool GameStats::LoseLife(void) {
 
 bool GameStats::EatDot(void){
 	ShowBonus();
-	return (!--dots);
+	std::cerr<<"dots left "<<--dots<<std::endl;
+	return (dots < 0);
 }
 
 void GameStats::DrunkChocodrink(void){

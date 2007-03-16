@@ -29,7 +29,8 @@ class GameStats {
 				*num_score, * num_lives, * game_over,
 				* const choco;
 	Sprite			* const _bonus, * const _pacman;
-	unsigned int 		score, lives, level, dots;
+	unsigned int 		score, lives, level;
+	int16_t			dots;
 	bool 			bonus, dead_game;
 	Uint32 const		_bg;
 	CollisionChecker	* const cc;

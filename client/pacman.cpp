@@ -1,3 +1,4 @@
+#include "SDL/SDL_ttf.h"
 #include "client.hpp"
 #include "support.hpp"
 #include "config.h"
@@ -10,6 +11,8 @@ static void setup_setup_data(InitData &);
 static void setup_post_setup_data(PostInitData &, GameData &);
 static void gaim_loop(GameData&);
 static void screen_setup(InitData const&, GameData &);
+static void showWiener(GameData &);
+static void credits(GameData &);
 
 int main_pac(int argc, char *argv[]) {
 	// Clean exit first
@@ -39,6 +42,14 @@ int main_pac(int argc, char *argv[]) {
 	 d.startingTime);
 	// Start game loop
 	gaim_loop(gd);
+
+	// conclusion 
+	if (gd.bools->won)
+		showWiener(gd);
+	SDL_Delay(5000);
+
+	credits(gd);
+
 	return 0;
 }
 
@@ -132,7 +143,7 @@ static void gaim_loop(GameData &d) {
 	register uint64_t total_sand = 0;
 	register uint16_t numloops = 0;
 	InputControl inputControl(d);
-	while (!d.bools->exit) {
+	while (!d.bools->exit && !d.bools->won) {
 		// get gaim loop starting time
 		d.currTime = timesand = currTime = getTimestamp();
 
@@ -183,3 +194,28 @@ static void screen_setup(InitData const &d, struct GameData &r) {
 	 d.screen.flags
 	);
 } // screen_setup
+
+static void showWiener(GameData &gd) {
+	TTF_Font *font = TTF_OpenFont("./resources/fonts/ARCADE.TTF", 32);
+	nf(!font, "Could not load font ./resources/fonts/ARCADE.TTF");
+	const SDL_Color color = {0x60, 0xa0, 0xc0};
+	SDL_Surface *text[] = {
+		  TTF_RenderUTF8_Blended(font, "Baby,", color)
+		, TTF_RenderUTF8_Blended(font, "you are the Wiener!", color)
+		, TTF_RenderUTF8_Blended(font, "gradz lol ^_^", color)
+	};
+
+	register SDL_Rect destr;
+	for (register size_t i = 0;i<sizeof(text)/sizeof(SDL_Surface*);i++){
+		nf(!text[i], "Could not render text");
+		destr.x = 520, destr.y = 370 + (i<<5);
+		SDL_BlitSurface(text[i], NULL, gd.screen, &destr);
+	}
+
+	SDL_Flip(gd.screen);
+
+} // showWiener
+
+static void credits(GameData &) {
+	//TODO complete
+} // credits
