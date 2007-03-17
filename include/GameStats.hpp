@@ -9,10 +9,13 @@
 #include "config.h"
 
 class GameStats {
+	public :
 	struct _SDL_Color :
 	 public SDL_Color { _SDL_Color(int r, int g, int b); };
 	struct _SDL_Rect :
 	 public SDL_Rect {_SDL_Rect(int x, int y, int w, int h); };
+
+	private :
 	const _SDL_Color 	logoColor, textColor, numColor;
 	TTF_Font		*font_logo, *font_text, *num_text,
 				*font_game_over;
@@ -31,12 +34,12 @@ class GameStats {
 	Sprite			* const _bonus, * const _pacman;
 	unsigned int 		score, lives, level;
 	int16_t			dots;
-	bool 			bonus, dead_game;
+	bool 			bonus, dead_game, * const gameover;
 	Uint32 const		_bg;
 	CollisionChecker	* const cc;
 	public:
 	GameStats(SurfaceLoader* const, Sprite* const, Sprite* const,
-	 Uint32 const, CollisionChecker* const);
+	 Uint32 const, CollisionChecker* const, bool* const gameover);
 	void Draw(SDL_Surface*);
 	unsigned int GetScore(void) const;
 	unsigned int GetLives(void) const;

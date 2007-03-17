@@ -2,12 +2,13 @@
 
 
 GameStats::GameStats(
-	SurfaceLoader * const sl,
-	Sprite * const pac,
-	Sprite * const bon,
-	Uint32 const bg,
-	CollisionChecker * const _cc)
-:
+	  SurfaceLoader * const sl
+	, Sprite * const pac
+	, Sprite * const bon
+	, Uint32 const bg
+	, CollisionChecker * const _cc
+	, bool * const _gameover
+):
 	// SDL_Colors
 	  logoColor(0x00, 0x80, 0xff)
 	, textColor(0xff, 0xff, 0xff)
@@ -64,6 +65,7 @@ GameStats::GameStats(
 	// bool
 	, bonus(false)
 	, dead_game(false)
+	, gameover(_gameover)
 
 	// Uint32
 	, _bg(bg) // background colour
@@ -100,11 +102,6 @@ void GameStats::Draw(SDL_Surface *screen) {
 	if(bonus)
 		SDL_BlitSurface(choco, NULL, screen, &pbonus);
 
-	if(dead_game){
-		game_over = TTF_RenderUTF8_Blended(font_game_over,
-		  "Game Over, N00B", textColor);
-		SDL_BlitSurface(game_over, NULL, screen, &pgameover);
-	}
 }
 
 unsigned int GameStats::GetScore(void) const {
@@ -138,7 +135,7 @@ bool GameStats::LoseLife(void) {
 bool GameStats::EatDot(void){
 	ShowBonus();
 	std::cerr<<"dots left "<<--dots<<std::endl;
-	return (dots < 0);
+	return (dots <= 0);
 }
 
 void GameStats::DrunkChocodrink(void){
@@ -154,7 +151,7 @@ void GameStats::ShowBonus(void){
 }
 
 void GameStats::ShowGameOver(void){
-	dead_game = true;
+	dead_game = *gameover = true;
 	lives++;
 }
 

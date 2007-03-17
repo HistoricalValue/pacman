@@ -6,6 +6,7 @@
 #include "AnimatorHolder.hpp"
 #include "CustomPostinit.hpp"
 #include "StartingScreen.hpp"
+#include "GameStats.hpp"
 
 static void setup_setup_data(InitData &);
 static void setup_post_setup_data(PostInitData &, GameData &);
@@ -13,6 +14,7 @@ static void gaim_loop(GameData&);
 static void screen_setup(InitData const&, GameData &);
 static void showWiener(GameData &);
 static void credits(GameData &);
+static void showLoser(GameData &);
 
 int main_pac(int argc, char *argv[]) {
 	// Clean exit first
@@ -46,6 +48,8 @@ int main_pac(int argc, char *argv[]) {
 	// conclusion 
 	if (gd.bools->won)
 		showWiener(gd);
+	else
+		showLoser(gd);
 
 	credits(gd);
 
@@ -255,3 +259,32 @@ static void credits(GameData &gd) {
 			}
 	}
 } // credits
+
+static void showLoser(GameData &gd) {
+//	This is what it would look like ...
+//
+//	SDL_Rect pgameover = {120, 250, 0, 0};
+//	TTF_Font *font_game_over =
+//	 TTF_OpenFont("resources/fonts/Alias.ttf", 76);
+//	SDL_Surface *game_over = TTF_RenderUTF8_Blended(font_game_over,
+//	 "Game Over, N00B", textColor);
+//	SDL_BlitSurface(game_over, NULL, screen, &pgameover);
+//
+//	---
+//	This is the horror
+	SDL_BlitSurface(
+	 TTF_RenderUTF8_Blended(
+	  TTF_OpenFont("./resources/fonts/Alias.ttf", 76),
+	  "Game Over, N00B",
+	  GameStats::_SDL_Color(0xff, 0xff, 0xff ) ),
+	 NULL,
+	 gd.screen,
+	 &GameStats::_SDL_Rect(120, 250, 0, 0)
+	);
+
+	register uint8_t waitin = 4000/20;
+	while (--waitin) {
+		SDL_Flip(gd.screen);
+		SDL_Delay(20);
+	}
+} // showLoser

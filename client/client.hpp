@@ -15,8 +15,8 @@
 #include "support.hpp"
 #include "config.h"
 #include "Scheduler.hpp"
-#include "GameStats.hpp"
 #include "CustomPostinit_Data.hpp"
+#include "GameStats.hpp"
 
 enum ss_t { // special sprite type
 	ss_pacman, ss_stalker, ss_kieken, ss_random, ss_retard
