@@ -229,5 +229,5 @@ static void showWiener(GameData &gd) {
 } // showWiener
 
 static void credits(GameData &) {
-	//TODO complete
+
 } // credits
