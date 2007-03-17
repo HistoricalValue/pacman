@@ -59,7 +59,7 @@ GameStats::GameStats(
 	, score(0)
 	, lives(PACMAN_LIVES)
 	, level(1)
-	, dots(3)//135) //TODO get the real dots
+	, dots(135) //TODO get the real dots
 	
 	// bool
 	, bonus(false)
@@ -154,7 +154,7 @@ void GameStats::ShowBonus(void){
 }
 
 void GameStats::ShowGameOver(void){
-	dead_game=true;
+	dead_game = true;
 	lives++;
 }
 

@@ -50,8 +50,11 @@ void pacman_death_by_ghost_callback(Ghost *g, GameSprite *p, _gcoca *gkoka){
 	gkoka->sch->_register(
 	 new ResetStageTask(currTime + MAP_RESET_DELAY),
 	 new reset_data(gkoka, g, p));
-	if(gkoka->gs->LoseLife())
-	  gkoka->gs->ShowGameOver();
+	if(gkoka->gs->LoseLife()) {
+		gkoka->gs->ShowGameOver();
+		gkoka->bools->won = false;
+		gkoka->bools->exit = true;
+	}
 }
 
 void pacman_death_by_smash_callback(GameSprite *pac, Sprite *smasher,

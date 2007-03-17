@@ -221,13 +221,37 @@ static void showWiener(GameData &gd) {
 		SDL_BlitSurface(text[i], NULL, gd.screen, &destr);
 	}
 
-	register uint8_t waitin = 5000/20;
+	register uint8_t waitin = 4000/20;
 	while (--waitin) {
 		SDL_Flip(gd.screen);
 		SDL_Delay(20);
 	}
 } // showWiener
 
-static void credits(GameData &) {
+static void credits(GameData &gd) {
+	SDL_Surface *credits = SurfaceLoader::getInstance()->
+	 loadSurface("./resources/credits.png");
+	nf(!credits, "Could not load credits screen "
+	 "(./resources/credits.png)");
 
+	SDL_Event event;
+	register bool bye = false;
+	register SDL_Rect dstr = {0, 0, 0, 0};
+	while (!bye) {
+		SDL_BlitSurface(credits, NULL, gd.screen, &dstr);
+		SDL_Flip(gd.screen);
+		SDL_Delay(20);
+		if (SDL_PollEvent(&event))
+			switch (event.type) {
+				case SDL_KEYUP :
+					bye = event.key.keysym.sym ==
+					 SDLK_ESCAPE;
+					break;
+				case SDL_QUIT :
+					bye = true;
+					break;
+				default :
+					break;
+			}
+	}
 } // credits
