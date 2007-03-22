@@ -2,6 +2,8 @@
 #include "commons.hpp"
 using namespace cs454_2006;
 
+#ifndef PACMAN_NO_SOUND
+
 //Mix_Chunk *SoundManager::effect;
 //x_Chunk *SoundManager::bgmusic;
 //int SoundManager::audio_channels, SoundManager::audio_rate,
@@ -28,14 +30,6 @@ SoundManager::SoundManager(void){
   LoadSound(WALL, "resources/sounds/crack.wav");
   LoadSound(GHOSTEAT, "resources/sounds/crush.wav");
   // one more ghost  
-}
-
-SoundManager *SoundManager::Singleton(void){
-  //s.bgmusic = NULL;
-  //inits
-  if(!s)
-    s=new SoundManager();
-  return s;
 }
 
 //Playing main background music
@@ -89,4 +83,14 @@ void SoundManager::PlayEffect(int channel, sound_t _sound){
 void SoundManager::StopEffect(){
   for(int i=0;i<CHUNKS;++i)
     Mix_FreeChunk(effect[i]);
+}
+
+#endif // NO_SOUND
+
+SoundManager *SoundManager::Singleton(void){
+  //s.bgmusic = NULL;
+  //inits
+  if(!s)
+    s=new SoundManager();
+  return s;
 }

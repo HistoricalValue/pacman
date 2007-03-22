@@ -1,43 +1,29 @@
-== A note by the project manager ==
+== What is included in this README ==
+1. Build Instructions
+2. Running Instructions
 
-Readmes suck.
+== 1. Building Instructions ==
+To build the project you have to run 'make' without any arguments from
+the base dir (the dir containing 'client/', 'include/', etc).
 
-== Update, 2007-03-02 05 30
-Dear co-developers,
+There are also the 'clean' and 'purge' targets which remove compiler
+generated files ('purge' is more forceful and careless).
 
-There has been a year that we have been developing pacman now (we started
-2006) and I would like to thank yo for this wonderful cooperation.
+-- Special building options:
+To disable sound, one sound build the project as follows:
+		make ADD_CPPFLAGS=-DPACMAN_NO_SOUND
 
-As you might now our development group recently migrated to a new 
-development strategy: we begun to use Bazaar.
+== 2. Running Instructions ==
+To run the project one can just run 'make run' or directly execute
+'./client/pacman' from the base dir.
 
-Bazaar has some wonderful features which I hope you will learn by time.
-There will be seminars. 
+It is important to run pacman from the base dir as it has to be the
+working directory.
 
-For the time being you are not allowed to make any more changed (in other
-words : changed will not be accepted) unless the follow the bazaar 
-scheme. 
+'make run' is faster because it doesn't spam stderr but everything is
+recorded to a log file (./resouces/pacman.log)
 
-Have a nice happy new year.
-
-Yours sincerely,
-Saku.
-
-----------------------------------------------
-
-
-Hello angles,
-
-O,ti source arxeio grafome paei sto dir 'src'.
-
-O,ti header arxeio grafome paei sto dir 'include'.
-
-Gia na kanome make sto theo grafome aplos 'make' mesa apo to
-dir 'dev/'.
-
-Den afinome kai polla polla warnings na exei na diorthonei
-o kaimenos o roylis.
-
-Aytaz. 
-
+If there are assertion failures about the sound (caused in
+SoundManager.cpp), it is suggested to recompile using the no-sound option,
+as described above.
 
