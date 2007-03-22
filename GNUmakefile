@@ -17,7 +17,7 @@ touch :
 	$(MAKE) -S --touch all
 
 purge :
-	find . -iregex '.*\.[od]' -exec rm '{}' \;
+	find . -iregex '.*\.[od]' -exec rm '{}' \; -printf 'rm %p\n'
 
 run :
 	./client/pacman 2>&1 | tee ./resources/pacman.log | tail
