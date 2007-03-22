@@ -3,14 +3,17 @@
 void enableGhostInput(Ghosts &ghost, GameData::io_bools &iob) {
 	static uint8_t ghost_select = 0;
 	disableGhostInput(ghost, iob);
-	switch (ghost_select) {
-		case 0: ghost.player2 = ghost.stalker; break;
-		case 1: ghost.player2 = ghost.kieken; break;
-		case 2: ghost.player2 = ghost.random; break;
-		case 3: ghost.player2 = ghost.retard; break;
-		default : nf(-1, "Illegal program state"); break;
-	}
-	ghost_select = ghost_select > 2 ? 0 : ghost_select + 1;
+	do {
+		switch (ghost_select) {
+			case 0: ghost.player2 = ghost.stalker; break;
+			case 1: ghost.player2 = ghost.kieken; break;
+			case 2: ghost.player2 = ghost.random; break;
+			case 3: ghost.player2 = ghost.retard; break;
+			default : nf(-1, "Illegal program state"); break;
+		}
+		ghost_select = ghost_select > 2 ? 0 : ghost_select + 1;
+	} while (ghost.player2->GetState() == RETREAT);
+
 	ghost.player2->setControlled(true);
 	iob.second_player = true;
 }// enableGhostInput

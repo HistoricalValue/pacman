@@ -196,6 +196,7 @@ static void screen_setup(InitData const &d, struct GameData &r) {
 	 d.screen.bpp,
 	 d.screen.flags
 	);
+	nf(!r.screen, SDL_GetError());
 } // screen_setup
 
 static void showWiener(GameData &gd) {
