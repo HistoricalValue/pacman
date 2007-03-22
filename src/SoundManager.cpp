@@ -87,10 +87,3 @@ void SoundManager::StopEffect(){
 
 #endif // NO_SOUND
 
-SoundManager *SoundManager::Singleton(void){
-  //s.bgmusic = NULL;
-  //inits
-  if(!s)
-    s=new SoundManager();
-  return s;
-}
