@@ -1,4 +1,6 @@
 #include "SoundManager.hpp"
+#include "commons.hpp"
+using namespace cs454_2006;
 
 //Mix_Chunk *SoundManager::effect;
 //x_Chunk *SoundManager::bgmusic;
@@ -15,10 +17,9 @@ SoundManager::SoundManager(void){
   audio_buffers = 4096;
   bgmusic = NULL;
   //effect = NULL;
-  if(Mix_OpenAudio(audio_rate, audio_format, 
-		   audio_channels, audio_buffers)){
-    std::cerr<<"unable to initiate Sound"<<std::endl;
-  }
+  nf(Mix_OpenAudio(audio_rate, audio_format, 
+		   audio_channels, audio_buffers),
+    "unable to initiate Sound");
   LoadSound(DOT, "resources/sounds/bubble.wav");
   LoadSound(POWERUP, "resources/sounds/powerup.wav");
   LoadSound(GHOST, "resources/sounds/munch.wav");
@@ -41,16 +42,22 @@ SoundManager *SoundManager::Singleton(void){
 // -1 for infinite repeats
 void SoundManager::Play(int channel, char *file, int repeats){
   bgmusic = Mix_LoadWAV(file);
-  Mix_FadeInChannel(channel, bgmusic, repeats, 3000);
+  nf(!bgmusic, "Could not load sound file");
+  nf(Mix_FadeInChannel(channel, bgmusic, repeats, 3000),
+   "Could not fade in channel");
   Mix_VolumeChunk(bgmusic, 64);
 }
 
 void SoundManager::MuteChannel(int channelnum){
-  Mix_VolumeChunk(Mix_GetChunk(channelnum),0);
+  Mix_Chunk *chunk = Mix_GetChunk(channelnum);
+  nf(!chunk, "Error in getting chunk");
+  Mix_VolumeChunk(chunk, 0);
 }
 
 void SoundManager::lolChannel(int channelnum, int volume){
-  Mix_VolumeChunk(Mix_GetChunk(channelnum),64 );
+  Mix_Chunk *chunk = Mix_GetChunk(channelnum);
+  nf(!chunk, "Error in getting chunk");
+  Mix_VolumeChunk(chunk, 64);
 }
 
 void SoundManager::Stop(){
@@ -70,11 +77,13 @@ void SoundManager::ChangeState(){
 }
 void SoundManager::LoadSound(sound_t _sound, char *file){
   effect[_sound] = Mix_LoadWAV(file);
+  nf(!effect[_sound], "Could not load sound");
 }
 
 void SoundManager::PlayEffect(int channel, sound_t _sound){
   if(effect[_sound])
-    Mix_PlayChannel(channel, effect[_sound], 0);
+    nf(Mix_PlayChannel(channel, effect[_sound], 0),
+     "Could not play channel");
 }
 
 void SoundManager::StopEffect(){
