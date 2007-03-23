@@ -6,7 +6,7 @@
 enum ghoststate_t {
 	NORMAL 		= 0,
 	SCARED 		= 1, 
-	RETREAT 	= 2,
+	RETREAT 	= 2
 };
 
 class Ghost : public GameSprite {

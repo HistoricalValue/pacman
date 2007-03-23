@@ -21,8 +21,8 @@ class GameStats {
 				*font_game_over;
 	_SDL_Rect 		ptitle_level, ptitle_score, ptitle_lives, 
 				ptitle_bonus, plogo, ptitle_fruits,
-				ppacman, plives, pbonus, tele, plevel,
-				pscore, pgameover;
+				ppacman, pgameover, plives, pbonus, tele,
+				plevel, pscore;
 	SDL_Surface 		* const logo, * const title_score,
 				* const title_lives, 
 				* const title_fruits,

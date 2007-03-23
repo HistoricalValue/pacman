@@ -24,7 +24,7 @@ run :
 
 pac :
 	$(MAKE) -C src default
-	$(MAKE) ADD_CPPFLAGS='-Dmain_pac\(A,B\)=main\(A,B\)' ADD_bins=pacman -C client default
+	$(MAKE) ADD_CPPFLAGS='-Dmain_pac\(A,B\)=main\(A,B\) $(ADD_CPPFLAGS)' ADD_bins=pacman -C client default
 
 tags :
 	ctags -R

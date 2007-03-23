@@ -40,19 +40,19 @@ class SoundManager {
 	Uint16 audio_format;
 	int audio_channels, audio_rate, audio_buffers;
         static SoundManager *s;
-        SoundManager(void);
+        SoundManager(void) { };
 	public:
-	static SoundManager *Singleton(void) { }
-	void Play(int channel, char *file, int repeats) { }
-        void Init() { }
-        void Stop() { }
-        void MuteChannel(int channelnum) { }
-        void lolChannel(int channelnum, int volume) { }
-        void ChangeState() { }
-        void LoadSound(sound_t _sound, char *file) { }
-        void PlayEffect(int channel, sound_t) { }
-	void StopEffect() { }
-	~SoundManager(void) { }
+	static SoundManager *Singleton(void);
+	void Play(int channel, char *file, int repeats) { };
+        void Init() { };
+        void Stop() { };
+        void MuteChannel(int channelnum) { };
+        void lolChannel(int channelnum, int volume) { };
+        void ChangeState() { };
+        void LoadSound(sound_t _sound, char *file) { };
+        void PlayEffect(int channel, sound_t) { };
+	void StopEffect() { };
+	~SoundManager(void) { };
 };
 
 #endif // no-sound

@@ -2,14 +2,8 @@
 #include "commons.hpp"
 using namespace cs454_2006;
 
-#ifndef PACMAN_NO_SOUND
-
-//Mix_Chunk *SoundManager::effect;
-//x_Chunk *SoundManager::bgmusic;
-//int SoundManager::audio_channels, SoundManager::audio_rate,
-// SoundManager::audio_buffers;
-//Uint16 SoundManager::audio_format;
 SoundManager *SoundManager::s = NULL;
+#ifndef PACMAN_NO_SOUND
 
 SoundManager::SoundManager(void){ 
   audio_rate = 44100;
@@ -87,3 +81,10 @@ void SoundManager::StopEffect(){
 
 #endif // NO_SOUND
 
+SoundManager *SoundManager::Singleton(void){
+  //s.bgmusic = NULL;
+  //inits
+  if(!s)
+    s=new SoundManager();
+  return s;
+}

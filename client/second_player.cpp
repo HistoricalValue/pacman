@@ -33,10 +33,12 @@ void GhostPlayerTask::operator()(TaskData *tsk){
 
 Task &GhostPlayerTask::operator++(void){
 	time += 10000;
+	return *this;
 }
 
 Task &GhostPlayerTask::operator+=(timestamp_t _t){
 	time += _t;
+	return *this;
 }
 
 GhostPlayerTask::GhostPlayerTask(timestamp_t time) :
