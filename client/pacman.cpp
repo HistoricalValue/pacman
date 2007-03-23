@@ -46,11 +46,12 @@ int main_pac(int argc, char *argv[]) {
 	gaim_loop(gd);
 
 	// conclusion 
-	if (gd.bools->won)
-		showWiener(gd);
-	else
-		showLoser(gd);
-
+	if (!gd.bools->game_exit) {
+		if (gd.bools->won)
+			showWiener(gd);
+		else
+			showLoser(gd);
+	}
 	credits(gd);
 
 	return 0;
@@ -226,7 +227,7 @@ static void showWiener(GameData &gd) {
 		SDL_BlitSurface(text[i], NULL, gd.screen, &destr);
 	}
 
-	register uint8_t waitin = 4000/20;
+	register uint8_t waitin = 2000/20;
 	while (--waitin) {
 		SDL_Flip(gd.screen);
 		SDL_Delay(20);
@@ -246,7 +247,10 @@ static void credits(GameData &gd) {
 		SDL_BlitSurface(credits, NULL, gd.screen, &dstr);
 		SDL_Flip(gd.screen);
 		SDL_Delay(20);
-		if (SDL_PollEvent(&event))
+		bool new_events = false;
+		while (SDL_PollEvent(&event))
+			new_events = true;
+		if (new_events)
 			switch (event.type) {
 				case SDL_KEYUP :
 					bye = event.key.keysym.sym ==
@@ -283,7 +287,7 @@ static void showLoser(GameData &gd) {
 	 &GameStats::_SDL_Rect(120, 250, 0, 0)
 	);
 
-	register uint8_t waitin = 4000/20;
+	register uint8_t waitin = 2000/20;
 	while (--waitin) {
 		SDL_Flip(gd.screen);
 		SDL_Delay(20);

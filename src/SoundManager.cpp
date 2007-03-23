@@ -31,8 +31,7 @@ SoundManager::SoundManager(void){
 void SoundManager::Play(int channel, char *file, int repeats){
   bgmusic = Mix_LoadWAV(file);
   nf(!bgmusic, "Could not load sound file");
-  nf(Mix_FadeInChannel(channel, bgmusic, repeats, 3000),
-   "Could not fade in channel");
+  Mix_FadeInChannel(channel, bgmusic, repeats, 3000);
   Mix_VolumeChunk(bgmusic, 64);
 }
 
@@ -70,8 +69,7 @@ void SoundManager::LoadSound(sound_t _sound, char *file){
 
 void SoundManager::PlayEffect(int channel, sound_t _sound){
   if(effect[_sound])
-    nf(Mix_PlayChannel(channel, effect[_sound], 0),
-     "Could not play channel");
+    Mix_PlayChannel(channel, effect[_sound], 0);
 }
 
 void SoundManager::StopEffect(){

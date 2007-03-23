@@ -364,13 +364,14 @@ GameData::GameData(void) :
 	ghost(),
 	akmovs() { }
 GameData::io_bools::io_bools(bool _exit, bool _paused, bool _theatre_mode,
- bool _second_player, bool _start, bool _won) :
+ bool _second_player, bool _start, bool _won, bool _game_exit) :
 	  exit(_exit)
 	, paused(_paused)
 	, theatre_mode(_theatre_mode)
 	, second_player(_second_player)
 	, start(_start)
 	, won(_won)
+	, game_exit(_game_exit)
 	{ }
 AnimationIDs::AnimationIDs(void) :
 	mv(4),

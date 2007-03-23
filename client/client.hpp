@@ -58,7 +58,7 @@ struct GameData {
 	// Values for input control to check
 	struct io_bools {
 		bool exit, paused, theatre_mode, second_player, start,
-		 won;
+		 won, game_exit;
 		io_bools(
 			  bool exit = false
 			, bool paused = false
@@ -66,6 +66,7 @@ struct GameData {
 			, bool second_player = false
 			, bool start = false
 			, bool won = false
+			, bool game_exit = false
 		);
 	} *bools;
 
