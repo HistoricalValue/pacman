@@ -11,7 +11,7 @@ generated files ('purge' is more forceful and careless).
 
 -- Special building options:
 To disable sound, one sound build the project as follows:
-		make ADD_CPPFLAGS=-DPACMAN_NO_SOUND
+		make nosound
 
 == 2. Running Instructions ==
 To run the project one can just run 'make run' or directly execute
