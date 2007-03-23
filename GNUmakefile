@@ -6,6 +6,9 @@ MAKEFLAGS += -S
 all : 
 	$(MAKE) -S pac
 
+nosound :
+	$(MAKE) ADD_CPPFLAGS=-DPACMAN_NO_SOUND
+
 win32 :
 	$(MAKE) all __WIN32=yes_n00b
 clean :

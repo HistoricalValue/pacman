@@ -50,8 +50,8 @@ endif
 -include $(dependencies)
 
 # Silence!
-#%.o : %.cpp
-#	@printf ' * Object: $@\n'
-#	@$(CXX) $(CXCFLAGS) $(CPPFLAGS) -c -o $@ $<
-#
+%.o : %.cpp
+	@printf ' * Object: $@\n'
+	@$(CXX) $(CXCFLAGS) $(CPPFLAGS) -c -o $@ $<
+
 # .SILENT : $(bins)
