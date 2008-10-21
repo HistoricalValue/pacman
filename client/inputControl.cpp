@@ -109,5 +109,4 @@ InputControl::InputControl(GameData &_d) :
 	{ }
 InputControl::~InputControl(void) { }
 
-InputControl::result_type
-InputControl::operator () (argument_type) { inputControl(d, *d.bools); }
+void InputControl::operator () (void) { inputControl(d, *d.bools); }

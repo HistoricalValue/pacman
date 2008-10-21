@@ -14,7 +14,7 @@ class InputControl : public std::unary_function<void, void> {
 	
 	InputControl(GameData &d);
 	~InputControl(void);
-	result_type operator()(argument_type);
+	void operator()(void);
 }; // class InputControl
 
 #endif // __inputControl_hpp__
