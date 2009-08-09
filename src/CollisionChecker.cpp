@@ -2,6 +2,7 @@
 
 // Implementation headers
 #include "commons.hpp"
+#include <algorithm>
 using namespace cs454_2006;
 
 CollisionChecker *CollisionChecker::cc = NULL;

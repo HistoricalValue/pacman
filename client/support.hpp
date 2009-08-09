@@ -5,7 +5,6 @@
 #ifndef __callbacks_hpp__
 #define __callbacks_hpp__
 
-#include "client.hpp"
 #include "commons.hpp"
 #include "Dot.hpp"
 #include "FrameRangeAnimator.hpp"
@@ -14,6 +13,7 @@
 #include "Scheduler.hpp"
 #include "SoundManager.hpp"
 #include "GameStats.hpp"
+#include "AnimationSetup.hpp"
 
 struct _cocaclo {
 	std::map<GameSprite*, ActorMovement*> *akmovs;

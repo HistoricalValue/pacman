@@ -1,4 +1,5 @@
 #include "ActorMovement.hpp"
+#include <algorithm>
 using namespace cs454_2006;
 
 // Suspends given animator

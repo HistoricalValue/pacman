@@ -15,7 +15,7 @@ std::vector<spriteid_t> AI::ids(4);
 double AI::distanceFromPacman(Waypoint *waypoint ){
 	int _x = abs(waypoint->GetX() -targets->pacman->GetX());
 	int _y = abs(waypoint->GetY() - targets->pacman->GetY());
-	return sqrt(_x*_x + _y*_y);
+	return sqrt(static_cast<double>(_x*_x + _y*_y));
 }
 
 void AI::Think(Waypoint *waypoint, Ghost *ghost){

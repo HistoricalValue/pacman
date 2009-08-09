@@ -393,7 +393,8 @@ Ghosts::Ghosts(Ghost *d) :
 	stalker(d),
 	kieken(d),
 	random(d),
-	retard(d) { }
+	retard(d),
+	player2(d) { }
 Screen::Screen(int w, int h, int b, uint32_t f) :
 	width(w),
 	height(h),

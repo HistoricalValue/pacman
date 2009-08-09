@@ -15,7 +15,6 @@
 // Library includes
 #include "SDL/SDL.h"
 // Local includes
-#include "commons.hpp"
 #include "Animator.hpp" // timestamp_t
 
 // ---
@@ -48,17 +47,17 @@ void blit(SDL_Surface *src, SDL_Surface *dst, off_t x, off_t y);
 void blit_centre(SDL_Surface *src, SDL_Surface *dst);
 
 template <class T>
-T& min(T const &a, T const &b) { return b < a ? b : a; }
+T& min(T &a, T &b) { return b < a ? b : a; }
 
 template <class T>
-T& max(T const &a, T const &b) { return b > a ? b : a; }
+T& max(T &a, T &b) { return b > a ? b : a; }
 
 // offset class
 class Offset {
 	unsigned short v;
 	public :
-	static long const max_val;
-	Offset(long const _v) : v(min<long const>(max_val, _v)) {} ;
+	static short const max_val;
+	Offset(short const _v) : v(min(max_val, _v)) {} ;
 	~Offset(void) {};
 	Offset &operator+(Offset &o);
 	Offset &operator=(Offset &o);

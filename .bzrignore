@@ -15,3 +15,16 @@ tags
 *semantic.cache
 *.sedbak
 resources/starting_page.xcf
+SDL.dll
+SDL_image.dll
+SDL_mixer.dll
+SDL_ttf.dll
+jpeg.dll
+libfreetype-6.dll
+libogg-0.dll
+libpng12-0.dll
+libtiff-3.dll
+libvorbis-0.dll
+libvorbisfile-3.dll
+smpeg.dll
+zlib1.dll
