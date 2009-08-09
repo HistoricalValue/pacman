@@ -1,5 +1,6 @@
 #include "CustomPostinit_Commons.hpp"
 #include "ObstaclePlatformAnimator.hpp"
+#include <algorithm>
 
 template <class _Ta = bool, class _Tb = int, class _Tc = int>
 struct _three {

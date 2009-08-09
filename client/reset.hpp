@@ -6,7 +6,7 @@
 #define __rest_hpp__
 
 #include "Scheduler.hpp"
-#include "ghost.hpp"
+#include "_ghost.hpp"
 #include "death_pacman.hpp"
 
 struct reset_data : public TaskData {

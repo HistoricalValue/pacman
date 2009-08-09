@@ -28,7 +28,7 @@ SoundManager::SoundManager(void){
 
 //Playing main background music
 // -1 for infinite repeats
-void SoundManager::Play(int channel, char *file, int repeats){
+void SoundManager::Play(int channel, char const* file, int repeats){
   bgmusic = Mix_LoadWAV(file);
   nf(!bgmusic, "Could not load sound file");
   Mix_FadeInChannel(channel, bgmusic, repeats, 3000);
@@ -62,7 +62,7 @@ void SoundManager::ChangeState(){
   else
     Mix_PauseMusic();
 }
-void SoundManager::LoadSound(sound_t _sound, char *file){
+void SoundManager::LoadSound(sound_t _sound, char const* file){
   effect[_sound] = Mix_LoadWAV(file);
   nf(!effect[_sound], "Could not load sound");
 }

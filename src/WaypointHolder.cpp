@@ -1,6 +1,7 @@
 #include "WaypointHolder.hpp"
 #include <fstream>
 #include "commons.hpp"
+#include <algorithm>
 using namespace cs454_2006;
 
 static void parseFile(WaypointHolder *self, std::string const&);

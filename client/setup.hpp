@@ -11,7 +11,7 @@
 #include "support.hpp"
 #include "Dot.hpp"
 #include "PowerUp.hpp"
-#include "ghost.hpp"
+#include "_ghost.hpp"
 
 // Setup functions ---------------------------------------------------------
 static void libs_setup(struct InitData const&, struct GameData &);

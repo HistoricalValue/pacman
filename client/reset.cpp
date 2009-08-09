@@ -3,6 +3,8 @@
 // Implementation headers
 #include "commons.hpp"
 
+#include <algorithm>
+
 // Sets ths given sprite to the position the Rect indicates 
 struct PositionSetter : public std::unary_function<std::pair<GameSprite * const,
  SDL_Rect>&, void> {

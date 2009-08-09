@@ -1,4 +1,5 @@
 #include "CustomPostinit_Commons.hpp"
+#include <algorithm>
 
 struct PositionSave : public std::unary_function<GameSprite*, void> {
 	result_type operator()(argument_type);

@@ -6,8 +6,8 @@
 
 #include "commons.hpp"
 #include <iostream>
-#include <time.h>	//  
-#include <sys/time.h>	// for system time access in mili(micro)seconds
+//#include <time.h>	//  
+//#include <sys/time.h>	// for system time access in mili(micro)seconds
 #include <ctype.h>
 
 namespace cs454_2006 {
@@ -45,7 +45,7 @@ void blit_centre(SDL_Surface *src, SDL_Surface *dst)
 }
 
 Offset::operator unsigned short () { return v; }
-long const Offset::max_val = (0x00000000ffffl);
+short const Offset::max_val = (0xffff);
 
 // Tokeniser stuff
 Tokeniser::Tokeniser(std::string &l, std::list<std::string>& ds) :

@@ -3,6 +3,7 @@
 #include <fstream>
 #include "ObstaclePlatformHolder.hpp"
 #include "commons.hpp"
+#include <algorithm>
 using namespace cs454_2006;
 
 static bool shouldParseLine(std::string const &line);

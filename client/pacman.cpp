@@ -16,6 +16,15 @@ static void showWiener(GameData &);
 static void credits(GameData &);
 static void showLoser(GameData &);
 
+#ifdef _MSC_VER
+static int main_pac(int, char*[]);
+int main(int argc, char *argv[]) {
+	return main_pac(argc, argv);
+}
+
+static
+#endif
+
 int main_pac(int argc, char *argv[]) {
 	// Clean exit first
 	atexit(cleanup);

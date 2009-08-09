@@ -20,13 +20,13 @@ class SoundManager {
         SoundManager(void);
 	public:
 	static SoundManager *Singleton(void);
-	void Play(int channel, char *file, int repeats);
+	void Play(int channel, char const* file, int repeats);
         void Init();
         void Stop();
         void MuteChannel(int channelnum);
         void lolChannel(int channelnum, int volume);
         void ChangeState();
-        void LoadSound(sound_t _sound, char *file);
+        void LoadSound(sound_t _sound, char const* file);
         void PlayEffect(int channel, sound_t);
 	void StopEffect();
 	~SoundManager(void);
@@ -43,13 +43,13 @@ class SoundManager {
         SoundManager(void) { };
 	public:
 	static SoundManager *Singleton(void);
-	void Play(int channel, char *file, int repeats) { };
+	void Play(int channel, char const* file, int repeats) { };
         void Init() { };
         void Stop() { };
         void MuteChannel(int channelnum) { };
         void lolChannel(int channelnum, int volume) { };
         void ChangeState() { };
-        void LoadSound(sound_t _sound, char *file) { };
+        void LoadSound(sound_t _sound, char const* file) { };
         void PlayEffect(int channel, sound_t) { };
 	void StopEffect() { };
 	~SoundManager(void) { };

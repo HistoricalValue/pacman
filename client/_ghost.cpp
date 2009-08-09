@@ -1,4 +1,4 @@
-#include "ghost.hpp"
+#include "_ghost.hpp"
 
 // Implementation headers
 #include "Ghost.hpp"

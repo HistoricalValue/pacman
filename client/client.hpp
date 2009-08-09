@@ -40,7 +40,7 @@ struct GameData {
 	// Our special sprites
 	std::vector<GameSprite*> sss; // special sprites
 	GameSprite *pacman;
-	struct Ghosts ghost;
+	Ghosts ghost;
 	// And their ActorMovement instances
 	std::map<GameSprite*, ActorMovement*> akmovs;
 	// Background colour for redrawing

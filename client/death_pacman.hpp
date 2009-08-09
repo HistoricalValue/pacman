@@ -8,7 +8,7 @@
 
 #include "commons.hpp"
 #include "Ghost.hpp"
-#include "ghost.hpp"
+#include "_ghost.hpp"
 
 // The callback called in the case of Ghost - pacman collision
 extern 
