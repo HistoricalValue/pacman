@@ -286,6 +286,8 @@ static void showLoser(GameData &gd) {
 //
 //	---
 //	This is the horror
+	{
+    GameStats::_SDL_Rect gstats(120, 250, 0, 0);
 	SDL_BlitSurface(
 	 TTF_RenderUTF8_Blended(
 	  TTF_OpenFont("./resources/fonts/Alias.ttf", 76),
@@ -293,8 +295,9 @@ static void showLoser(GameData &gd) {
 	  GameStats::_SDL_Color(0xff, 0xff, 0xff ) ),
 	 NULL,
 	 gd.screen,
-	 &GameStats::_SDL_Rect(120, 250, 0, 0)
+     &gstats
 	);
+    }
 
 	register uint8_t waitin = 2000/20;
 	while (--waitin) {
