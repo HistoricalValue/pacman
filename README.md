@@ -1,6 +1,6 @@
 # Pacman (again)
 
-This is a university project, which was about receating the classical "pacman" game. It is not maintained (very well) since 2007 (or 2009). Periodically we check that it still builds and runs under newer versions on GCC and GNUmake.
+This is a university project, which was about recreating the classical "pacman" game. It is not maintained (very well) since 2007 (or 2009). Periodically we check that it still builds and runs under newer versions on GCC and GNUmake.
 
 **It is a mess**. The code is provided here for reference, sentimental reasons, and, of course, historical value.
 
